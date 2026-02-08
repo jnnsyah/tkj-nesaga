@@ -28,10 +28,9 @@ export default function LandingPage() {
                             </span>
                         </h1>
                         <p className="text-lg text-muted-foreground leading-relaxed max-w-xl">
-                            Di TKJ SMK Negeri 1 Gantiwarno, siswa belajar merakit komputer,
-                            membangun jaringan lokal, hingga mengelola server. Kami fokus pada
-                            keterampilan teknis dasar dan menengah yang dibutuhkan di dunia
-                            kerja teknologi informasi saat ini.
+                            Program keahlian yang membekali siswa dengan kompetensi di bidang
+                            jaringan komputer, sistem operasi, dan teknologi informasi untuk
+                            siap kerja, berwirausaha, maupun melanjutkan pendidikan.
                         </p>
                     </div>
                     <HeroGraphic />

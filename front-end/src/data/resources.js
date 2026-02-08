@@ -3,7 +3,7 @@ export const resources = [
         icon: "play_circle",
         title: "Web Programming UNPAS",
         description: "Channel YouTube edukasi pemrograman terbaik di Indonesia.",
-        href: "https://youtube.com/@sanaborukoding",
+        href: "https://www.youtube.com/@sandhikagalihWPU",
         color: "red"
     },
     {

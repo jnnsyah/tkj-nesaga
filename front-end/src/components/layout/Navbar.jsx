@@ -19,11 +19,11 @@ export default function Navbar() {
                 </Link>
                 <div className="hidden md:flex items-center gap-8">
                     <Link to="/" className={cn("text-sm font-semibold transition-colors", isActive("/"))}>Home</Link>
+                    <Link to="/learning" className={cn("text-sm font-semibold transition-colors", isActive("/learning"))}>Belajar</Link>
                     <Link to="/prakerin" className={cn("text-sm font-semibold transition-colors", isActive("/prakerin"))}>Prakerin</Link>
                     {location.pathname.startsWith('/prakerin') && (
                         <Link to="/prakerin/panduan" className={cn("text-sm font-semibold transition-colors", isActive("/prakerin/panduan"))}>Panduan</Link>
                     )}
-                    <Link to="/learning" className={cn("text-sm font-semibold transition-colors", isActive("/learning"))}>Belajar</Link>
                 </div>
                 <div className="md:hidden">
                     <span className="material-symbols-outlined text-foreground">menu</span>

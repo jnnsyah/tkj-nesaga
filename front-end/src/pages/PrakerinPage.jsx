@@ -36,15 +36,17 @@ export default function PrakerinPage() {
                             className="w-full pl-12 pr-4 py-3 bg-secondary/5 dark:bg-secondary/20 border border-border rounded-full focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
                         />
                     </div>
-                    <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-none">
-                        {filterCategories.map(cat => (
-                            <button
-                                key={cat}
-                                className="px-4 py-1.5 rounded-full bg-secondary/5 hover:bg-secondary/10 whitespace-nowrap text-xs font-bold transition-colors"
-                            >
-                                {cat}
-                            </button>
-                        ))}
+                    <div className="flex justify-center">
+                        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-none">
+                            {filterCategories.map(cat => (
+                                <button
+                                    key={cat}
+                                    className="px-4 py-1.5 rounded-full bg-secondary/5 hover:bg-secondary/10 whitespace-nowrap text-xs font-bold transition-colors"
+                                >
+                                    {cat}
+                                </button>
+                            ))}
+                        </div>
                     </div>
                 </header>
 
