@@ -25,7 +25,7 @@ export default function LearningHubPage() {
                         Learning Path
                     </h2>
                     <Badge variant="default" className="border border-secondary/10 dark:border-white/10">
-                        Updated Syllabus 2024
+                        Updated Syllabus 2026
                     </Badge>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

@@ -9,7 +9,7 @@ export default function Footer() {
                     <Link to="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Privacy</Link>
                     <Link to="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Contact</Link>
                 </div>
-                <p className="text-muted-foreground text-sm">© 2024 TKJ Nesaga. Curating the best resources for your success.</p>
+                <p className="text-muted-foreground text-sm">© 2026 TKJ Nesaga. Curating the best resources for your success.</p>
             </div>
         </footer>
     );
