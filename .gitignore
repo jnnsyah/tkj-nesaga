@@ -1,0 +1,32 @@
+# =================
+# GLOBAL
+# =================
+node_modules/
+.env
+.env.*
+
+# logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# editor
+.vscode/
+.idea/
+
+# =================
+# FRONT-END (Vite)
+# =================
+front-end/node_modules/
+front-end/dist/
+front-end/.vite/
+
+# =================
+# BACK-END
+# =================
+back-end/node_modules/
+back-end/dist/
+back-end/build/
+back-end/coverage/

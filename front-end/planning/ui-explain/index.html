@@ -1,0 +1,467 @@
+<html class="light" lang="id">
+
+<head></head>
+
+<body
+    class="bg-white dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display transition-colors duration-300">
+    ```html
+
+
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>TKJ Nesaga - Teknik Komputer dan Jaringan</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#FFD700",
+                        "deep-purple": "#301934",
+                        "background-light": "#f8f8f5",
+                        "background-dark": "#23200f",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style type="text/tailwindcss">
+        body { font-family: 'Inter', sans-serif; }
+        .bg-purple-main { background-color: #301934; }
+        .text-purple-main { color: #301934; }
+        .border-purple-main { border-color: #301934; }
+        .globe-grid {
+            background-image: radial-gradient(circle at center, transparent 0%, transparent 100%),
+                            repeating-linear-gradient(rgba(48, 25, 52, 0.05) 0px, rgba(48, 25, 52, 0.05) 1px, transparent 1px, transparent 40px),
+                            repeating-linear-gradient(90deg, rgba(48, 25, 52, 0.05) 0px, rgba(48, 25, 52, 0.05) 1px, transparent 1px, transparent 40px);
+        }
+    </style>
+
+
+    <div class="fixed top-6 left-0 right-0 z-50 flex justify-center px-4">
+        <header
+            class="w-full max-w-2xl bg-white/70 dark:bg-background-dark/70 backdrop-blur-md border border-slate-200/50 dark:border-slate-700/50 rounded-full shadow-2xl shadow-purple-900/10">
+            <div class="px-8 h-14 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="bg-purple-main text-primary p-1 rounded-full flex items-center justify-center">
+                        <span class="material-symbols-outlined text-lg">language</span>
+                    </div>
+                    <h1 class="text-base font-black tracking-tight text-purple-main dark:text-primary">TKJ NESAGA</h1>
+                </div>
+                <nav class="flex items-center gap-8">
+                    <a class="text-[10px] font-bold text-purple-main/70 hover:text-purple-main dark:text-slate-300 dark:hover:text-primary transition-colors uppercase tracking-widest"
+                        href="#learn">Materi</a>
+                    <a class="text-[10px] font-bold text-purple-main/70 hover:text-purple-main dark:text-slate-300 dark:hover:text-primary transition-colors uppercase tracking-widest"
+                        href="#pkl">Tempat PKL</a>
+                </nav>
+            </div>
+        </header>
+    </div>
+    <main>
+        <section class="relative overflow-hidden bg-white dark:bg-background-dark pt-32 pb-20 lg:pt-48 lg:pb-32">
+            <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+                <div class="relative z-10 space-y-8">
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-purple-main border border-primary/20 text-xs font-bold uppercase tracking-wider">
+                        <span class="relative flex h-2 w-2">
+                            <span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                        </span>
+                        SMK Negeri 1 Gantiwarno
+                    </div>
+                    <h1
+                        class="text-5xl lg:text-7xl font-black text-purple-main dark:text-white leading-[1.1] tracking-tighter">
+                        Teknik Komputer dan <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-purple-900 to-purple-600 dark:from-primary dark:to-yellow-300">Jaringan</span>
+                    </h1>
+                    <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed max-w-xl">
+                        Di TKJ SMK Negeri 1 Gantiwarno, siswa belajar merakit komputer, membangun jaringan lokal, hingga
+                        mengelola server. Kami fokus pada keterampilan teknis dasar dan menengah yang dibutuhkan di
+                        dunia kerja teknologi informasi saat ini.
+                    </p>
+                </div>
+                <div class="relative flex justify-center lg:justify-end">
+                    <div
+                        class="relative w-full aspect-square max-w-lg flex items-center justify-center globe-grid rounded-full">
+                        <div class="absolute inset-0 bg-primary/10 rounded-full blur-3xl opacity-50"></div>
+                        <div
+                            class="relative z-10 w-4/5 h-4/5 text-purple-main dark:text-primary transition-transform hover:scale-105 duration-700">
+                            <svg class="w-full h-full" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                <circle class="opacity-20" cx="100" cy="100" fill="none" r="90" stroke="currentColor"
+                                    stroke-dasharray="4 2" stroke-width="0.5"></circle>
+                                <circle cx="100" cy="100" fill="none" r="85" stroke="currentColor" stroke-width="1.5">
+                                </circle>
+                                <ellipse class="opacity-60" cx="100" cy="100" fill="none" rx="85" ry="30"
+                                    stroke="currentColor" stroke-width="1"></ellipse>
+                                <ellipse class="opacity-40" cx="100" cy="100" fill="none" rx="85" ry="60"
+                                    stroke="currentColor" stroke-width="0.8"></ellipse>
+                                <ellipse class="opacity-60" cx="100" cy="100" fill="none" rx="30" ry="85"
+                                    stroke="currentColor" stroke-width="1"></ellipse>
+                                <ellipse class="opacity-40" cx="100" cy="100" fill="none" rx="60" ry="85"
+                                    stroke="currentColor" stroke-width="0.8"></ellipse>
+                                <line class="opacity-60" stroke="currentColor" stroke-width="1" x1="100" x2="100"
+                                    y1="15" y2="185"></line>
+                                <line class="opacity-60" stroke="currentColor" stroke-width="1" x1="15" x2="185"
+                                    y1="100" y2="100"></line>
+                                <circle cx="100" cy="15" fill="currentColor" r="3"></circle>
+                                <circle cx="100" cy="185" fill="currentColor" r="3"></circle>
+                                <circle cx="15" cy="100" fill="currentColor" r="3"></circle>
+                                <circle cx="185" cy="100" fill="currentColor" r="3"></circle>
+                                <circle cx="145" cy="50" fill="currentColor" r="2.5"></circle>
+                                <circle cx="55" cy="150" fill="currentColor" r="2.5"></circle>
+                                <circle cx="160" cy="140" fill="currentColor" r="2"></circle>
+                                <circle cx="40" cy="60" fill="currentColor" r="2"></circle>
+                                <path class="opacity-50" d="M145 50 Q 120 75 100 100" fill="none" stroke="currentColor"
+                                    stroke-dasharray="2 2" stroke-width="0.5"></path>
+                                <path class="opacity-50" d="M55 150 Q 80 125 100 100" fill="none" stroke="currentColor"
+                                    stroke-dasharray="2 2" stroke-width="0.5"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="py-24 bg-slate-50 dark:bg-slate-900/30" id="learn">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="flex flex-col lg:flex-row gap-16 items-start">
+                    <div class="lg:w-1/3 lg:sticky lg:top-32">
+                        <h2 class="text-4xl lg:text-5xl font-black text-purple-main dark:text-white mb-6">Materi Belajar
+                        </h2>
+                        <p class="text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">Siswa dibekali dengan
+                            kompetensi yang relevan dengan kebutuhan industri teknologi informasi saat ini.</p>
+                        <div class="space-y-4 mb-10">
+                            <div class="flex items-center gap-4 text-purple-main dark:text-slate-200">
+                                <span class="material-symbols-outlined text-primary font-bold">check_circle</span>
+                                <span class="font-semibold">Sesuai Kurikulum SMK</span>
+                            </div>
+                            <div class="flex items-center gap-4 text-purple-main dark:text-slate-200">
+                                <span class="material-symbols-outlined text-primary font-bold">check_circle</span>
+                                <span class="font-semibold">Praktik Lab Komputer</span>
+                            </div>
+                        </div>
+                        <a class="inline-flex items-center justify-center gap-3 bg-purple-main text-primary hover:bg-purple-800 px-8 py-4 rounded-xl font-black transition-all shadow-lg shadow-purple-900/20 group"
+                            href="#">
+                            Buka Pusat Belajar
+                            <span
+                                class="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
+                        </a>
+                    </div>
+                    <div class="lg:w-2/3 grid sm:grid-cols-2 gap-6">
+                        <div
+                            class="group p-8 rounded-2xl bg-white dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700 hover:border-primary transition-all shadow-sm hover:shadow-md">
+                            <div
+                                class="w-12 h-12 bg-purple-main/5 rounded-lg flex items-center justify-center text-purple-main mb-6 group-hover:bg-primary transition-colors">
+                                <span class="material-symbols-outlined font-bold">lan</span>
+                            </div>
+                            <h4 class="text-xl font-black text-purple-main dark:text-white mb-2">Dasar Jaringan</h4>
+                            <p class="text-slate-500 dark:text-slate-400">Belajar tentang Topologi, IP Address, dan
+                                pengkabelan (Crimping).</p>
+                        </div>
+                        <div
+                            class="group p-8 rounded-2xl bg-white dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700 hover:border-primary transition-all shadow-sm hover:shadow-md">
+                            <div
+                                class="w-12 h-12 bg-purple-main/5 rounded-lg flex items-center justify-center text-purple-main mb-6 group-hover:bg-primary transition-colors">
+                                <span class="material-symbols-outlined font-bold">computer</span>
+                            </div>
+                            <h4 class="text-xl font-black text-purple-main dark:text-white mb-2">Hardware &amp; OS</h4>
+                            <p class="text-slate-500 dark:text-slate-400">Merakit PC, instalasi Windows/Linux, dan
+                                pemeliharaan perangkat.</p>
+                        </div>
+                        <div
+                            class="group p-8 rounded-2xl bg-white dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700 hover:border-primary transition-all shadow-sm hover:shadow-md">
+                            <div
+                                class="w-12 h-12 bg-purple-main/5 rounded-lg flex items-center justify-center text-purple-main mb-6 group-hover:bg-primary transition-colors">
+                                <span class="material-symbols-outlined font-bold">dns</span>
+                            </div>
+                            <h4 class="text-xl font-black text-purple-main dark:text-white mb-2">Administrasi Server
+                            </h4>
+                            <p class="text-slate-500 dark:text-slate-400">Konfigurasi Web Server, FTP, dan manajemen
+                                database pada Linux.</p>
+                        </div>
+                        <div
+                            class="group p-8 rounded-2xl bg-white dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700 hover:border-primary transition-all shadow-sm hover:shadow-md">
+                            <div
+                                class="w-12 h-12 bg-purple-main/5 rounded-lg flex items-center justify-center text-purple-main mb-6 group-hover:bg-primary transition-colors">
+                                <span class="material-symbols-outlined font-bold">router</span>
+                            </div>
+                            <h4 class="text-xl font-black text-purple-main dark:text-white mb-2">Mikrotik &amp; Cisco
+                            </h4>
+                            <p class="text-slate-500 dark:text-slate-400">Pengaturan Router, Hotspot, dan manajemen
+                                Bandwidth internet.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="py-24 bg-white dark:bg-background-dark border-y border-slate-100 dark:border-slate-800"
+            id="pkl">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl lg:text-5xl font-black text-purple-main dark:text-white mb-4">Tempat PKL &amp;
+                        Mitra Industri</h2>
+                    <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">Siswa melaksanakan
+                        Praktik Kerja Lapangan (PKL) di berbagai instansi dan perusahaan yang relevan untuk pengalaman
+                        kerja nyata.</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+                    <div
+                        class="group p-6 rounded-2xl bg-white dark:bg-slate-800 text-center border border-slate-200 dark:border-slate-700 transition-all hover:border-primary hover:shadow-xl cursor-default">
+                        <span
+                            class="material-symbols-outlined text-purple-main dark:text-primary text-3xl mb-3 block">wifi_tethering</span>
+                        <h5 class="font-black text-xs uppercase tracking-widest text-purple-main dark:text-white">ISP
+                        </h5>
+                        <p class="text-[10px] text-slate-500 mt-1">Internet Service Provider</p>
+                    </div>
+                    <div
+                        class="group p-6 rounded-2xl bg-white dark:bg-slate-800 text-center border border-slate-200 dark:border-slate-700 transition-all hover:border-primary hover:shadow-xl cursor-default">
+                        <span
+                            class="material-symbols-outlined text-purple-main dark:text-primary text-3xl mb-3 block">build</span>
+                        <h5 class="font-black text-xs uppercase tracking-widest text-purple-main dark:text-white">
+                            Hardware</h5>
+                        <p class="text-[10px] text-slate-500 mt-1">Service &amp; Repair</p>
+                    </div>
+                    <div
+                        class="group p-6 rounded-2xl bg-white dark:bg-slate-800 text-center border border-slate-200 dark:border-slate-700 transition-all hover:border-primary hover:shadow-xl cursor-default">
+                        <span
+                            class="material-symbols-outlined text-purple-main dark:text-primary text-3xl mb-3 block">shopping_cart</span>
+                        <h5 class="font-black text-xs uppercase tracking-widest text-purple-main dark:text-white">Retail
+                        </h5>
+                        <p class="text-[10px] text-slate-500 mt-1">Retail &amp; IT Shop</p>
+                    </div>
+                    <div
+                        class="group p-6 rounded-2xl bg-white dark:bg-slate-800 text-center border border-slate-200 dark:border-slate-700 transition-all hover:border-primary hover:shadow-xl cursor-default">
+                        <span
+                            class="material-symbols-outlined text-purple-main dark:text-primary text-3xl mb-3 block">account_balance</span>
+                        <h5 class="font-black text-xs uppercase tracking-widest text-purple-main dark:text-white">
+                            Instansi</h5>
+                        <p class="text-[10px] text-slate-500 mt-1">Pemerintah</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div
+                        class="group bg-white dark:bg-slate-900/50 rounded-3xl border border-slate-200 dark:border-slate-700 p-8 hover:shadow-2xl hover:border-primary transition-all duration-300 flex flex-col h-full">
+                        <div class="flex justify-between items-start mb-8">
+                            <div
+                                class="w-16 h-16 bg-slate-50 dark:bg-slate-800 rounded-2xl flex items-center justify-center border border-slate-100 dark:border-slate-700 group-hover:scale-110 transition-transform">
+                                <span
+                                    class="material-symbols-outlined text-3xl text-purple-main dark:text-primary">wifi_tethering</span>
+                            </div>
+                            <span
+                                class="inline-flex items-center px-3 py-1 rounded-full bg-primary text-deep-purple text-[10px] font-black uppercase tracking-wider shadow-sm">ISP</span>
+                        </div>
+                        <h4 class="text-2xl font-black text-purple-main dark:text-white mb-4">Lintas Jaringan Pratama
+                        </h4>
+                        <div class="flex items-start gap-3 text-slate-500 dark:text-slate-400 mb-6 flex-grow">
+                            <span class="material-symbols-outlined text-lg flex-shrink-0 mt-1">location_on</span>
+                            <p class="text-sm leading-relaxed">Kawasan Industri Candi, Blok G No. 12, Semarang, Jawa
+                                Tengah. Fokus pada infrastruktur fiber optik dan jaringan metro.</p>
+                        </div>
+                        <div class="pt-6 border-t border-slate-100 dark:border-slate-800">
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Kapasitas: 4 Siswa</p>
+                        </div>
+                    </div>
+                    <div
+                        class="group bg-white dark:bg-slate-900/50 rounded-3xl border border-slate-200 dark:border-slate-700 p-8 hover:shadow-2xl hover:border-primary transition-all duration-300 flex flex-col h-full">
+                        <div class="flex justify-between items-start mb-8">
+                            <div
+                                class="w-16 h-16 bg-slate-50 dark:bg-slate-800 rounded-2xl flex items-center justify-center border border-slate-100 dark:border-slate-700 group-hover:scale-110 transition-transform">
+                                <span
+                                    class="material-symbols-outlined text-3xl text-purple-main dark:text-primary">developer_board</span>
+                            </div>
+                            <span
+                                class="inline-flex items-center px-3 py-1 rounded-full bg-deep-purple text-primary text-[10px] font-black uppercase tracking-wider shadow-sm">Hardware
+                                Repair</span>
+                        </div>
+                        <h4 class="text-2xl font-black text-purple-main dark:text-white mb-4">Global Tech Service</h4>
+                        <div class="flex items-start gap-3 text-slate-500 dark:text-slate-400 mb-6 flex-grow">
+                            <span class="material-symbols-outlined text-lg flex-shrink-0 mt-1">location_on</span>
+                            <p class="text-sm leading-relaxed">Jl. Pemuda No. 88, Klaten Tengah. Pusat perbaikan
+                                perangkat IT, maintenance server instansi, dan troubleshooting hardware.</p>
+                        </div>
+                        <div class="pt-6 border-t border-slate-100 dark:border-slate-800">
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Kapasitas: 2 Siswa</p>
+                        </div>
+                    </div>
+                    <div
+                        class="group bg-white dark:bg-slate-900/50 rounded-3xl border border-slate-200 dark:border-slate-700 p-8 hover:shadow-2xl hover:border-primary transition-all duration-300 flex flex-col h-full">
+                        <div class="flex justify-between items-start mb-8">
+                            <div
+                                class="w-16 h-16 bg-slate-50 dark:bg-slate-800 rounded-2xl flex items-center justify-center border border-slate-100 dark:border-slate-700 group-hover:scale-110 transition-transform">
+                                <span
+                                    class="material-symbols-outlined text-3xl text-purple-main dark:text-primary">code</span>
+                            </div>
+                            <span
+                                class="inline-flex items-center px-3 py-1 rounded-full bg-primary text-deep-purple text-[10px] font-black uppercase tracking-wider shadow-sm">Software
+                                House</span>
+                        </div>
+                        <h4 class="text-2xl font-black text-purple-main dark:text-white mb-4">Bit Solutions Indonesia
+                        </h4>
+                        <div class="flex items-start gap-3 text-slate-500 dark:text-slate-400 mb-6 flex-grow">
+                            <span class="material-symbols-outlined text-lg flex-shrink-0 mt-1">location_on</span>
+                            <p class="text-sm leading-relaxed">Gedung IT Center Lt. 3, Sleman, Yogyakarta. Pengembangan
+                                aplikasi berbasis jaringan dan sistem informasi manajemen.</p>
+                        </div>
+                        <div class="pt-6 border-t border-slate-100 dark:border-slate-800">
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Kapasitas: 3 Siswa</p>
+                        </div>
+                    </div>
+                    <div
+                        class="group bg-white dark:bg-slate-900/50 rounded-3xl border border-slate-200 dark:border-slate-700 p-8 hover:shadow-2xl hover:border-primary transition-all duration-300 flex flex-col h-full">
+                        <div class="flex justify-between items-start mb-8">
+                            <div
+                                class="w-16 h-16 bg-slate-50 dark:bg-slate-800 rounded-2xl flex items-center justify-center border border-slate-100 dark:border-slate-700 group-hover:scale-110 transition-transform">
+                                <span
+                                    class="material-symbols-outlined text-3xl text-purple-main dark:text-primary">apartment</span>
+                            </div>
+                            <span
+                                class="inline-flex items-center px-3 py-1 rounded-full bg-deep-purple text-primary text-[10px] font-black uppercase tracking-wider shadow-sm">Instansi</span>
+                        </div>
+                        <h4 class="text-2xl font-black text-purple-main dark:text-white mb-4">Diskominfo Klaten</h4>
+                        <div class="flex items-start gap-3 text-slate-500 dark:text-slate-400 mb-6 flex-grow">
+                            <span class="material-symbols-outlined text-lg flex-shrink-0 mt-1">location_on</span>
+                            <p class="text-sm leading-relaxed">Jl. Pemuda No. 123, Klaten. Pengelolaan jaringan
+                                pemerintahan daerah dan maintenance data center kabupaten.</p>
+                        </div>
+                        <div class="pt-6 border-t border-slate-100 dark:border-slate-800">
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Kapasitas: 5 Siswa</p>
+                        </div>
+                    </div>
+                    <div
+                        class="group bg-white dark:bg-slate-900/50 rounded-3xl border border-slate-200 dark:border-slate-700 p-8 hover:shadow-2xl hover:border-primary transition-all duration-300 flex flex-col h-full">
+                        <div class="flex justify-between items-start mb-8">
+                            <div
+                                class="w-16 h-16 bg-slate-50 dark:bg-slate-800 rounded-2xl flex items-center justify-center border border-slate-100 dark:border-slate-700 group-hover:scale-110 transition-transform">
+                                <span
+                                    class="material-symbols-outlined text-3xl text-purple-main dark:text-primary">router</span>
+                            </div>
+                            <span
+                                class="inline-flex items-center px-3 py-1 rounded-full bg-primary text-deep-purple text-[10px] font-black uppercase tracking-wider shadow-sm">ISP</span>
+                        </div>
+                        <h4 class="text-2xl font-black text-purple-main dark:text-white mb-4">Media Network Utama</h4>
+                        <div class="flex items-start gap-3 text-slate-500 dark:text-slate-400 mb-6 flex-grow">
+                            <span class="material-symbols-outlined text-lg flex-shrink-0 mt-1">location_on</span>
+                            <p class="text-sm leading-relaxed">Jl. Solo-Yogya KM 15, Prambanan. Instalasi wireless
+                                point-to-point dan pengelolaan bandwidth internet publik.</p>
+                        </div>
+                        <div class="pt-6 border-t border-slate-100 dark:border-slate-800">
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Kapasitas: 4 Siswa</p>
+                        </div>
+                    </div>
+                    <div
+                        class="group bg-white dark:bg-slate-900/50 rounded-3xl border border-slate-200 dark:border-slate-700 p-8 hover:shadow-2xl hover:border-primary transition-all duration-300 flex flex-col h-full">
+                        <div class="flex justify-between items-start mb-8">
+                            <div
+                                class="w-16 h-16 bg-slate-50 dark:bg-slate-800 rounded-2xl flex items-center justify-center border border-slate-100 dark:border-slate-700 group-hover:scale-110 transition-transform">
+                                <span
+                                    class="material-symbols-outlined text-3xl text-purple-main dark:text-primary">storefront</span>
+                            </div>
+                            <span
+                                class="inline-flex items-center px-3 py-1 rounded-full bg-deep-purple text-primary text-[10px] font-black uppercase tracking-wider shadow-sm">Retail
+                                &amp; IT Shop</span>
+                        </div>
+                        <h4 class="text-2xl font-black text-purple-main dark:text-white mb-4">Sentra Komputer Klaten
+                        </h4>
+                        <div class="flex items-start gap-3 text-slate-500 dark:text-slate-400 mb-6 flex-grow">
+                            <span class="material-symbols-outlined text-lg flex-shrink-0 mt-1">location_on</span>
+                            <p class="text-sm leading-relaxed">Ruko Semangkak No. 5, Klaten. Perakitan PC custom,
+                                instalasi software berlisensi, dan manajemen stok perangkat jaringan.</p>
+                        </div>
+                        <div class="pt-6 border-t border-slate-100 dark:border-slate-800">
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Kapasitas: 2 Siswa</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-20 pt-16 border-t border-slate-100 dark:border-slate-800">
+                    <p class="text-center text-[10px] font-black uppercase tracking-[0.4em] text-slate-400 mb-10">
+                        Membangun Kompetensi Bersama Industri</p>
+                    <div class="flex flex-wrap justify-center items-center gap-10 lg:gap-20">
+                        <div
+                            class="bg-white dark:bg-slate-800 px-6 py-4 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm flex items-center gap-3">
+                            <img alt="Partner 1" class="h-6 opacity-70"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwXNv_oYKa-vymch3TvEJLSM8IKDz15YAzRl0IAXhf4dvlIvEWRNEysZoa1T0HBXUHOVaq3lCLnBLUUpkBZmxE7VfLC1rx50gybpt6cFP89TgP5oWKfKKQ4eer3cMqTpY6D_Wkg8T8INO0Ix5x9qvKP7AXi024wmfZlHSNyOG-DeL81vxB_nEUEuLA1pP7QyLjYg87jNBCOm0n2LR1G0sCR6q5L46HKDt55fTnr6GmO5bDYlZ8Ku_Kod1B-aKFeOGIgifPriz8fTA" />
+                            <span class="text-xs font-bold text-slate-500 uppercase">Mitra Teknis</span>
+                        </div>
+                        <div
+                            class="bg-white dark:bg-slate-800 px-6 py-4 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm flex items-center gap-3">
+                            <img alt="Partner 2" class="h-6 opacity-70"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaKnjjMjBoVdfYSfow9NdLnRguXu0Ph0MrHMtjAxAvd_vsF8GMIywZM6wByoMcogGoNd7Lfp6dwAWFPrGE_2oZSUGsV0sDuULNNy0PJwon29vDqMgf5MT87D6mVlpNVmdXjgB1PRGkDIn38cvAzyfoePuHYt8ap1gGI8u4zhx9QuRprtQoShdRhT0mjYHoYvWhQ1ouA8xnlmgNkt2Ey7EfGypzPG8lKW1ydNawLpTsERrNenH7rSgx3KLMIsOpSmCwL5sPmV7-L20" />
+                            <span class="text-xs font-bold text-slate-500 uppercase">Akses Jaringan</span>
+                        </div>
+                        <div
+                            class="bg-white dark:bg-slate-800 px-6 py-4 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm flex items-center gap-3">
+                            <img alt="Partner 3" class="h-6 opacity-70"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCw2Ty-XkeaAzK4lV-M7gehJSaGy8G1AOf3uH1vtWuAKnL6VkBC3trGwg46QarVVHajLkgg-HJOcggUPTwOlG8CI4-3WKAQjJ5EQCVyYbm5_tWkBsrGEhZ9jI1zGKIboXk4d8DLlTeo2RNq7QT9HC24G1A0nCSogdikJNR9W_wDDlLlxSJ2uwc8BMyfMVzUFp0d-FH1HsgVfQrVjnNVb0xjt2q0FmoMuOFQC25hlMmoKW29HMY1eRylbwcLxkZxvsh9dJ0MiqATaeg" />
+                            <span class="text-xs font-bold text-slate-500 uppercase">Solusi IT</span>
+                        </div>
+                        <div
+                            class="bg-white dark:bg-slate-800 px-6 py-4 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm flex items-center gap-3">
+                            <img alt="Partner 4" class="h-6 opacity-70"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpPSS1qUZ-6It1bG-6Zlhpd1fKKXK6ERzyKO8AsOe3d9m4f7m0Bj0nA_6KT_QpBTVg7_nzdHcEtHCScDxv2pM92cKRb-7lR5IniNNxyjkobTVCJgC8o-rmziHBq4aGnafmtKkNLzaKnI_RWPsvnDlL2iUHdewHk-ya854P5JF2xdP92PDa5WE63iCQQQvrE-BTOh64PaZfduURokpJv9XyiSJL-k1JfGQfd1VJTH3lc9KHOkLE2UAU2PTCihahY8HmN0MPTmbbUQ4" />
+                            <span class="text-xs font-bold text-slate-500 uppercase">Pusat Servis</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="bg-purple-main text-white py-16 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-12">
+            <div class="space-y-6">
+                <div class="flex items-center gap-3">
+                    <div class="bg-primary text-purple-main p-1.5 rounded-md">
+                        <span class="material-symbols-outlined text-xl font-bold">language</span>
+                    </div>
+                    <h3 class="text-xl font-black tracking-tight">TKJ NESAGA</h3>
+                </div>
+                <p class="text-purple-200 text-sm leading-relaxed">
+                    SMK Negeri 1 Gantiwarno<br />
+                    Jl. Gantiwarno No.1, Klaten, Jawa Tengah.<br />
+                    Mencetak tenaga ahli IT yang kompeten, disiplin, dan siap kerja.
+                </p>
+            </div>
+            <div>
+                <h4 class="font-bold text-primary mb-6">Navigasi</h4>
+                <ul class="space-y-4 text-sm text-purple-200">
+                    <li><a class="hover:text-white transition-colors" href="#">Beranda</a></li>
+                    <li><a class="hover:text-white transition-colors" href="#learn">Materi Belajar</a></li>
+                    <li><a class="hover:text-white transition-colors" href="#pkl">Tempat PKL</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-primary mb-6">Kontak Kami</h4>
+                <ul class="space-y-4 text-sm text-purple-200">
+                    <li class="flex items-center gap-3"><span class="material-symbols-outlined text-sm">phone</span>
+                        (0272) 123456</li>
+                    <li class="flex items-center gap-3"><span class="material-symbols-outlined text-sm">mail</span>
+                        info@smkn1gantiwarno.sch.id</li>
+                    <li class="flex items-center gap-3"><span class="material-symbols-outlined text-sm">public</span>
+                        www.smkn1gantiwarno.sch.id</li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-white/5 text-center text-xs text-purple-400">
+            <p>© 2024 TKJ Nesaga - SMK Negeri 1 Gantiwarno. Terfokus pada Pendidikan Teknologi Komputer &amp; Jaringan.
+            </p>
+        </div>
+    </footer>
+
+    ```
+</body>
+
+</html>

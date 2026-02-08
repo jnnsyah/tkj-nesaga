@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html class="light" lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Pusat Pembelajaran TKJ Nesaga - Alur &amp; Resource Baru</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#FFD700",
+                        "accent-purple": "#301934",
+                        "background-light": "#f8f8f5",
+                        "background-dark": "#1a0e1c",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "2xl": "2rem",
+                        "3xl": "2.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style type="text/tailwindcss">
+        body { font-family: 'Lexend', sans-serif; }
+        .glass-nav {
+            backdrop-filter: blur(12px);
+            background-color: rgba(255, 255, 255, 0.75);
+        }
+        .dark .glass-nav {
+            background-color: rgba(48, 25, 52, 0.75);
+        }
+        .hover-lift {
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-4px);
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-accent-purple dark:text-white min-h-screen font-display">
+    <div class="fixed top-6 left-0 right-0 z-50 px-4 md:px-10 lg:px-40">
+        <nav
+            class="glass-nav border border-white/40 dark:border-white/10 rounded-full px-6 py-3 flex items-center justify-between shadow-lg">
+            <div class="flex items-center gap-3">
+                <div class="bg-primary p-2 rounded-full">
+                    <span class="material-symbols-outlined text-accent-purple font-bold">terminal</span>
+                </div>
+                <h2 class="text-accent-purple dark:text-white text-lg font-bold tracking-tight">TKJ Nesaga</h2>
+            </div>
+            <div class="hidden md:flex items-center gap-8">
+                <a class="text-accent-purple dark:text-white/80 text-sm font-semibold hover:text-primary transition-colors"
+                    href="#">Home</a>
+                <a class="text-accent-purple dark:text-white/80 text-sm font-semibold hover:text-primary transition-colors"
+                    href="#">Curriculum</a>
+                <a class="text-accent-purple dark:text-white/80 text-sm font-semibold hover:text-primary transition-colors"
+                    href="#">Resources</a>
+                <a class="text-accent-purple dark:text-white/80 text-sm font-semibold hover:text-primary transition-colors"
+                    href="#">Community</a>
+            </div>
+            <div class="flex items-center gap-3">
+                <button
+                    class="bg-primary text-accent-purple px-6 py-2 rounded-full text-sm font-bold shadow-sm hover:shadow-md transition-all active:scale-95">
+                    Login Hub
+                </button>
+            </div>
+        </nav>
+    </div>
+    <main class="pt-32 pb-40 px-4 md:px-10 lg:px-40 max-w-[1440px] mx-auto">
+        <section class="text-center mb-16">
+            <h1
+                class="text-accent-purple dark:text-white text-4xl md:text-6xl font-bold mb-4 tracking-tight leading-tight">
+                Pusat Pembelajaran <span class="text-primary bg-accent-purple px-4 py-1 rounded-2xl">TKJ</span>
+            </h1>
+            <p class="text-accent-purple/70 dark:text-white/60 text-lg md:text-xl font-medium max-w-2xl mx-auto">
+                Temukan panduan belajar, kurikulum terbaru, dan sumber daya teknis untuk mendukung perjalanan
+                Engineering Anda.
+            </p>
+        </section>
+        <section class="mb-24">
+            <div class="flex items-center justify-between mb-8 px-2">
+                <h2 class="text-2xl md:text-3xl font-bold">Learning Path</h2>
+                <span
+                    class="text-sm font-semibold bg-accent-purple/5 dark:bg-white/10 px-4 py-2 rounded-full border border-accent-purple/10 dark:border-white/10">Updated
+                    Syllabus 2024</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div
+                    class="bg-white dark:bg-zinc-900 rounded-3xl p-8 shadow-sm border border-accent-purple/5 dark:border-white/5 hover-lift transition-all group">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="p-4 bg-primary/20 dark:bg-primary/10 rounded-2xl">
+                            <span class="material-symbols-outlined text-primary text-4xl">hub</span>
+                        </div>
+                        <span
+                            class="bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">Foundation</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Basic Networking</h3>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3 text-accent-purple/70 dark:text-white/70">
+                            <span class="material-symbols-outlined text-primary text-lg">check_circle</span> Dasar-dasar
+                            OSI Model
+                        </li>
+                        <li class="flex items-center gap-3 text-accent-purple/70 dark:text-white/70">
+                            <span class="material-symbols-outlined text-primary text-lg">check_circle</span> Pengkabelan
+                            &amp; Topologi
+                        </li>
+                        <li class="flex items-center gap-3 text-accent-purple/70 dark:text-white/70">
+                            <span class="material-symbols-outlined text-primary text-lg">check_circle</span> Konfigurasi
+                            SOHO Router
+                        </li>
+                    </ul>
+                    <div class="flex items-center gap-3">
+                        <button
+                            class="bg-primary text-accent-purple px-8 py-3 rounded-2xl font-bold flex-1 hover:brightness-105 transition-all">Alur
+                            Belajar</button>
+                        <button
+                            class="bg-accent-purple/5 text-accent-purple dark:text-white p-3 rounded-2xl hover:bg-primary/20 transition-colors">
+                            <span class="material-symbols-outlined">menu_book</span>
+                        </button>
+                    </div>
+                </div>
+                <div
+                    class="bg-white dark:bg-zinc-900 rounded-3xl p-8 shadow-sm border border-accent-purple/5 dark:border-white/5 hover-lift transition-all group">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="p-4 bg-primary/20 dark:bg-primary/10 rounded-2xl">
+                            <span class="material-symbols-outlined text-primary text-4xl">router</span>
+                        </div>
+                        <span
+                            class="bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">Beginner</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Cisco Networking</h3>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3 text-accent-purple/70 dark:text-white/70">
+                            <span class="material-symbols-outlined text-primary text-lg">check_circle</span> IP
+                            Addressing &amp; Subnetting
+                        </li>
+                        <li class="flex items-center gap-3 text-accent-purple/70 dark:text-white/70">
+                            <span class="material-symbols-outlined text-primary text-lg">check_circle</span> VLAN &amp;
+                            Inter-VLAN Routing
+                        </li>
+                        <li class="flex items-center gap-3 text-accent-purple/70 dark:text-white/70">
+                            <span class="material-symbols-outlined text-primary text-lg">check_circle</span> Static
+                            &amp; Dynamic Routing
+                        </li>
+                    </ul>
+                    <div class="flex items-center gap-3">
+                        <button
+                            class="bg-primary text-accent-purple px-8 py-3 rounded-2xl font-bold flex-1 hover:brightness-105 transition-all">Alur
+                            Belajar</button>
+                        <button class="bg-red-50 text-red-600 p-3 rounded-2xl hover:bg-red-100 transition-colors">
+                            <span class="material-symbols-outlined">play_circle</span>
+                        </button>
+                    </div>
+                </div>
+                <div
+                    class="bg-white dark:bg-zinc-900 rounded-3xl p-8 shadow-sm border border-accent-purple/5 dark:border-white/5 hover-lift transition-all group">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="p-4 bg-primary/20 dark:bg-primary/10 rounded-2xl">
+                            <span class="material-symbols-outlined text-primary text-4xl">dns</span>
+                        </div>
+                        <span
+                            class="bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">Intermediate</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Debian Sysadmin</h3>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3 text-accent-purple/70 dark:text-white/70">
+                            <span class="material-symbols-outlined text-primary text-lg">check_circle</span> Linux CLI
+                            Fundamentals
+                        </li>
+                        <li class="flex items-center gap-3 text-accent-purple/70 dark:text-white/70">
+                            <span class="material-symbols-outlined text-primary text-lg">check_circle</span> Web Server
+                            (Apache/Nginx)
+                        </li>
+                        <li class="flex items-center gap-3 text-accent-purple/70 dark:text-white/70">
+                            <span class="material-symbols-outlined text-primary text-lg">check_circle</span> Database
+                            &amp; Mail Configuration
+                        </li>
+                    </ul>
+                    <div class="flex items-center gap-3">
+                        <button
+                            class="bg-primary text-accent-purple px-8 py-3 rounded-2xl font-bold flex-1 hover:brightness-105 transition-all">Alur
+                            Belajar</button>
+                        <button
+                            class="bg-emerald-50 text-emerald-600 p-3 rounded-2xl hover:bg-emerald-100 transition-colors">
+                            <span class="material-symbols-outlined">terminal</span>
+                        </button>
+                    </div>
+                </div>
+                <div
+                    class="bg-white dark:bg-zinc-900 rounded-3xl p-8 shadow-sm border border-accent-purple/5 dark:border-white/5 hover-lift transition-all group">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="p-4 bg-primary/20 dark:bg-primary/10 rounded-2xl">
+                            <span class="material-symbols-outlined text-primary text-4xl">code</span>
+                        </div>
+                        <span
+                            class="bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">Creative</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Web Development</h3>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3 text-accent-purple/70 dark:text-white/70">
+                            <span class="material-symbols-outlined text-primary text-lg">check_circle</span> Modern
+                            HTML5 &amp; CSS3
+                        </li>
+                        <li class="flex items-center gap-3 text-accent-purple/70 dark:text-white/70">
+                            <span class="material-symbols-outlined text-primary text-lg">check_circle</span> Tailwind
+                            CSS Layouting
+                        </li>
+                        <li class="flex items-center gap-3 text-accent-purple/70 dark:text-white/70">
+                            <span class="material-symbols-outlined text-primary text-lg">check_circle</span> Logic Dasar
+                            JavaScript
+                        </li>
+                    </ul>
+                    <div class="flex items-center gap-3">
+                        <button
+                            class="bg-primary text-accent-purple px-8 py-3 rounded-2xl font-bold flex-1 hover:brightness-105 transition-all">Alur
+                            Belajar</button>
+                        <button class="bg-blue-50 text-blue-600 p-3 rounded-2xl hover:bg-blue-100 transition-colors">
+                            <span class="material-symbols-outlined">language</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="mb-24">
+            <h2 class="text-2xl md:text-3xl font-bold mb-8 px-2">Resource Library</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div
+                    class="bg-white dark:bg-zinc-900 p-6 rounded-3xl border border-accent-purple/5 dark:border-white/5 shadow-sm hover:shadow-md transition-all group">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="bg-red-50 dark:bg-red-900/20 p-3 rounded-2xl">
+                            <span class="material-symbols-outlined text-red-600 text-2xl font-bold">play_circle</span>
+                        </div>
+                        <a class="bg-accent-purple/5 dark:bg-white/5 p-2 rounded-full group-hover:bg-primary group-hover:text-accent-purple transition-all"
+                            href="#">
+                            <span class="material-symbols-outlined text-lg block">arrow_forward</span>
+                        </a>
+                    </div>
+                    <h4 class="text-lg font-bold mb-2">Web Programming UNPAS</h4>
+                    <p class="text-sm text-accent-purple/60 dark:text-white/50 leading-relaxed">
+                        Channel YouTube edukasi pemrograman terbaik di Indonesia. Sangat direkomendasikan untuk
+                        mendalami modern Web Development dari dasar hingga advanced.
+                    </p>
+                </div>
+                <div
+                    class="bg-white dark:bg-zinc-900 p-6 rounded-3xl border border-accent-purple/5 dark:border-white/5 shadow-sm hover:shadow-md transition-all group">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="bg-emerald-50 dark:bg-emerald-900/20 p-3 rounded-2xl">
+                            <span
+                                class="material-symbols-outlined text-emerald-600 text-2xl font-bold">description</span>
+                        </div>
+                        <a class="bg-accent-purple/5 dark:bg-white/5 p-2 rounded-full group-hover:bg-primary group-hover:text-accent-purple transition-all"
+                            href="#">
+                            <span class="material-symbols-outlined text-lg block">arrow_forward</span>
+                        </a>
+                    </div>
+                    <h4 class="text-lg font-bold mb-2">Petani Kode</h4>
+                    <p class="text-sm text-accent-purple/60 dark:text-white/50 leading-relaxed">
+                        Platform belajar programming dengan tutorial teks yang sangat lengkap dan mudah dipahami, mulai
+                        dari dasar algoritma hingga framework populer.
+                    </p>
+                </div>
+                <div
+                    class="bg-white dark:bg-zinc-900 p-6 rounded-3xl border border-accent-purple/5 dark:border-white/5 shadow-sm hover:shadow-md transition-all group">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-2xl">
+                            <span class="material-symbols-outlined text-blue-600 text-2xl font-bold">school</span>
+                        </div>
+                        <a class="bg-accent-purple/5 dark:bg-white/5 p-2 rounded-full group-hover:bg-primary group-hover:text-accent-purple transition-all"
+                            href="#">
+                            <span class="material-symbols-outlined text-lg block">arrow_forward</span>
+                        </a>
+                    </div>
+                    <h4 class="text-lg font-bold mb-2">Cisco NetAcad</h4>
+                    <p class="text-sm text-accent-purple/60 dark:text-white/50 leading-relaxed">
+                        Standar global untuk pembelajaran jaringan komputer. Gunakan resource ini untuk persiapan
+                        sertifikasi internasional CCNA dan pemahaman mendalam infrastruktur.
+                    </p>
+                </div>
+                <div
+                    class="bg-white dark:bg-zinc-900 p-6 rounded-3xl border border-accent-purple/5 dark:border-white/5 shadow-sm hover:shadow-md transition-all group">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="bg-zinc-100 dark:bg-zinc-800 p-3 rounded-2xl">
+                            <span
+                                class="material-symbols-outlined text-zinc-900 dark:text-zinc-100 text-2xl font-bold">menu_book</span>
+                        </div>
+                        <a class="bg-accent-purple/5 dark:bg-white/5 p-2 rounded-full group-hover:bg-primary group-hover:text-accent-purple transition-all"
+                            href="#">
+                            <span class="material-symbols-outlined text-lg block">arrow_forward</span>
+                        </a>
+                    </div>
+                    <h4 class="text-lg font-bold mb-2">MDN Web Docs</h4>
+                    <p class="text-sm text-accent-purple/60 dark:text-white/50 leading-relaxed">
+                        Dokumentasi teknis terlengkap untuk web standards. Referensi utama untuk memahami cara kerja
+                        HTML, CSS, dan Web API secara akurat.
+                    </p>
+                </div>
+            </div>
+        </section>
+        <section class="mb-12">
+            <div
+                class="bg-accent-purple/5 dark:bg-white/5 rounded-3xl p-8 md:p-12 border border-accent-purple/10 dark:border-white/10">
+                <div class="text-center mb-10">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-2 tracking-tight">Engineering Mindset</h2>
+                    <p class="text-accent-purple/60 dark:text-white/40">Kunci sukses siswa TKJ dalam menghadapi
+                        tantangan teknologi.</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div
+                        class="flex flex-col items-center text-center p-4 hover:scale-105 transition-transform duration-300">
+                        <span class="material-symbols-outlined text-primary text-4xl mb-3">refresh</span>
+                        <h5 class="font-bold text-sm mb-2">Gagal itu Wajar</h5>
+                        <p class="text-xs text-accent-purple/70 dark:text-white/60 leading-relaxed">Setiap error adalah
+                            kesempatan belajar. Jangan takut mencoba hal baru.</p>
+                    </div>
+                    <div
+                        class="flex flex-col items-center text-center p-4 hover:scale-105 transition-transform duration-300">
+                        <span class="material-symbols-outlined text-primary text-4xl mb-3">engineering</span>
+                        <h5 class="font-bold text-sm mb-2">Project-Based</h5>
+                        <p class="text-xs text-accent-purple/70 dark:text-white/60 leading-relaxed">Belajar lebih
+                            efektif dengan membangun solusi untuk masalah nyata.</p>
+                    </div>
+                    <div
+                        class="flex flex-col items-center text-center p-4 hover:scale-105 transition-transform duration-300">
+                        <span class="material-symbols-outlined text-primary text-4xl mb-3">search</span>
+                        <h5 class="font-bold text-sm mb-2">Google-Fu Mastery</h5>
+                        <p class="text-xs text-accent-purple/70 dark:text-white/60 leading-relaxed">Keahlian mencari
+                            solusi secara mandiri adalah skill terpenting teknisi.</p>
+                    </div>
+                    <div
+                        class="flex flex-col items-center text-center p-4 hover:scale-105 transition-transform duration-300">
+                        <span class="material-symbols-outlined text-primary text-4xl mb-3">edit_note</span>
+                        <h5 class="font-bold text-sm mb-2">Dokumentasi</h5>
+                        <p class="text-xs text-accent-purple/70 dark:text-white/60 leading-relaxed">Catat setiap
+                            konfigurasi agar mudah diingat dan dibagikan ke tim.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer
+        class="fixed bottom-0 left-0 right-0 z-40 glass-nav border-t border-white/20 dark:border-white/10 px-6 py-3 shadow-2xl">
+        <div class="max-w-[1440px] mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="flex items-center gap-1.5">
+                    <span class="relative flex h-3 w-3">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                    </span>
+                    <span class="text-xs font-bold text-accent-purple/80 dark:text-white/80">Hub Status: <span
+                            class="text-emerald-600 dark:text-emerald-400">Ready</span></span>
+                </div>
+                <span class="text-accent-purple/30 dark:text-white/20 px-3">|</span>
+                <span class="text-xs text-accent-purple/50 dark:text-white/40">Lab TKJ 1 Nesaga</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <span class="text-xs font-medium text-accent-purple/60 dark:text-white/40">© 2024 TKJ Nesaga
+                    Team.</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
