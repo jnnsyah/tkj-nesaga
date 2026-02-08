@@ -5,10 +5,12 @@ import PrakerinPage from "@/pages/PrakerinPage";
 import LearningHubPage from "@/pages/LearningHubPage";
 import LearningPathDetail from "@/pages/LearningPathDetail";
 import PanduanPage from "@/pages/PanduanPage";
+import ScrollToTop from "@/components/utils/ScrollToTop";
 
 export default function AppRouter() {
     return (
         <BrowserRouter>
+            <ScrollToTop />
             <Routes>
                 <Route path="/" element={<Layout />}>
                     <Route index element={<LandingPage />} />
