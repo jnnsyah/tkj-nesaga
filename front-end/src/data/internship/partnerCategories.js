@@ -1,4 +1,7 @@
-export const categories = [
+/**
+ * Partner company category definitions with icons and descriptions.
+ */
+export const partnerCategories = [
     {
         icon: "wifi_tethering",
         title: "ISP",
@@ -19,10 +22,4 @@ export const categories = [
         title: "Instansi",
         subtitle: "Pemerintahan & Kantor"
     }
-];
-
-export const stats = [
-    { value: "50+", label: "Mitra Industri" },
-    { value: "100%", label: "Tersalurkan" },
-    { value: "6 Bulan", label: "Durasi Magang" }
 ];

@@ -1,4 +1,7 @@
-export const features = [
+/**
+ * Core features of the TKJ program (skill areas taught).
+ */
+export const programFeatures = [
     {
         icon: "lan",
         title: "Dasar Jaringan",
@@ -19,9 +22,4 @@ export const features = [
         title: "Mikrotik & Cisco",
         description: "Pengaturan Router, Hotspot, dan manajemen Bandwidth internet."
     }
-];
-
-export const checkpoints = [
-    "Sesuai Kurikulum SMK",
-    "Praktik Lab Komputer"
 ];

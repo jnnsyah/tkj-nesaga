@@ -1,4 +1,8 @@
-export const prakerinData = [
+/**
+ * Internship partner companies for TKJ students.
+ * Structure designed for easy API migration.
+ */
+export const partnerCompanies = [
     {
         id: 1,
         name: "PT Telkom Akses",
@@ -64,4 +68,11 @@ export const prakerinData = [
     }
 ];
 
-export const filterCategories = ["Semua", "ISP", "Retail", "Service", "Instansi"];
+/**
+ * Retrieve a partner company by ID.
+ * @param {number} id - Company ID
+ * @returns {Object|undefined} Company object or undefined
+ */
+export function getPartnerCompanyById(id) {
+    return partnerCompanies.find(company => company.id === id);
+}

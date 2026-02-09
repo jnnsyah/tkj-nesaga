@@ -1,7 +1,7 @@
 import Icon from "@/components/ui/Icon";
 import DownloadCard from "@/components/cards/DownloadCard";
 import FAQAccordion from "@/components/sections/FAQAccordion";
-import { faqItems, downloads, timelineSteps } from "@/data/faqItems";
+import { frequentlyAskedQuestions, downloadableDocuments, internshipTimeline } from "@/data/guidance";
 
 export default function PanduanPage() {
     return (
@@ -24,7 +24,7 @@ export default function PanduanPage() {
                 <div className="relative max-w-5xl mx-auto">
                     <div className="absolute top-[40px] left-[10%] right-[10%] h-1 bg-border hidden md:block z-0" />
                     <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
-                        {timelineSteps.map((step, idx) => (
+                        {internshipTimeline.map((step, idx) => (
                             <TimelineCard key={idx} {...step} />
                         ))}
                     </div>
@@ -37,7 +37,7 @@ export default function PanduanPage() {
                     Survival Kit — Download Area
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {downloads.map((item, idx) => (
+                    {downloadableDocuments.map((item, idx) => (
                         <DownloadCard key={idx} {...item} />
                     ))}
                 </div>
@@ -50,7 +50,7 @@ export default function PanduanPage() {
                     P3K: Pertolongan Pertama — FAQ
                 </h2>
                 <div className="space-y-4">
-                    {faqItems.map((item, idx) => (
+                    {frequentlyAskedQuestions.map((item, idx) => (
                         <FAQAccordion key={idx} {...item} />
                     ))}
                 </div>

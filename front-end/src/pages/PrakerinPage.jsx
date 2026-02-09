@@ -3,7 +3,11 @@ import { cn } from "@/lib/utils";
 import Icon from "@/components/ui/Icon";
 import CompanyCard from "@/components/prakerin/CompanyCard";
 import CompanyDetail from "@/components/prakerin/CompanyDetail";
-import { prakerinData, filterCategories } from "@/data/prakerinData";
+import { partnerCompanies } from "@/data/internship";
+import { INTERNSHIP_FILTER_OPTIONS as filterCategories } from "@/data/config/internshipFilters";
+
+// Alias for backward compatibility
+const prakerinData = partnerCompanies;
 
 /**
  * Simple hook to detect mobile (matches Tailwind's md breakpoint ~ 768px)

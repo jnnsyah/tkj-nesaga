@@ -1,3 +1,7 @@
+/**
+ * Structured learning paths for TKJ curriculum.
+ * Each path contains prerequisites, topics, and step-by-step modules.
+ */
 export const learningPaths = [
     {
         id: "basic-networking",
@@ -123,7 +127,11 @@ export const learningPaths = [
     }
 ];
 
-// Get a learning path by ID
+/**
+ * Retrieve a learning path by its unique identifier.
+ * @param {string} id - Learning path ID
+ * @returns {Object|undefined} Learning path or undefined
+ */
 export function getLearningPathById(id) {
     return learningPaths.find(path => path.id === id);
 }

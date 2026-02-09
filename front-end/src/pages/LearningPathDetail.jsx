@@ -3,7 +3,7 @@ import Badge from "@/components/ui/Badge";
 import Icon from "@/components/ui/Icon";
 import CheckItem from "@/components/ui/CheckItem";
 import TimelineStep from "@/components/sections/TimelineStep";
-import { getLearningPathById, learningPaths } from "@/data/learningPaths";
+import { getLearningPathById, learningPaths } from "@/data/learning";
 import "./LearningPathDetail.css";
 
 export default function LearningPathDetail() {

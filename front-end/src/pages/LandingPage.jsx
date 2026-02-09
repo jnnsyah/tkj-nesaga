@@ -4,8 +4,8 @@ import CategoryCard from "@/components/cards/CategoryCard";
 import StatCard from "@/components/cards/StatCard";
 import Icon from "@/components/ui/Icon";
 import Button from "@/components/ui/Button";
-import { features, checkpoints } from "@/data/features";
-import { categories, stats } from "@/data/categories";
+import { programFeatures, curriculumHighlights } from "@/data/program";
+import { partnerCategories, internshipStats } from "@/data/internship";
 
 export default function LandingPage() {
     return (
@@ -53,7 +53,7 @@ export default function LandingPage() {
                                 Siswa dibekali dengan kompetensi yang relevan dengan kebutuhan industri teknologi informasi saat ini.
                             </p>
                             <div className="space-y-4 mb-10">
-                                {checkpoints.map((item, idx) => (
+                                {curriculumHighlights.map((item, idx) => (
                                     <div key={idx} className="flex items-center gap-4 text-secondary dark:text-slate-200">
                                         <Icon name="check_circle" className="text-primary font-bold" />
                                         <span className="font-semibold">{item}</span>
@@ -70,7 +70,7 @@ export default function LandingPage() {
                             </Button>
                         </div>
                         <div className="lg:w-2/3 grid sm:grid-cols-2 gap-6">
-                            {features.map((feature, idx) => (
+                            {programFeatures.map((feature, idx) => (
                                 <FeatureCard key={idx} {...feature} />
                             ))}
                         </div>
@@ -91,7 +91,7 @@ export default function LandingPage() {
                     </div>
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
-                        {categories.map((cat, idx) => (
+                        {partnerCategories.map((cat, idx) => (
                             <CategoryCard key={idx} {...cat} />
                         ))}
                     </div>

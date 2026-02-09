@@ -1,4 +1,7 @@
-export const resources = [
+/**
+ * Curated external learning resources (YouTube, certifications, tutorials).
+ */
+export const externalResources = [
     {
         icon: "play_circle",
         title: "Web Programming UNPAS",

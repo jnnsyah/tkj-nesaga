@@ -2,8 +2,7 @@ import LearningPathCard from "@/components/cards/LearningPathCard";
 import ResourceCard from "@/components/cards/ResourceCard";
 import SectionHeader from "@/components/ui/SectionHeader";
 import Badge from "@/components/ui/Badge";
-import { learningPaths } from "@/data/learningPaths";
-import { resources } from "@/data/resources";
+import { learningPaths, externalResources } from "@/data/learning";
 
 export default function LearningHubPage() {
     return (
@@ -41,7 +40,7 @@ export default function LearningHubPage() {
                     Resource Library
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {resources.map((resource, idx) => (
+                    {externalResources.map((resource, idx) => (
                         <ResourceCard key={idx} {...resource} />
                     ))}
                 </div>
