@@ -102,141 +102,141 @@ export const learningPaths = [
             }
         ]
     },
-    {
-        id: "cisco-packet-tracer",
-        icon: "router",
-        title: "Praktik di Cisco Packet Tracer",
-        level: "Beginner",
-        levelVariant: "green",
-        topics: [
-            "IP Addressing & Subnetting",
-            "VLAN & Inter-VLAN Routing",
-            "Static Routing",
-            "Dynamic Routing"
-        ],
-        actionIcon: "play_circle",
-        prerequisites: [
-            "Konsep dasar Jaringan Komputer",
-            "Pengalamatan IP & Subnetting"
-        ],
-        steps: [
-            {
-                title: "Fundamental Jaringan & CLI Cisco",
-                description: "Mempelajari dasar-dasar perangkat keras Cisco dan pengenalan antarmuka baris perintah (CLI).",
-                status: "current",
-                mediaType: "Video & Teks",
-                actions: [
-                    { icon: "play_circle", label: "Panduan Video" },
-                    { icon: "description", label: "Panduan Teks" }
-                ]
-            },
-            {
-                title: "Konfigurasi VLAN & Trunking",
-                description: "Tutorial segmentasi jaringan menggunakan VLAN dan trunking di switch Cisco.",
-                status: "available",
-                mediaType: "Video"
-            },
-            {
-                title: "Static Routing",
-                description: "Mengonfigurasi routing statis antar jaringan menggunakan router Cisco.",
-                status: "available",
-                mediaType: "Video"
-            },
-            {
-                title: "Dynamic Routing",
-                description: "Pengantar routing dinamis (EIGRP/OSPF) pada router Cisco.",
-                status: "available",
-                mediaType: "Video"
-            }
-        ],
-        recommendations: [
-            {
-                icon: "school",
-                title: "CCNA v7 Intro to Networks",
-                description: "Kursus fundamental CCNA untuk persiapan sertifikasi internasional.",
-                href: "https://www.netacad.com/courses/networking/ccna-introduction-networks",
-                color: "blue"
-            },
-            {
-                icon: "terminal",
-                title: "Packet Tracer Tutorials",
-                description: "Kumpulan tutorial simulasi jaringan menggunakan Cisco Packet Tracer.",
-                href: "https://www.youtube.com/playlist?list=PLh94XW3R96R8O3U_Vsh_bXqA_rVbXvX5r",
-                color: "orange"
-            }
-        ]
-    },
-    {
-        id: "mikrotik",
-        icon: "router",
-        title: "MikroTik Jaringan",
-        level: "Beginner",
-        levelVariant: "green",
-        topics: [
-            "Pengenalan MikroTik & RouterOS",
-            "Konfigurasi Dasar Mikrotik",
-            "Hotspot Mikrotik",
-            "DHCP Server di Mikrotik"
-        ],
-        actionIcon: "play_circle",
-        prerequisites: [
-            "Dasar-dasar Jaringan Komputer",
-            "Pengantar Linux CLI"
-        ],
-        steps: [
-            {
-                title: "Pengenalan MikroTik & RouterOS",
-                description: "Mengenal perangkat MikroTik dan sistem operasi RouterOS, termasuk fitur dasar dan aplikasi Winbox.",
-                status: "current",
-                mediaType: "Video & Teks",
-                actions: [
-                    { icon: "play_circle", label: "Panduan Video" },
-                    { icon: "description", label: "Panduan Teks" }
-                ]
-            },
-            {
-                title: "Konfigurasi Dasar Mikrotik",
-                description: "Mengkonfigurasi alamat IP dasar dan setting jaringan menggunakan Mikrotik.",
-                status: "available",
-                mediaType: "Video"
-            },
-            {
-                title: "Konfigurasi DHCP Server",
-                description: "Menerapkan DHCP Server pada Mikrotik untuk alokasi alamat IP otomatis.",
-                status: "available",
-                mediaType: "Video"
-            },
-            {
-                title: "Konfigurasi Hotspot Mikrotik",
-                description: "Membuat layanan Hotspot untuk manajemen akses pengguna pada jaringan Mikrotik.",
-                status: "available",
-                mediaType: "Video"
-            }
-        ],
-        recommendations: [
-            {
-                icon: "school",
-                title: "MikroTik Official Wiki",
-                description: "Dokumentasi resmi MikroTik untuk konfigurasi RouterOS.",
-                href: "https://wiki.mikrotik.com",
-                color: "blue"
-            },
-            {
-                icon: "play_circle",
-                title: "MTCNA Video Series",
-                description: "Video tutorial persiapan sertifikasi MikroTik Certified Network Associate.",
-                href: "https://www.youtube.com/results?search_query=mtcna+tutorial",
-                color: "orange"
-            },
-            {
-                icon: "school",
-                title: "Kursus Dasar MikroTik",
-                description: "Kursus online dasar MikroTik untuk pemula.",
-                href: "https://www.udemy.com/topic/mikrotik/",
-                color: "red"
-            }
-        ]
-    },
+    // {
+    //     id: "cisco-packet-tracer",
+    //     icon: "router",
+    //     title: "Praktik di Cisco Packet Tracer",
+    //     level: "Beginner",
+    //     levelVariant: "green",
+    //     topics: [
+    //         "IP Addressing & Subnetting",
+    //         "VLAN & Inter-VLAN Routing",
+    //         "Static Routing",
+    //         "Dynamic Routing"
+    //     ],
+    //     actionIcon: "play_circle",
+    //     prerequisites: [
+    //         "Konsep dasar Jaringan Komputer",
+    //         "Pengalamatan IP & Subnetting"
+    //     ],
+    //     steps: [
+    //         {
+    //             title: "Fundamental Jaringan & CLI Cisco",
+    //             description: "Mempelajari dasar-dasar perangkat keras Cisco dan pengenalan antarmuka baris perintah (CLI).",
+    //             status: "current",
+    //             mediaType: "Video & Teks",
+    //             actions: [
+    //                 { icon: "play_circle", label: "Panduan Video" },
+    //                 { icon: "description", label: "Panduan Teks" }
+    //             ]
+    //         },
+    //         {
+    //             title: "Konfigurasi VLAN & Trunking",
+    //             description: "Tutorial segmentasi jaringan menggunakan VLAN dan trunking di switch Cisco.",
+    //             status: "available",
+    //             mediaType: "Video"
+    //         },
+    //         {
+    //             title: "Static Routing",
+    //             description: "Mengonfigurasi routing statis antar jaringan menggunakan router Cisco.",
+    //             status: "available",
+    //             mediaType: "Video"
+    //         },
+    //         {
+    //             title: "Dynamic Routing",
+    //             description: "Pengantar routing dinamis (EIGRP/OSPF) pada router Cisco.",
+    //             status: "available",
+    //             mediaType: "Video"
+    //         }
+    //     ],
+    //     recommendations: [
+    //         {
+    //             icon: "school",
+    //             title: "CCNA v7 Intro to Networks",
+    //             description: "Kursus fundamental CCNA untuk persiapan sertifikasi internasional.",
+    //             href: "https://www.netacad.com/courses/networking/ccna-introduction-networks",
+    //             color: "blue"
+    //         },
+    //         {
+    //             icon: "terminal",
+    //             title: "Packet Tracer Tutorials",
+    //             description: "Kumpulan tutorial simulasi jaringan menggunakan Cisco Packet Tracer.",
+    //             href: "https://www.youtube.com/playlist?list=PLh94XW3R96R8O3U_Vsh_bXqA_rVbXvX5r",
+    //             color: "orange"
+    //         }
+    //     ]
+    // },
+    // {
+    //     id: "mikrotik",
+    //     icon: "router",
+    //     title: "MikroTik Jaringan",
+    //     level: "Beginner",
+    //     levelVariant: "green",
+    //     topics: [
+    //         "Pengenalan MikroTik & RouterOS",
+    //         "Konfigurasi Dasar Mikrotik",
+    //         "Hotspot Mikrotik",
+    //         "DHCP Server di Mikrotik"
+    //     ],
+    //     actionIcon: "play_circle",
+    //     prerequisites: [
+    //         "Dasar-dasar Jaringan Komputer",
+    //         "Pengantar Linux CLI"
+    //     ],
+    //     steps: [
+    //         {
+    //             title: "Pengenalan MikroTik & RouterOS",
+    //             description: "Mengenal perangkat MikroTik dan sistem operasi RouterOS, termasuk fitur dasar dan aplikasi Winbox.",
+    //             status: "current",
+    //             mediaType: "Video & Teks",
+    //             actions: [
+    //                 { icon: "play_circle", label: "Panduan Video" },
+    //                 { icon: "description", label: "Panduan Teks" }
+    //             ]
+    //         },
+    //         {
+    //             title: "Konfigurasi Dasar Mikrotik",
+    //             description: "Mengkonfigurasi alamat IP dasar dan setting jaringan menggunakan Mikrotik.",
+    //             status: "available",
+    //             mediaType: "Video"
+    //         },
+    //         {
+    //             title: "Konfigurasi DHCP Server",
+    //             description: "Menerapkan DHCP Server pada Mikrotik untuk alokasi alamat IP otomatis.",
+    //             status: "available",
+    //             mediaType: "Video"
+    //         },
+    //         {
+    //             title: "Konfigurasi Hotspot Mikrotik",
+    //             description: "Membuat layanan Hotspot untuk manajemen akses pengguna pada jaringan Mikrotik.",
+    //             status: "available",
+    //             mediaType: "Video"
+    //         }
+    //     ],
+    //     recommendations: [
+    //         {
+    //             icon: "school",
+    //             title: "MikroTik Official Wiki",
+    //             description: "Dokumentasi resmi MikroTik untuk konfigurasi RouterOS.",
+    //             href: "https://wiki.mikrotik.com",
+    //             color: "blue"
+    //         },
+    //         {
+    //             icon: "play_circle",
+    //             title: "MTCNA Video Series",
+    //             description: "Video tutorial persiapan sertifikasi MikroTik Certified Network Associate.",
+    //             href: "https://www.youtube.com/results?search_query=mtcna+tutorial",
+    //             color: "orange"
+    //         },
+    //         {
+    //             icon: "school",
+    //             title: "Kursus Dasar MikroTik",
+    //             description: "Kursus online dasar MikroTik untuk pemula.",
+    //             href: "https://www.udemy.com/topic/mikrotik/",
+    //             color: "red"
+    //         }
+    //     ]
+    // },
     {
         id: "linux",
         icon: "computer",
@@ -344,67 +344,67 @@ export const learningPaths = [
             }
         ]
     },
-    {
-        id: "debian-sysadmin",
-        icon: "dns",
-        title: "Praktik SysAdmin Debian",
-        level: "Intermediate",
-        levelVariant: "orange",
-        topics: [
-            "Instalasi & Konfigurasi Debian",
-            "Web Server (Apache/Nginx)",
-            "Database Server (MySQL/MariaDB)",
-            "Mail Server (Postfix/Dovecot)"
-        ],
-        actionIcon: "terminal",
-        prerequisites: [
-            "Dasar-dasar Sistem Operasi",
-            "Pengalaman Linux CLI"
-        ],
-        steps: [
-            {
-                title: "Instalasi & Konfigurasi Dasar Debian",
-                description: "Instalasi Debian Server, konfigurasi jaringan statis, dan manajemen paket dengan APT.",
-                status: "current",
-                mediaType: "Video & Teks",
-                actions: [
-                    { icon: "play_circle", label: "Panduan Video" },
-                    { icon: "terminal", label: "Lab Praktik" }
-                ]
-            },
-            {
-                title: "Web Server Apache/Nginx",
-                description: "Instalasi dan konfigurasi web server, virtual host, dan SSL/TLS.",
-                status: "available"
-            },
-            {
-                title: "Database Server MySQL/MariaDB",
-                description: "Setup database server, manajemen user, backup dan restore database.",
-                status: "available"
-            },
-            {
-                title: "Mail Server Postfix & Dovecot",
-                description: "Konfigurasi layanan email (SMTP/IMAP) pada Debian.",
-                status: "available"
-            }
-        ],
-        recommendations: [
-            {
-                icon: "terminal",
-                title: "Debian Official Wiki",
-                description: "Dokumentasi terlengkap untuk administrasi sistem operasi Debian.",
-                href: "https://wiki.debian.org/",
-                color: "red"
-            },
-            {
-                icon: "play_circle",
-                title: "Linux SysAdmin Course",
-                description: "Kursus lengkap administrasi sistem Linux dari dasar.",
-                href: "https://www.youtube.com/playlist?list=PLmX6p8q7W7OqJov_GshA4mCizp7XQY23p",
-                color: "green"
-            }
-        ]
-    },
+    // {
+    //     id: "debian-sysadmin",
+    //     icon: "dns",
+    //     title: "Praktik SysAdmin Debian",
+    //     level: "Intermediate",
+    //     levelVariant: "orange",
+    //     topics: [
+    //         "Instalasi & Konfigurasi Debian",
+    //         "Web Server (Apache/Nginx)",
+    //         "Database Server (MySQL/MariaDB)",
+    //         "Mail Server (Postfix/Dovecot)"
+    //     ],
+    //     actionIcon: "terminal",
+    //     prerequisites: [
+    //         "Dasar-dasar Sistem Operasi",
+    //         "Pengalaman Linux CLI"
+    //     ],
+    //     steps: [
+    //         {
+    //             title: "Instalasi & Konfigurasi Dasar Debian",
+    //             description: "Instalasi Debian Server, konfigurasi jaringan statis, dan manajemen paket dengan APT.",
+    //             status: "current",
+    //             mediaType: "Video & Teks",
+    //             actions: [
+    //                 { icon: "play_circle", label: "Panduan Video" },
+    //                 { icon: "terminal", label: "Lab Praktik" }
+    //             ]
+    //         },
+    //         {
+    //             title: "Web Server Apache/Nginx",
+    //             description: "Instalasi dan konfigurasi web server, virtual host, dan SSL/TLS.",
+    //             status: "available"
+    //         },
+    //         {
+    //             title: "Database Server MySQL/MariaDB",
+    //             description: "Setup database server, manajemen user, backup dan restore database.",
+    //             status: "available"
+    //         },
+    //         {
+    //             title: "Mail Server Postfix & Dovecot",
+    //             description: "Konfigurasi layanan email (SMTP/IMAP) pada Debian.",
+    //             status: "available"
+    //         }
+    //     ],
+    //     recommendations: [
+    //         {
+    //             icon: "terminal",
+    //             title: "Debian Official Wiki",
+    //             description: "Dokumentasi terlengkap untuk administrasi sistem operasi Debian.",
+    //             href: "https://wiki.debian.org/",
+    //             color: "red"
+    //         },
+    //         {
+    //             icon: "play_circle",
+    //             title: "Linux SysAdmin Course",
+    //             description: "Kursus lengkap administrasi sistem Linux dari dasar.",
+    //             href: "https://www.youtube.com/playlist?list=PLmX6p8q7W7OqJov_GshA4mCizp7XQY23p",
+    //             color: "green"
+    //         }
+    //     ]
+    // },
     {
         id: "algoritma-pemrograman",
         icon: "code",

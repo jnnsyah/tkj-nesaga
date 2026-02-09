@@ -31,6 +31,8 @@ export default function ResourceCard({
                 </div>
                 <a
                     href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="bg-secondary/5 p-2 rounded-full group-hover:bg-primary group-hover:text-secondary transition-all"
                 >
                     <Icon name="arrow_forward" size="md" className="block" />

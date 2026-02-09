@@ -119,7 +119,7 @@ export default function LearningPathDetail() {
                                 Rekomendasi Sumber Belajar
                             </h3>
                             <p className="text-muted-foreground mt-1">
-                                Referensi terbaik dari komunitas dan platform edukasi pilihan.
+                                Referensi tambahan untuk memperdalam pemahaman.
                             </p>
                         </div>
                     </div>
