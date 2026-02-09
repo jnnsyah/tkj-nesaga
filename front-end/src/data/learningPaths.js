@@ -22,8 +22,8 @@ export const learningPaths = [
                 status: "current",
                 mediaType: "Video & Teks",
                 actions: [
-                    { icon: "play_circle", label: "Panduan Video" },
-                    { icon: "description", label: "Panduan Teks" }
+                    { icon: "play_circle", label: "Panduan Video", to: "https://youtu.be/2tWCf7AEe8c" },
+                    { icon: "description", label: "Panduan Teks", to: "https://telkomuniversity.ac.id/mengenal-jaringan-komputer-definisi-fungsi-cara-kerja-dan-ragam-jenisnya/" }
                 ]
             },
             {
@@ -34,7 +34,12 @@ export const learningPaths = [
             {
                 title: "Media Transmisi & Pengkabelan",
                 description: "Praktik crimping kabel UTP (straight & crossover), pengenalan fiber optik, dan wireless.",
-                status: "locked"
+                status: "available"
+            },
+            {
+                title: "IP Address & Subnetting",
+                description: "Memahami konsep dasar IP Address dan Subnetting.",
+                status: "available"
             }
         ]
     },

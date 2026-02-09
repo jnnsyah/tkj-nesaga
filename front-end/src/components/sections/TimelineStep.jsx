@@ -74,6 +74,7 @@ export default function TimelineStep({
                         {actions.map((action, idx) => (
                             <button
                                 key={idx}
+                                onClick={() => window.open(action.to, "_blank")}
                                 className="flex items-center gap-2 px-4 py-2 bg-secondary/5 hover:bg-primary hover:text-secondary transition-colors text-xs font-bold rounded-full"
                             >
                                 <Icon name={action.icon} size="sm" />
