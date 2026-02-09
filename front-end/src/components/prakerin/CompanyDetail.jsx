@@ -26,9 +26,10 @@ export default function CompanyDetail({ company, onClose }) {
                 {onClose && (
                     <button
                         onClick={onClose}
-                        className="md:hidden absolute top-4 right-4 p-2 bg-secondary/10 rounded-full hover:bg-secondary/20"
+                        className="absolute top-6 right-6 p-2 rounded-full bg-white/20 hover:bg-white/40 dark:bg-black/20 dark:hover:bg-black/40 backdrop-blur-sm transition-colors text-secondary dark:text-white z-10"
+                        aria-label="Tutup detail"
                     >
-                        <Icon name="close" />
+                        <Icon name="close" size="md" />
                     </button>
                 )}
                 <div className="flex items-start gap-6">

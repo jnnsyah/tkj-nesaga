@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import Icon from "@/components/ui/Icon";
 import CompanyCard from "@/components/prakerin/CompanyCard";
@@ -13,6 +13,20 @@ export default function PrakerinPage() {
         if (e) e.stopPropagation();
         setSelectedId(null);
     };
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === "Escape") {
+                handleClose();
+            }
+        };
+
+        if (selectedId) {
+            window.addEventListener("keydown", handleKeyDown);
+        }
+
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [selectedId]);
 
     const isGridView = !selectedId;
 
