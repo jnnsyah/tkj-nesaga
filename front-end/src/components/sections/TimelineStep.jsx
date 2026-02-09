@@ -83,18 +83,6 @@ export default function TimelineStep({
                         ))}
                     </div>
                 )}
-
-                {/* Main CTA */}
-                {isAvailable && onViewReference && (
-                    <Button
-                        variant="secondary"
-                        icon="open_in_new"
-                        onClick={onViewReference}
-                        className="w-full md:w-fit"
-                    >
-                        Lihat Referensi Belajar
-                    </Button>
-                )}
             </div>
         </div>
     );

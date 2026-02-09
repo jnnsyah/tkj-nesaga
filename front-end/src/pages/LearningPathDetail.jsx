@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import Badge from "@/components/ui/Badge";
+import Button from "@/components/ui/Button";
 import Icon from "@/components/ui/Icon";
 import CheckItem from "@/components/ui/CheckItem";
 import TimelineStep from "@/components/sections/TimelineStep";
@@ -12,6 +13,13 @@ export default function LearningPathDetail() {
 
     const formatTitle = (pathId) => {
         return pathId ? pathId.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) : 'Network Engineering';
+    };
+
+    const handleViewReference = () => {
+        const element = document.getElementById("roadmap");
+        if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+        }
     };
 
     return (
@@ -31,13 +39,22 @@ export default function LearningPathDetail() {
                             Selamat datang di kurasi sumber belajar eksternal pilihan. Roadmap ini adalah panduan
                             terstruktur yang mengumpulkan referensi terbaik dari berbagai platform edukasi global.
                         </p>
+                        {/* Main CTA */}
+                        <Button
+                            variant="secondary"
+                            icon="open_in_new"
+                            onClick={handleViewReference}
+                            className="w-full md:w-fit mt-4"
+                        >
+                            Lihat Referensi Belajar
+                        </Button>
                     </div>
                 </div>
             </section>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
                 {/* Timeline */}
-                <div className="lg:col-span-8">
+                <div className="lg:col-span-8" id="roadmap">
                     <h3 className="text-2xl font-bold mb-8 flex items-center gap-3 text-secondary dark:text-white">
                         <Icon name="map" />
                         Alur Referensi Belajar
