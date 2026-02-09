@@ -11,28 +11,32 @@ export default function LandingPage() {
     return (
         <>
             {/* Hero Section */}
-            <section className="relative overflow-hidden pt-10 pb-20 lg:pt-20 lg:pb-32">
-                <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
-                    <div className="relative z-10 space-y-8 animate-in fade-in slide-in-from-bottom-10 duration-1000">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-secondary border border-primary/20 text-xs font-bold uppercase tracking-wider">
+            <section className="relative overflow-hidden pt-6 pb-12 lg:pt-20 lg:pb-32">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-2 gap-2 md:gap-8 lg:gap-12 items-center">
+
+                    {/* TEXT CONTENT */}
+                    <div className="relative z-10 space-y-3 md:space-y-8 animate-in fade-in slide-in-from-bottom-10 duration-1000">
+                        <div className="inline-flex items-center gap-2 px-2 py-1 rounded-full bg-primary/10 text-secondary border border-primary/20 text-[10px] sm:text-xs font-bold uppercase tracking-wider">
                             <span className="relative flex h-2 w-2">
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
                                 <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
                             </span>
-                            SMK Negeri 1 Gantiwarno
+                            <span className="truncate">SMK N 1 Gantiwarno</span>
                         </div>
-                        <h1 className="text-5xl lg:text-7xl font-black text-secondary dark:text-white leading-[1.1] tracking-tighter">
-                            Teknik Komputer dan{" "}
+
+                        <h1 className="text-2xl sm:text-5xl lg:text-7xl font-black text-secondary dark:text-white leading-[1.1] tracking-tighter">
+                            Teknik Komputer <br className="hidden lg:block" /> & {" "}
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-900 to-purple-600 dark:from-primary dark:to-yellow-300">
                                 Jaringan
                             </span>
                         </h1>
-                        <p className="text-lg text-muted-foreground leading-relaxed max-w-xl">
-                            Program keahlian yang membekali siswa dengan kompetensi di bidang
-                            jaringan komputer, sistem operasi, dan teknologi informasi untuk
-                            siap kerja, berwirausaha, maupun melanjutkan pendidikan.
+
+                        <p className="text-xs sm:text-lg text-muted-foreground leading-relaxed max-w-xl">
+                            Program keahlian yang membekali siswa dengan kompetensi di bidang jaringan komputer, sistem operasi, dan teknologi informasi untuk siap kerja, berwirausaha, maupun melanjutkan pendidikan.
                         </p>
                     </div>
+
+                    {/* GRAPHIC COMPONENT */}
                     <HeroGraphic />
                 </div>
             </section>
@@ -114,14 +118,17 @@ export default function LandingPage() {
     );
 }
 
-// Hero Graphic Component (extracted for cleanliness)
+// Hero Graphic Component
 function HeroGraphic() {
     return (
-        <div className="relative flex justify-center lg:justify-end animate-in fade-in zoom-in duration-1000 delay-300">
-            <div className="relative w-full aspect-square max-w-lg flex items-center justify-center globe-grid rounded-full">
-                <div className="absolute inset-0 bg-primary/10 rounded-full blur-3xl opacity-50" />
-                <div className="relative z-10 w-4/5 h-4/5 text-secondary dark:text-primary transition-transform hover:scale-105 duration-700">
+        // UBAH: Hapus lg:justify-end agar fleksibel, hapus delay jika ingin langsung muncul
+        <div className="relative flex justify-center items-center animate-in fade-in zoom-in duration-1000 w-full">
+            <div className="relative w-full aspect-square flex items-center justify-center globe-grid rounded-full">
+                <div className="absolute inset-0 bg-primary/10 rounded-full blur-xl lg:blur-3xl opacity-50" />
+
+                <div className="relative z-10 w-[90%] h-[90%] text-secondary dark:text-primary transition-transform hover:scale-105 duration-700">
                     <svg className="w-full h-full" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        {/* Isi SVG tetap sama */}
                         <circle className="opacity-20" cx="100" cy="100" fill="none" r="90" stroke="currentColor" strokeDasharray="4 2" strokeWidth="0.5" />
                         <circle cx="100" cy="100" fill="none" r="85" stroke="currentColor" strokeWidth="1.5" />
                         <ellipse className="opacity-60" cx="100" cy="100" fill="none" rx="85" ry="30" stroke="currentColor" strokeWidth="1" />
