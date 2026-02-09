@@ -55,24 +55,25 @@ export default function LearningPathDetail() {
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
                 {/* Timeline */}
-                <div className="lg:col-span-8" id="roadmap">
-                    <h3 className="text-2xl font-bold mb-8 flex items-center gap-3 text-secondary dark:text-white">
-                        <Icon name="map" />
-                        Alur Referensi Belajar
-                    </h3>
-                    <div className="relative ml-4 md:ml-6">
-                        <div className="absolute left-0 top-0 bottom-0 w-0.5 roadmap-line opacity-30" />
-                        {path.steps.map((step, idx) => (
-                            <TimelineStep
-                                key={idx}
-                                {...step}
-                                isLast={idx === path.steps.length - 1}
-                                onViewReference={() => console.log('View reference:', step.title)}
-                            />
-                        ))}
+                {path.steps?.length > 0 && (
+                    <div className="lg:col-span-8" id="roadmap">
+                        <h3 className="text-2xl font-bold mb-8 flex items-center gap-3 text-secondary dark:text-white">
+                            <Icon name="map" />
+                            Alur Referensi Belajar
+                        </h3>
+                        <div className="relative ml-4 md:ml-6">
+                            <div className="absolute left-0 top-0 bottom-0 w-0.5 roadmap-line opacity-30" />
+                            {path.steps.map((step, idx) => (
+                                <TimelineStep
+                                    key={idx}
+                                    {...step}
+                                    isLast={idx === path.steps.length - 1}
+                                    onViewReference={() => console.log('View reference:', step.title)}
+                                />
+                            ))}
+                        </div>
                     </div>
-                </div>
-
+                )}
                 {/* Sidebar */}
                 <aside className="lg:col-span-4 space-y-6 lg:sticky lg:top-32">
                     {/* Prerequisites */}
@@ -91,7 +92,7 @@ export default function LearningPathDetail() {
                     </div>
 
                     {/* Documentation */}
-                    <div className="bg-secondary text-white p-6 rounded-xl shadow-md overflow-hidden relative">
+                    {/* <div className="bg-secondary text-white p-6 rounded-xl shadow-md overflow-hidden relative">
                         <div className="absolute bottom-0 right-0 opacity-10">
                             <Icon name="link" size="2xl" className="text-8xl" />
                         </div>
@@ -105,7 +106,7 @@ export default function LearningPathDetail() {
                                 <Icon name="open_in_new" size="sm" />
                             </a>
                         </div>
-                    </div>
+                    </div> */}
                 </aside>
             </div>
 

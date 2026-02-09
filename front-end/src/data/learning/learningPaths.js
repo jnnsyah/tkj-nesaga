@@ -425,54 +425,66 @@ export const learningPaths = [
         steps: [
             {
                 title: "Pengenalan Algoritma & Flowchart",
-                description: "Memahami konsep dasar algoritma dan pembuatan flowchart untuk pemecahan masalah.",
-                status: "current",
-                mediaType: "Video & Teks",
-                actions: [
-                    { icon: "play_circle", label: "Panduan Video" },
-                    { icon: "description", label: "Panduan Teks" }
-                ]
+                description: "Memahami konsep dasar algoritma, logika berpikir terstruktur, dan pembuatan flowchart untuk menyelesaikan masalah sederhana.",
+                status: "current"
             },
             {
-                title: "Dasar Pemrograman Python",
-                description: "Instalasi Python, penjelasan sintaks dasar, dan program pertama (*Hello World*).",
-                status: "available",
-                mediaType: "Video"
+                title: "Pengenalan Python",
+                description: "Mengenal bahasa pemrograman Python, kegunaannya, serta cara menjalankan program Python pertama.",
+                status: "available"
             },
             {
-                title: "Percabangan & Perulangan di Python",
-                description: "Kontrol logika dengan *if/else*, *for*, dan *while* di Python.",
-                status: "available",
-                mediaType: "Video"
+                title: "Variabel dan Tipe Data",
+                description: "Mempelajari cara menyimpan data menggunakan variabel serta mengenal tipe data dasar seperti integer, float, string, dan boolean.",
+                status: "available"
             },
             {
-                title: "Fungsi dan Modul Python",
-                description: "Penggunaan fungsi, argumen, dan modul untuk menyusun kode terstruktur.",
-                status: "available",
-                mediaType: "Video"
+                title: "Input dan Output",
+                description: "Mempelajari cara menerima input dari pengguna dan menampilkan output menggunakan Python.",
+                status: "available"
+            },
+            {
+                title: "Percabangan (If Else)",
+                description: "Membuat program yang dapat mengambil keputusan menggunakan struktur percabangan if, else, dan elif.",
+                status: "available"
+            },
+            {
+                title: "Perulangan (Looping)",
+                description: "Mempelajari perulangan menggunakan for dan while untuk menjalankan kode secara berulang.",
+                status: "available"
+            },
+            {
+                title: "Fungsi Dasar",
+                description: "Mempelajari cara membuat dan menggunakan fungsi untuk membuat program lebih rapi dan terstruktur.",
+                status: "available"
+            },
+            {
+                title: "Mini Project Python",
+                description: "Menerapkan seluruh materi dalam pembuatan program Python sederhana berbasis studi kasus.",
+                status: "available"
             }
         ],
         recommendations: [
+            {
+                icon: "school",
+                title: "Belajar Python Dasar",
+                description: "Tutorial belajar Python lengkap berbahasa Indonesia.",
+                href: "https://belajarpython.com/",
+                color: "green"
+            },
+            {
+                icon: "play_circle",
+                title: "Python Tutorial (Kelas Terbuka)",
+                description: "Video Playlist Python lengkap untuk pemula.",
+                href: "https://www.youtube.com/playlist?list=PLZS-MHyEIRo59lUBwU-XHH7Ymmb04ffOY",
+                color: "red"
+            },
             {
                 icon: "code",
                 title: "Python Official Tutorial",
                 description: "Dokumentasi resmi Python untuk belajar bahasa pemrograman ini.",
                 href: "https://docs.python.org/3/tutorial/",
                 color: "blue"
-            },
-            {
-                icon: "school",
-                title: "Belajar Python Dasar",
-                description: "Tutorial pemrograman Python untuk pemula.",
-                href: "https://www.programiz.com/python-programming",
-                color: "green"
-            },
-            {
-                icon: "play_circle",
-                title: "Python Tutorial (freeCodeCamp)",
-                description: "Video kursus Python lengkap untuk pemula.",
-                href: "https://www.youtube.com/watch?v=rfscVS0vtbw",
-                color: "red"
             }
         ]
     }

@@ -13,7 +13,7 @@ export default function LearningHubPage() {
                     Pusat Pembelajaran <span className="text-primary bg-secondary px-4 py-1 rounded-2xl">TKJ</span>
                 </h1>
                 <p className="text-muted-foreground text-lg md:text-xl font-medium max-w-2xl mx-auto">
-                    Temukan panduan belajar, kurikulum terbaru, dan sumber daya teknis untuk mendukung perjalanan Engineering Anda.
+                    Temukan panduan belajar sesuai apa yang ingin anda pelajari.
                 </p>
             </section>
 
