@@ -10,6 +10,7 @@ export const learningPaths = [
         level: "Foundation",
         levelVariant: "blue",
         topics: [
+            "Topologi Jaringan",
             "OSI Layer & TCP/IP",
             "IP Address",
             "Subnetting Address"
@@ -26,9 +27,18 @@ export const learningPaths = [
                 status: "current",
                 mediaType: "Video & Teks",
                 actions: [
-                    { icon: "play_circle", label: "Panduan Video (1)", to: "https://youtu.be/2tWCf7AEe8c" },
-                    { icon: "play_circle", label: "Panduan Video (2)", to: "https://youtu.be/in97LOmns74" },
+                    { icon: "play_circle", label: "Panduan Video (1)", to: "https://youtu.be/in97LOmns74" },
+                    { icon: "play_circle", label: "Panduan Video (2)", to: "https://youtu.be/2tWCf7AEe8c" },
                     { icon: "description", label: "Panduan Teks", to: "https://telkomuniversity.ac.id/mengenal-jaringan-komputer-definisi-fungsi-cara-kerja-dan-ragam-jenisnya/" }
+                ]
+            },
+            {
+                title: "Topologi Jaringan",
+                description: "Mempelajari topologi jaringan dan jenis-jenisnya.",
+                status: "available",
+                mediaType: "Video",
+                actions: [
+                    { icon: "play_circle", label: "Panduan Video", to: "https://youtu.be/mWZcLpuCQos" },
                 ]
             },
             {
@@ -71,7 +81,7 @@ export const learningPaths = [
         recommendations: [
             {
                 icon: "play_circle",
-                title: "ID Network",
+                title: "ID Networkers",
                 description: "Playlist dasar jaringan komputer yang mudah dipahami untuk pemula.",
                 href: "https://www.youtube.com/playlist?list=PLbLqbqNn7VYraPWWgO4UEUA07lK4iZCRF",
                 color: "red"
@@ -135,7 +145,7 @@ export const learningPaths = [
             {
                 title: "Dynamic Routing",
                 description: "Pengantar routing dinamis (EIGRP/OSPF) pada router Cisco.",
-                status: "locked",
+                status: "available",
                 mediaType: "Video"
             }
         ],
@@ -191,15 +201,15 @@ export const learningPaths = [
                 mediaType: "Video"
             },
             {
-                title: "Konfigurasi Hotspot Mikrotik",
-                description: "Membuat layanan Hotspot untuk manajemen akses pengguna pada jaringan Mikrotik.",
+                title: "Konfigurasi DHCP Server",
+                description: "Menerapkan DHCP Server pada Mikrotik untuk alokasi alamat IP otomatis.",
                 status: "available",
                 mediaType: "Video"
             },
             {
-                title: "Konfigurasi DHCP Server",
-                description: "Menerapkan DHCP Server pada Mikrotik untuk alokasi alamat IP otomatis.",
-                status: "locked",
+                title: "Konfigurasi Hotspot Mikrotik",
+                description: "Membuat layanan Hotspot untuk manajemen akses pengguna pada jaringan Mikrotik.",
+                status: "available",
                 mediaType: "Video"
             }
         ],
@@ -246,55 +256,91 @@ export const learningPaths = [
         ],
         steps: [
             {
-                title: "Instalasi & Pengenalan Linux",
+                title: "Pengenalan & Instalasi Linux",
                 description: "Instalasi sistem Linux (misalnya Debian/Ubuntu) dan pengenalan antarmuka baris perintah (CLI).",
                 status: "current",
                 mediaType: "Video & Teks",
                 actions: [
-                    { icon: "play_circle", label: "Panduan Video" },
-                    { icon: "description", label: "Panduan Teks" }
+                    { icon: "play_circle", label: "Pengenalan", to: "https://youtu.be/uAW1HaBQphI" },
+                    { icon: "play_circle", label: "Instalasi", to: "https://youtu.be/f3q-_froZIQ" }
                 ]
             },
             {
                 title: "Dasar CLI & Perintah Linux",
                 description: "Mempelajari perintah dasar Linux (ls, cd, cp, mv, rm, dll) dan navigasi sistem file.",
                 status: "available",
-                mediaType: "Video"
+                mediaType: "Video",
+                actions: [
+                    { icon: "play_circle", label: "Panduan Video", to: "https://youtu.be/Pl1tWBOnLKw" }
+                ]
             },
             {
-                title: "Manajemen User & File System",
-                description: "Mengelola pengguna (user, group) dan izin akses file pada Linux.",
+                title: "Manajemen File dan Direktori",
+                description: "Mempelajari struktur direktori Linux serta perintah dasar untuk membuat, mengelola, dan menghapus file maupun direktori.",
                 status: "available",
-                mediaType: "Video"
+                mediaType: "Video",
+                actions: [
+                    { icon: "play_circle", label: "Panduan Video", to: "https://youtu.be/THc_GtWi5-M" }
+                ]
             },
             {
-                title: "Jaringan & Skrip Dasar",
-                description: "Konfigurasi jaringan sederhana (IP statis, DNS) dan penulisan skrip shell dasar.",
-                status: "locked",
-                mediaType: "Video"
+                title: "Manajemen User dan Permission",
+                description: "Mempelajari cara membuat, mengelola, dan mengatur hak akses user pada sistem Linux.",
+                status: "available",
+                mediaType: "Video",
+                actions: [
+                    { icon: "play_circle", label: "Panduan Video", to: "https://youtu.be/C64zbtDI2O0" }
+                ]
+            },
+            {
+                title: "KonfigurasiJaringan",
+                description: "Konfigurasi jaringan sederhana (IP statis, DNS).",
+                status: "available",
+                mediaType: "Video",
+                actions: [
+                    { icon: "play_circle", label: "Panduan Video", to: "https://youtu.be/hD2FHzKqHIU" }
+                ]
+            },
+            {
+                title: "Package Management",
+                description: "Mempelajari cara mengelola paket perangkat lunak pada sistem Linux.",
+                status: "available",
+                mediaType: "Video",
+                actions: [
+                    { icon: "play_circle", label: "Panduan Video", to: "https://youtu.be/hD2FHzKqHIU" }
+                ]
+            },
+            {
+                title: "Remote Access",
+                description: "Mempelajari cara remote access pada sistem Linux.",
+                status: "available",
+                mediaType: "Video",
+                actions: [
+                    { icon: "play_circle", label: "Panduan Video", to: "https://youtu.be/xFlSgaja8M4" }
+                ]
             }
         ],
         recommendations: [
             {
-                icon: "terminal",
-                title: "Debian Official Wiki",
-                description: "Dokumentasi terlengkap untuk administrasi sistem operasi Debian.",
-                href: "https://wiki.debian.org/",
+                icon: "play_circle",
+                title: "ID Networkers",
+                description: "Playlist youtube untuk mempelajari dasar linux dengan video praktik.",
+                href: "https://youtube.com/playlist?list=PLbLqbqNn7VYpZjf4i02hzlId7314OuM1Y&si=uHXZP8h4PIN4O5aV",
                 color: "red"
             },
             {
-                icon: "school",
-                title: "Tutorial Linux untuk Pemula",
-                description: "Seri panduan dasar Linux untuk pemula.",
-                href: "https://www.tutorialspoint.com/unix/index.htm",
-                color: "green"
+                icon: "play_circle",
+                title: "Perintah Dasar Linux",
+                description: "Playlist youtube untuk mempelajari perintah dasar linux.",
+                href: "https://youtube.com/playlist?list=PLw9DU6QeTc-gZVNZotKj3qyXdgN7SAecJ",
+                color: "red"
             },
             {
-                icon: "play_circle",
-                title: "Linux SysAdmin Course",
-                description: "Kursus lengkap administrasi sistem Linux dari dasar.",
-                href: "https://www.youtube.com/playlist?list=PLmX6p8q7W7OqJov_GshA4mCizp7XQY23p",
-                color: "green"
+                icon: "article",
+                title: "Artikel Belajar Linux",
+                description: "Artikel untuk mempelajari perintah dasar linux.",
+                href: "https://www.jagoanhosting.com/blog/belajar-linux/",
+                color: "blue"
             }
         ]
     },
@@ -339,7 +385,7 @@ export const learningPaths = [
             {
                 title: "Mail Server Postfix & Dovecot",
                 description: "Konfigurasi layanan email (SMTP/IMAP) pada Debian.",
-                status: "locked"
+                status: "available"
             }
         ],
         recommendations: [
@@ -402,7 +448,7 @@ export const learningPaths = [
             {
                 title: "Fungsi dan Modul Python",
                 description: "Penggunaan fungsi, argumen, dan modul untuk menyusun kode terstruktur.",
-                status: "locked",
+                status: "available",
                 mediaType: "Video"
             }
         ],
