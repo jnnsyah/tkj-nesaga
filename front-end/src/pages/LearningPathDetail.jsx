@@ -4,6 +4,7 @@ import Button from "@/components/ui/Button";
 import Icon from "@/components/ui/Icon";
 import CheckItem from "@/components/ui/CheckItem";
 import TimelineStep from "@/components/sections/TimelineStep";
+import ResourceCard from "@/components/cards/ResourceCard";
 import { getLearningPathById, learningPaths } from "@/data/learning";
 import "./LearningPathDetail.css";
 
@@ -40,14 +41,14 @@ export default function LearningPathDetail() {
                             terstruktur yang mengumpulkan referensi terbaik dari berbagai platform edukasi global.
                         </p>
                         {/* Main CTA */}
-                        <Button
+                        {/* <Button
                             variant="secondary"
                             icon="open_in_new"
                             onClick={handleViewReference}
                             className="w-full md:w-fit mt-4"
                         >
                             Lihat Referensi Belajar
-                        </Button>
+                        </Button> */}
                     </div>
                 </div>
             </section>
@@ -107,6 +108,28 @@ export default function LearningPathDetail() {
                     </div>
                 </aside>
             </div>
+
+            {/* Recommendations Section */}
+            {path.recommendations && path.recommendations.length > 0 && (
+                <section className="mt-16">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                        <div>
+                            <h3 className="text-2xl font-bold flex items-center gap-3 text-secondary dark:text-white">
+                                <Icon name="explore" />
+                                Rekomendasi Sumber Belajar
+                            </h3>
+                            <p className="text-muted-foreground mt-1">
+                                Referensi terbaik dari komunitas dan platform edukasi pilihan.
+                            </p>
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {path.recommendations.map((rec, idx) => (
+                            <ResourceCard key={idx} {...rec} />
+                        ))}
+                    </div>
+                </section>
+            )}
         </div>
     );
 }

@@ -42,9 +42,6 @@ export default function TimelineStep({
                 {/* Header */}
                 {isAvailable && (
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
-                        <Badge variant={isActive ? "green" : "primary"}>
-                            REFERENSI TERSEDIA
-                        </Badge>
                         {mediaType && (
                             <div className="flex items-center gap-4 text-muted-foreground text-sm">
                                 <span className="flex items-center gap-1">
