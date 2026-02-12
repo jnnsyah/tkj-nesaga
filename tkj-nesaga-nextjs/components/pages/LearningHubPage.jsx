@@ -2,9 +2,28 @@ import LearningPathCard from "@/components/cards/LearningPathCard";
 import ResourceCard from "@/components/cards/ResourceCard";
 import SectionHeader from "@/components/ui/SectionHeader";
 import Badge from "@/components/ui/Badge";
-import { learningPaths, externalResources } from "@/data/learning";
+import { useEffect, useState } from "react";
 
 export default function LearningHubPage() {
+    const [ learningPaths, setLearningPaths ] = useState([]);
+    const [ externalResources, setExternalResources ] = useState([])
+    
+    const fetchData = async() => {
+        try{
+            const response = await fetch(
+                "/api/learning"
+            );
+            const data = response.json();
+
+            if (response.ok) {
+                setLearningPaths(data.learningPaths);
+
+            }
+        }catch {
+            console.error("Failed to fetch learning paths", error)
+        }
+    }
+
     return (
         <div className="max-w-7xl mx-auto pb-20">
             {/* Hero */}
