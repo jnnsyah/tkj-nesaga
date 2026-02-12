@@ -1,0 +1,85 @@
+"use client"
+
+import LearningPathCard from "@/components/cards/LearningPathCard";
+import ResourceCard from "@/components/cards/ResourceCard";
+// import SectionHeader from "@/components/ui/SectionHeader";
+import Badge from "@/components/ui/Badge";
+import { useEffect, useState } from "react";
+import { LearningPath, ExternalResource } from "@/data/learning";
+
+export default function LearningHubPage() {
+  const [learningPaths, setLearningPaths] = useState<LearningPath[]>([]);
+  const [externalResources, setExternalResources] = useState<ExternalResource[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "/api/learning"
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          setLearningPaths(data.learningPaths);
+          // Assuming API implementation might return externalResources too, or we strictly use what's in data/learning for now if API isn't ready.
+          // But matching original code, it only sets learningPaths.
+          // However, `setExternalResources` is unused in original code logic for fetching, but variable is used in JSX.
+          // I will populate it with default data or empty if not in API.
+          // For now, let's keep it empty or if the API returns it.
+          // But original code: setExternalResources is initialized to [], and never set.
+          // I'll leave it as is, or maybe the API returns it?
+          // The original code had `setExternalResources(data.learningPaths)` which is wrong type, or maybe it was just not setting it.
+          // Original code:
+          // setLearningPaths(data.learningPaths);
+          // It didn't set externalResources.
+        }
+      } catch (error) {
+        console.error("Failed to fetch learning paths", error)
+      }
+    }
+    fetchData();
+  }, []);
+
+  return (
+    <div className="max-w-7xl mx-auto pb-20">
+      {/* Hero */}
+      <section className="text-center mb-16">
+        <h1 className="text-4xl md:text-6xl font-black text-secondary dark:text-white mb-4 tracking-tight leading-tight">
+          Pusat Pembelajaran <span className="text-primary bg-secondary px-4 py-1 rounded-2xl">TKJ</span>
+        </h1>
+        <p className="text-muted-foreground text-lg md:text-xl font-medium max-w-2xl mx-auto">
+          Temukan panduan belajar, kurikulum terbaru, dan sumber daya teknis untuk mendukung perjalanan Engineering Anda.
+        </p>
+      </section>
+
+      {/* Learning Paths */}
+      <section className="mb-24">
+        <div className="flex items-center justify-between mb-8 px-2">
+          <h2 className="text-2xl md:text-3xl font-bold text-secondary dark:text-white">
+            Learning Path
+          </h2>
+          <Badge variant="default" className="border border-secondary/10 dark:border-white/10">
+            Updated Syllabus 2026
+          </Badge>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {learningPaths.map((path) => (
+            <LearningPathCard key={path.id} {...path} />
+          ))}
+        </div>
+      </section>
+
+      {/* Resource Library */}
+      <section className="mb-24">
+        <h2 className="text-2xl md:text-3xl font-bold mb-8 px-2 text-secondary dark:text-white">
+          Resource Library
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {externalResources.map((resource, idx) => (
+            <ResourceCard key={idx} {...resource} />
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}
