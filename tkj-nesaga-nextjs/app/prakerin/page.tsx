@@ -1,4 +1,4 @@
-import PrakerinPage from "@/components/pages/PrakerinPage"
+import { PrakerinPage } from "@/components"
 
 export default function IntershipPage() {
   return (

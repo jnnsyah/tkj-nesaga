@@ -1,6 +1,6 @@
 import Icon from "@/components/ui/Icon";
-import DownloadCard from "@/components/cards/DownloadCard";
-import FAQAccordion from "@/components/sections/FAQAccordion";
+import { DownloadCard } from "@/components";
+import { FAQAccordion } from "@/components";
 import { frequentlyAskedQuestions, downloadableDocuments, internshipTimeline } from "@/data/guidance";
 
 export default function PanduanPage() {

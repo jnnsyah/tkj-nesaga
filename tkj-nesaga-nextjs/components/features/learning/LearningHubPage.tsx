@@ -1,11 +1,11 @@
 "use client"
 
-import LearningPathCard from "@/components/cards/LearningPathCard";
-import ResourceCard from "@/components/cards/ResourceCard";
+import {LearningPathCard} from "@/components";
+import {ResourceCard} from "@/components";
 // import SectionHeader from "@/components/ui/SectionHeader";
-import Badge from "@/components/ui/Badge";
+import {Badge} from "@/components";
 import { useEffect, useState } from "react";
-import { LearningPath, ExternalResource } from "@/data/learning";
+import { LearningPath, ExternalResource } from "./types";
 
 export default function LearningHubPage() {
   const [learningPaths, setLearningPaths] = useState<LearningPath[]>([]);

@@ -1,7 +1,7 @@
-import LearningHubPage from "@/components/pages/LearningHubPage"
+import { LearningHubPage } from "@/components"
 
 export default function LearningPage() {
   return (
-    <LearningHubPage/>
+    <LearningHubPage />
   )
 }

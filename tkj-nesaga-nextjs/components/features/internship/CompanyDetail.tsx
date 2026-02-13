@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
-import Icon from "@/components/ui/Icon";
-import ReviewCard from "@/components/cards/ReviewCard";
+import { Icon} from "@/components";
+import { ReviewCard } from "@/components";
 import { type PartnerCompany } from "@/data/internship/partnerCompanies";
 
 interface CompanyDetailProps {

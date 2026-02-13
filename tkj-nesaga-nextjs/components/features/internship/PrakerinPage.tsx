@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import Icon from "@/components/ui/Icon";
-import CompanyCard from "@/components/prakerin/CompanyCard";
-import CompanyDetail from "@/components/prakerin/CompanyDetail";
+import { CompanyCard } from "@/components";
+import {CompanyDetail} from "@/components";
 import { partnerCompanies, PartnerCompany } from "@/data/internship";
 import { INTERNSHIP_FILTER_OPTIONS as filterCategories } from "@/data/config/internshipFilters";
 

@@ -1,11 +1,11 @@
 "use client"
 
-import Badge from "@/components/ui/Badge";
+import {Badge} from "@/components";
 // import Button from "@/components/ui/Button";
-import Icon from "@/components/ui/Icon";
-import CheckItem from "@/components/ui/CheckItem";
-import TimelineStep from "@/components/sections/TimelineStep";
-import ResourceCard from "@/components/cards/ResourceCard";
+import {Icon} from "@/components";
+import {CheckItem} from "@/components";
+import {TimelineStep} from "@/components";
+import {ResourceCard} from "@/components";
 import { getLearningPathById, learningPaths } from "@/data/learning";
 import "./LearningPathDetail.css";
 

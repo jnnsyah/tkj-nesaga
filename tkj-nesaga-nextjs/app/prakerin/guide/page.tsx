@@ -1,4 +1,4 @@
-import PanduanPage from "@/components/pages/PanduanPage"
+import { PanduanPage } from "@/components"
 
 export default function GuidePage() {
   return (

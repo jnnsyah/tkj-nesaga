@@ -1,10 +1,10 @@
 "use client"
 
-import FeatureCard from "@/components/cards/FeatureCard";
-import CategoryCard from "@/components/cards/CategoryCard";
+import { FeatureCard } from "@/components";
+import { CategoryCard } from "@/components";
 // import StatCard from "@/components/cards/StatCard";
-import Icon from "@/components/ui/Icon";
-import Button from "@/components/ui/Button";
+import { Icon } from "@/components";
+import { Button } from "@/components";
 import { programFeatures, curriculumHighlights } from "@/data/program";
 import { partnerCategories /*, internshipStats */ } from "@/data/internship";
 
