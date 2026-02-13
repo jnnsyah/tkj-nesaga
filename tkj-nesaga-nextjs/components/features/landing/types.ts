@@ -1,10 +1,11 @@
-export const curriculumHighlights: string[] = [
-  "Sesuai Kurikulum SMK",
-  "Praktik Lab Komputer"
-];
-
 export interface ProgramFeature {
   icon: string;
   title: string;
   description: string;
+}
+
+export interface PartnerCategory {
+  icon: string;
+  title: string;
+  subtitle: string;
 }

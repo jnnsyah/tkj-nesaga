@@ -1,16 +1,16 @@
 import LoadingOverlay from "./LoadingOverlay";
 
 export function WithLoading({
-  loading,
+  isLoading,
   children,
 }: {
-  loading: boolean;
+  isLoading: boolean;
   children: React.ReactNode;
 }) {
   return (
     <div className="relative">
       {children}
-      <LoadingOverlay visible={loading} />
+      <LoadingOverlay visible={isLoading} />
     </div>
   );
 }

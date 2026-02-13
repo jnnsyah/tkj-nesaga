@@ -1,14 +1,43 @@
 "use client"
 
-import { FeatureCard } from "@/components";
-import { CategoryCard } from "@/components";
-// import StatCard from "@/components/cards/StatCard";
-import { Icon } from "@/components";
-import { Button } from "@/components";
-import { programFeatures, curriculumHighlights } from "@/data/program";
-import { partnerCategories /*, internshipStats */ } from "@/data/internship";
+import { FeatureCard,CategoryCard, Icon, Button, LoadingOverlay} from "@/components";
+import { PartnerCategory, ProgramFeature} from "./types";
+import { useEffect, useState } from "react";
 
 export default function LandingPage() {
+  const [loading, setLoading] = useState(false);
+  const [ programFeatures, setProgramFeatures ] = useState<ProgramFeature[]>([]);
+  const [ partnerCategories, setPartnerCategories ] = useState<PartnerCategory[]>([]);
+  
+  useEffect(() => {
+    const fetchData = async () =>{
+      try {
+        setLoading(true)
+        const [programRes, partnerRes] = await Promise.all([
+          fetch("/api/programs"),
+          fetch("/api/internship"),
+        ]);
+
+        if (programRes.ok) {
+          const programData = await programRes.json();
+          setProgramFeatures(programData.programFeatures);
+        }
+
+        if (partnerRes.ok) {
+          const partnerData = await partnerRes.json();
+          setPartnerCategories(partnerData.partnerCategories);
+        }
+
+      } catch (error) {
+        console.error("Failed to fetch landing data", error);
+      }finally{
+        setLoading(false)
+      }
+    }
+
+    fetchData();
+  }, []);
+
   return (
     <>
       {/* Hero Section */}
@@ -54,12 +83,14 @@ export default function LandingPage() {
                 Siswa dibekali dengan kompetensi yang relevan dengan kebutuhan industri teknologi informasi saat ini.
               </p>
               <div className="space-y-4 mb-10">
-                {curriculumHighlights.map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-4 text-secondary dark:text-slate-200">
-                    <Icon name="check_circle" className="text-primary font-bold" />
-                    <span className="font-semibold">{item}</span>
-                  </div>
-                ))}
+                <div className="flex items-center gap-4 text-secondary dark:text-slate-200">
+                  <Icon name="check_circle" className="text-primary font-bold" />
+                  <span className="font-semibold">Sesuai Kurikulum SMK</span>
+                </div>
+                  <div className="flex items-center gap-4 text-secondary dark:text-slate-200">
+                  <Icon name="check_circle" className="text-primary font-bold" />
+                  <span className="font-semibold">Praktik Lab Komputer</span>
+                </div>
               </div>
               <Button
                 variant="secondary"
@@ -70,7 +101,8 @@ export default function LandingPage() {
                 Buka Pusat Belajar
               </Button>
             </div>
-            <div className="lg:w-2/3 grid sm:grid-cols-2 gap-6">
+            <div className="relative lg:w-2/3 grid sm:grid-cols-2 gap-6">
+              <LoadingOverlay visible={loading} />
               {programFeatures.map((feature, idx) => (
                 <FeatureCard key={idx} {...feature} />
               ))}
@@ -91,7 +123,8 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+          <div className="relative grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+            <LoadingOverlay visible={loading} />
             {partnerCategories.map((cat, idx) => (
               <CategoryCard key={idx} {...cat} />
             ))}

@@ -1,4 +1,4 @@
-export * from "./guide"
+export * from "./guidance"
 export * from "./internship"
 export * from "./landing"
 export * from "./learning"
