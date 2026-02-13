@@ -21,17 +21,7 @@ export default function LearningHubPage() {
         if (response.ok) {
           const data = await response.json();
           setLearningPaths(data.learningPaths);
-          // Assuming API implementation might return externalResources too, or we strictly use what's in data/learning for now if API isn't ready.
-          // But matching original code, it only sets learningPaths.
-          // However, `setExternalResources` is unused in original code logic for fetching, but variable is used in JSX.
-          // I will populate it with default data or empty if not in API.
-          // For now, let's keep it empty or if the API returns it.
-          // But original code: setExternalResources is initialized to [], and never set.
-          // I'll leave it as is, or maybe the API returns it?
-          // The original code had `setExternalResources(data.learningPaths)` which is wrong type, or maybe it was just not setting it.
-          // Original code:
-          // setLearningPaths(data.learningPaths);
-          // It didn't set externalResources.
+          setExternalResources(data.externalResources)
         }
       } catch (error) {
         console.error("Failed to fetch learning paths", error)
