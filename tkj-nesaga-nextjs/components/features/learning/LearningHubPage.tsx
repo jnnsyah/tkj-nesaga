@@ -1,19 +1,19 @@
 "use client"
 
-import {LearningPathCard} from "@/components";
-import {ResourceCard} from "@/components";
+import {LearningPathCard, Badge, ResourceCard, LoadingOverlay} from "@/components";
 // import SectionHeader from "@/components/ui/SectionHeader";
-import {Badge} from "@/components";
 import { useEffect, useState } from "react";
 import { LearningPath, ExternalResource } from "./types";
 
 export default function LearningHubPage() {
+  const [loading, setLoading] = useState(false);
   const [learningPaths, setLearningPaths] = useState<LearningPath[]>([]);
   const [externalResources, setExternalResources] = useState<ExternalResource[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true)
         const response = await fetch(
           "/api/learning"
         );
@@ -25,6 +25,8 @@ export default function LearningHubPage() {
         }
       } catch (error) {
         console.error("Failed to fetch learning paths", error)
+      }finally{
+        setLoading(false)
       }
     }
     fetchData();
@@ -52,7 +54,8 @@ export default function LearningHubPage() {
             Updated Syllabus 2026
           </Badge>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8">
+          <LoadingOverlay visible={loading}/>
           {learningPaths.map((path) => (
             <LearningPathCard key={path.id} {...path} />
           ))}
@@ -64,7 +67,8 @@ export default function LearningHubPage() {
         <h2 className="text-2xl md:text-3xl font-bold mb-8 px-2 text-secondary dark:text-white">
           Resource Library
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <LoadingOverlay visible={loading}/>
           {externalResources.map((resource, idx) => (
             <ResourceCard key={idx} {...resource} />
           ))}
