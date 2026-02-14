@@ -1,9 +1,37 @@
-import Icon from "@/components/ui/Icon";
-import { DownloadCard } from "@/components";
-import { FAQAccordion } from "@/components";
-import { frequentlyAskedQuestions, downloadableDocuments, internshipTimeline } from "@/data/guidance";
+"use client"
+
+import { DownloadCard, FAQAccordion, Icon, LoadingOverlay } from "@/components";
+import { useEffect, useState } from "react"
+import { DownloadableDocument, FAQItem, TimelineItem } from "./types";
 
 export default function PanduanPage() {
+  const [ frequentlyAskedQuestions, setFrequentlyAskedQuestions] = useState<FAQItem[]>([])
+  const [ downloadableDocuments, setDownloadableDocuments ] = useState<DownloadableDocument[]>([])
+  const [ internshipTimeline, setInternshipTimeline ] = useState<TimelineItem[]>([])
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    const fetchData = async() => {
+      try{
+        setLoading(true)
+        const response = await fetch(
+          "/api/guidance"
+        )
+        if (response.ok) {
+          const data = await response.json()
+          setFrequentlyAskedQuestions(data.frequentlyAskedQuestions)
+          setDownloadableDocuments(data.downloadableDocuments)
+          setInternshipTimeline(data.internshipTimeline)
+        }
+      }catch {
+        console.error("Failed to fetch data")
+      }finally{
+        setLoading(false)
+      }
+    }
+
+    fetchData()
+  },[])
   return (
     <div className="min-h-screen bg-background text-foreground pt-32 pb-24 px-6 max-w-6xl mx-auto">
       {/* Hero */}
@@ -24,6 +52,7 @@ export default function PanduanPage() {
         <div className="relative max-w-5xl mx-auto">
           <div className="absolute top-[40px] left-[10%] right-[10%] h-1 bg-border hidden md:block z-0" />
           <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+            <LoadingOverlay visible={loading}/>
             {internshipTimeline.map((step, idx) => (
               <TimelineCard key={idx} {...step} />
             ))}
@@ -36,7 +65,8 @@ export default function PanduanPage() {
         <h2 className="text-2xl font-bold mb-10 text-center text-secondary dark:text-foreground">
           Survival Kit — Download Area
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="relative grid grid-cols-1 md:grid-cols-3 gap-8">
+          <LoadingOverlay visible={loading}/>
           {downloadableDocuments.map((item, idx) => (
             <DownloadCard key={idx} {...item} />
           ))}
@@ -49,7 +79,8 @@ export default function PanduanPage() {
           <Icon name="medical_services" className="text-red-500" />
           P3K: Pertolongan Pertama — FAQ
         </h2>
-        <div className="space-y-4">
+        <div className="relative space-y-4">
+          <LoadingOverlay visible={loading}/>
           {frequentlyAskedQuestions.map((item, idx) => (
             <FAQAccordion key={idx} {...item} />
           ))}
