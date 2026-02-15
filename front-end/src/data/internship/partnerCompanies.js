@@ -6,7 +6,7 @@ export const partnerCompanies = [
   {
     "id": 1,
     "name": "RSC KOMPUTER",
-    "category": null,
+    "category": RETAIL,
     "verified": true,
     "address": "Jl.Raya Wedi-Srowot Km 1, Ngering, Jogonalan, Klaten",
     "phone": "087839999198",
@@ -19,7 +19,7 @@ export const partnerCompanies = [
     "id": 2,
     "name": "ONE LINK",
     "category": null,
-    "verified": true,
+    "verified": ISP,
     "address": "Jogodayoh kidul RT.1 RW 1, Kalikotes, Klaten",
     "phone": "085867615712",
     "email": "-",
@@ -30,7 +30,7 @@ export const partnerCompanies = [
   {
     "id": 3,
     "name": "RJ COMUNIKASI",
-    "category": null,
+    "category": ISP,
     "verified": true,
     "address": "Drajat, Krakitan, Bayat, Klaten",
     "phone": "083102445775, 082122462233",
@@ -42,7 +42,7 @@ export const partnerCompanies = [
   {
     "id": 4,
     "name": "TEKNIK WIRELES GRUP",
-    "category": null,
+    "category": ISP,
     "verified": true,
     "address": "Tegalmas, Prawatan, Jogonalan, Klaten",
     "phone": "0813288804720",
@@ -54,7 +54,7 @@ export const partnerCompanies = [
   {
     "id": 5,
     "name": "ARCHIO COMPUTER",
-    "category": null,
+    "category": RETAIL,
     "verified": true,
     "address": "Jl.Sulawesi No.38 Sidowayah, Klaten",
     "phone": "085102597664",
@@ -66,7 +66,7 @@ export const partnerCompanies = [
   {
     "id": 6,
     "name": "LAPTOP CENTER",
-    "category": null,
+    "category": SERVICE,
     "verified": true,
     "address": "Jl. Tentara Pelajar no. 10 Klaten",
     "phone": "085799555885",
@@ -78,7 +78,7 @@ export const partnerCompanies = [
   {
     "id": 7,
     "name": "KOSEN KOMPUTER",
-    "category": null,
+    "category": RETAIL,
     "verified": true,
     "address": "Jl. Cempak no.10 Klaten",
     "phone": "085868029292",
@@ -90,7 +90,7 @@ export const partnerCompanies = [
   {
     "id": 8,
     "name": "RONAN BARU COMPUTER",
-    "category": null,
+    "category": RETAIL,
     "verified": true,
     "address": "JI.KH. Ahmad Dahlan no.6 Wedi, Klaten",
     "phone": "085861833253",
@@ -102,7 +102,7 @@ export const partnerCompanies = [
   {
     "id": 9,
     "name": "YM KOMPUTER",
-    "category": null,
+    "category": RETAIL,
     "verified": true,
     "address": "MORANGAN RT.01 RW.02, KARANG ANOM, KLATEN UTARA",
     "phone": "082325720609",
@@ -114,7 +114,7 @@ export const partnerCompanies = [
   {
     "id": 10,
     "name": "LPK SOLO COM",
-    "category": null,
+    "category": EDU,
     "verified": true,
     "address": "JL.Perentis Kemerdekan, No.4 Klaten utara",
     "phone": "082324862001",
@@ -126,7 +126,7 @@ export const partnerCompanies = [
   {
     "id": 11,
     "name": "PT.MEGA ARTHA LINTAS DATA",
-    "category": null,
+    "category": ISP,
     "verified": true,
     "address": "JL.Mlese-Gantiwarno, Klaten",
     "phone": "085643345123",
@@ -138,7 +138,7 @@ export const partnerCompanies = [
   {
     "id": 12,
     "name": "BE SMART COMPUTER",
-    "category": null,
+    "category": RETAIL,
     "verified": true,
     "address": "JL.MERBABU NO.30, KAUMAN, TONGGALAN, KLATEN",
     "phone": "08156757857",
@@ -149,8 +149,8 @@ export const partnerCompanies = [
   },
   {
     "id": 13,
-    "name": "SIGMA KOMPUTR",
-    "category": null,
+    "name": "SIGMA KOMPUTER",
+    "category": RETAIL,
     "verified": true,
     "address": "Jl.Candisewu no.17 Prambanan Klaten",
     "phone": "085643751755",
@@ -162,7 +162,7 @@ export const partnerCompanies = [
   {
     "id": 14,
     "name": "FIBER MEDIA NETWORK",
-    "category": null,
+    "category": ISP,
     "verified": true,
     "address": "JOGOSETRAN, JOGOSETRAN, GENTONGAN, KALIKOTES",
     "phone": "081226122011",
@@ -174,7 +174,7 @@ export const partnerCompanies = [
   {
     "id": 15,
     "name": "SIGMA COM",
-    "category": null,
+    "category": RETAIL,
     "verified": true,
     "address": "Jl.Candisewu no.17 Prambanan Klaten",
     "phone": "085643751755",
@@ -186,7 +186,7 @@ export const partnerCompanies = [
   {
     "id": 16,
     "name": "CV.MASTER COMPUTER",
-    "category": null,
+    "category": RETAIL,
     "verified": true,
     "address": "Jl.Kopral Sayom no.59 Klaten",
     "phone": "085741912209",
@@ -198,7 +198,7 @@ export const partnerCompanies = [
   {
     "id": 17,
     "name": "CV.INDONESIA CORNER",
-    "category": null,
+    "category": ISP,
     "verified": true,
     "address": "Jl.Pramuka no.48.Tonggalan, Klaten",
     "phone": "0818570326",
@@ -209,20 +209,8 @@ export const partnerCompanies = [
   },
   {
     "id": 18,
-    "name": "TEKNIK WIRELESS GRUP",
-    "category": null,
-    "verified": true,
-    "address": "Tegalmas, Prawatan, Jogonalan, Klaten",
-    "phone": "0895359004537",
-    "email": "-",
-    "shortDesc": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
-    "description": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
-    "reviews": []
-  },
-  {
-    "id": 19,
     "name": "GALVIN COMPUTER",
-    "category": null,
+    "category": SERVICE,
     "verified": true,
     "address": "Demangan, Kajoran, Klaten, Selatan",
     "phone": "085743452425",
@@ -232,9 +220,9 @@ export const partnerCompanies = [
     "reviews": []
   },
   {
-    "id": 20,
+    "id": 19,
     "name": "Terabite",
-    "category": null,
+    "category": ISP,
     "verified": true,
     "address": "Pacing, Wedi, Klaten",
     "phone": "085868617354",
@@ -244,9 +232,9 @@ export const partnerCompanies = [
     "reviews": []
   },
   {
-    "id": 21,
+    "id": 20,
     "name": "AZKA NET ( LINTAS DATA PRIMA)",
-    "category": null,
+    "category": ISP,
     "verified": true,
     "address": "JOMBOR, KEMUDO, PRAMBANAN, KLATEN",
     "phone": "085628188182",
@@ -256,9 +244,9 @@ export const partnerCompanies = [
     "reviews": []
   },
   {
-    "id": 22,
+    "id": 21,
     "name": "PT.LEMBIMJAR NEUTRON YOGYAKARTA",
-    "category": null,
+    "category": PROGRAMMER,
     "verified": true,
     "address": "Jl.Tamansiswa, Gg Trustha jumena, Wirogunan, Mergangsang, yogyakarta",
     "phone": "-",
