@@ -15,7 +15,6 @@ export default function LearningPathDetail({ id }: LearningPathDetailProps) {
   // const path = getLearningPathById(id) || learningPaths[0];
   const [loading, setLoading] = useState(false)
   const [module, setModule] = useState<LearningPath>()
-  const [moduleSteps, setModuleSteps] = useState<Step[]>([])
 
   const formatTitle = (pathId?: string) => {
     return pathId ? pathId.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) : 'Network Engineering';
@@ -39,8 +38,6 @@ export default function LearningPathDetail({ id }: LearningPathDetailProps) {
         if(response.ok){
           const data = await response.json()
           setModule(data)
-          setModuleSteps(data.steps)
-          console.log(data)
         }
       }catch (e) {
         console.log("Failed to fetch module", e)
