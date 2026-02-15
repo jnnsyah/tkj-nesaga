@@ -7,7 +7,7 @@ export interface Action {
 export interface Step {
   title: string;
   description: string;
-  status: string;
+  status: "available" | "current" | "locked";
   mediaType?: string;
   actions?: Action[];
 }

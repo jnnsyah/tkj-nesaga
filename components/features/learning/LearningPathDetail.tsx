@@ -1,20 +1,21 @@
 "use client"
 
-import {Badge} from "@/components";
+import {Badge, LoadingOverlay} from "@/components";
 // import Button from "@/components/ui/Button";
-import {Icon} from "@/components";
-import {CheckItem} from "@/components";
-import {TimelineStep} from "@/components";
-import {ResourceCard} from "@/components";
-import { getLearningPathById, learningPaths } from "@/data/learning";
+import {Icon, ResourceCard, CheckItem, TimelineStep} from "@/components";
+// import { getLearningPathById, learningPaths } from "@/data/learning";
 import "./LearningPathDetail.css";
-
+import { useEffect, useState } from "react";
+import { LearningPath, Step } from "./types"
 interface LearningPathDetailProps {
   id: string;
 }
 
 export default function LearningPathDetail({ id }: LearningPathDetailProps) {
-  const path = getLearningPathById(id) || learningPaths[0];
+  // const path = getLearningPathById(id) || learningPaths[0];
+  const [loading, setLoading] = useState(false)
+  const [module, setModule] = useState<LearningPath>()
+  const [moduleSteps, setModuleSteps] = useState<Step[]>([])
 
   const formatTitle = (pathId?: string) => {
     return pathId ? pathId.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) : 'Network Engineering';
@@ -26,6 +27,30 @@ export default function LearningPathDetail({ id }: LearningPathDetailProps) {
   //         element.scrollIntoView({ behavior: "smooth" });
   //     }
   // };
+
+  useEffect(() => {
+    const fetchData = async() => {
+      try{
+        setLoading(true)
+        const response = await fetch(
+          `/api/learning/${id}`
+        )
+
+        if(response.ok){
+          const data = await response.json()
+          setModule(data)
+          setModuleSteps(data.steps)
+          console.log(data)
+        }
+      }catch (e) {
+        console.log("Failed to fetch module", e)
+      }finally{
+        setLoading(false)
+      } 
+    }
+
+    fetchData()
+  },[])
 
   return (
     <div className="max-w-6xl mx-auto pb-20">
@@ -66,11 +91,12 @@ export default function LearningPathDetail({ id }: LearningPathDetailProps) {
           </h3>
           <div className="relative ml-4 md:ml-6">
             <div className="absolute left-0 top-0 bottom-0 w-0.5 roadmap-line opacity-30" />
-            {path.steps.map((step, idx) => (
+            <LoadingOverlay visible={loading} />
+            {module?.steps.map((step, idx) => (
               <TimelineStep
                 key={idx}
                 {...step}
-                isLast={idx === path.steps.length - 1}
+                isLast={idx === module.steps.length - 1}
                 onViewReference={() => console.log('View reference:', step.title)}
               />
             ))}
@@ -85,8 +111,9 @@ export default function LearningPathDetail({ id }: LearningPathDetailProps) {
               <Icon name="help_center" />
               Prasyarat
             </h5>
-            <ul className="space-y-3">
-              {path.prerequisites.map((prereq, idx) => (
+            <ul className="relative space-y-3">
+              <LoadingOverlay visible={loading} />
+              {module?.prerequisites.map((prereq, idx) => (
                 <CheckItem key={idx} className="text-sm">
                   {prereq}
                 </CheckItem>
@@ -114,7 +141,7 @@ export default function LearningPathDetail({ id }: LearningPathDetailProps) {
       </div>
 
       {/* Recommendations Section */}
-      {path.recommendations && path.recommendations.length > 0 && (
+      {module?.recommendations && module?.recommendations.length > 0 && (
         <section className="mt-16">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
             <div>
@@ -127,8 +154,9 @@ export default function LearningPathDetail({ id }: LearningPathDetailProps) {
               </p>
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {path.recommendations.map((rec, idx) => (
+          <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <LoadingOverlay visible={loading} />
+            {module.recommendations.map((rec, idx) => (
               <ResourceCard key={idx} {...rec} />
             ))}
           </div>
