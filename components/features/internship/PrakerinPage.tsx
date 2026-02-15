@@ -2,14 +2,12 @@
 
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import Icon from "@/components/ui/Icon";
-import { CompanyCard } from "@/components";
-import {CompanyDetail} from "@/components";
-import { partnerCompanies, PartnerCompany } from "@/data/internship";
+import { CompanyCard, Icon, CompanyDetail, LoadingOverlay} from "@/components";
+// import { partnerCompanies } from "@/data/internship";
 import { INTERNSHIP_FILTER_OPTIONS as filterCategories } from "@/data/config/internshipFilters";
-
+import { PartnerCompany } from "./types"
 // Alias for backward compatibility
-const prakerinData = partnerCompanies;
+// const prakerinData = partnerCompanies;
 
 /**
  * Simple hook to detect mobile (matches Tailwind's md breakpoint ~ 768px)
@@ -35,8 +33,34 @@ function useIsMobile() {
 
 export default function PrakerinPage() {
   const [selectedId, setSelectedId] = useState<number | null>(null);
-  const selectedPlace = prakerinData.find((p) => p.id === selectedId);
+  // const selectedPlace = prakerinData.find((p) => p.id === selectedId);
+  const [selectedPlace, setSelectedPlace] = useState<PartnerCompany>()
   const isMobile = useIsMobile();
+  const [companies, setCompanies] = useState<PartnerCompany[]>([])
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    const fetchData = async() => {
+      try{
+        setLoading(true)
+        const response = await fetch(
+          "/api/internship/companies"
+        )
+
+        if(response.ok) {
+          const data = await response.json()
+          setCompanies(data)
+        }
+      }catch (e) {
+        console.error("Failed to fetch landing data", e)
+      }finally{
+        setLoading(false)
+      }
+    }
+
+    fetchData()
+  },[])
+
 
   const handleClose = (e?: React.MouseEvent | React.KeyboardEvent) => {
     if (e && 'stopPropagation' in e) e.stopPropagation();
@@ -56,6 +80,11 @@ export default function PrakerinPage() {
 
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [selectedId]);
+
+  const handleView = (companie: PartnerCompany)  => {
+    setSelectedPlace(companie)
+    setSelectedId(companie.id)
+  }
 
   // Lock body scroll when mobile fullscreen detail is open
   useEffect(() => {
@@ -125,17 +154,18 @@ export default function PrakerinPage() {
         {/* Company List */}
         <div
           className={cn(
-            "flex-1 overflow-y-auto pr-2 custom-scrollbar gap-4",
+            "relative flex-1 overflow-y-auto pr-2 custom-scrollbar gap-4",
             isGridView && "grid md:grid-cols-2 lg:grid-cols-3 auto-rows-max"
           )}
         >
-          {prakerinData.map((place) => (
+          <LoadingOverlay visible={loading} />
+          {companies.map((place) => (
             <CompanyCard
               key={place.id}
               company={place}
               isSelected={selectedId === place.id}
               isGridView={isGridView}
-              onClick={() => setSelectedId(place.id)}
+              onClick={() => handleView(place)}
             />
           ))}
         </div>
