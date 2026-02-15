@@ -3,69 +3,270 @@
  * Structure designed for easy API migration.
  */
 export const partnerCompanies = [
-    {
-        id: 1,
-        name: "PT Telkom Akses",
-        category: "ISP",
-        verified: true,
-        address: "Jl. Merdeka No. 10, Kecamatan Sumur Bandung, Kota Bandung, Jawa Barat 40117",
-        phone: "+62 22 123 4567",
-        email: "hrd@telkomakses.co.id",
-        shortDesc: "Jl. Merdeka No. 10, Pusat Kota Bandung. Menyediakan layanan pemasangan fiber optik...",
-        description: "PT Telkom Akses adalah anak perusahaan PT Telkom Indonesia yang bergerak di bidang konstruksi pembangunan dan manage service infrastruktur jaringan.",
-        reviews: [
-            {
-                name: "Aditya Nugraha",
-                role: "Angkatan 2022 • Jan - Jun 2023",
-                initial: "AN",
-                rating: 5,
-                text: "Pengalaman luar biasa! Saya belajar banyak tentang troubleshooting fiber optik dan cara kerja ODP. Mentornya sangat sabar membimbing anak-anak TKJ."
-            },
-            {
-                name: "Siti Pertiwi",
-                role: "Angkatan 2021 • Jun - Des 2022",
-                initial: "SP",
-                rating: 5,
-                text: "Lingkungan kerjanya profesional banget. Kita diajak langsung ke lapangan buat maintenance rutin."
-            }
-        ]
-    },
-    {
-        id: 2,
-        name: "Global Tech Solutions",
-        category: "Service",
-        verified: false,
-        address: "Kec. Nesaga, Area Industri.",
-        phone: "+62 21 555 1234",
-        email: "contact@globaltech.id",
-        shortDesc: "Kec. Nesaga, Area Industri. Fokus pada perbaikan hardware dan perakitan server...",
-        description: "Global Tech Solutions melayani perbaikan perangkat keras komputer, laptop, dan server dengan standar industri.",
-        reviews: []
-    },
-    {
-        id: 3,
-        name: "Dinas Kominfo Jabar",
-        category: "Instansi",
-        verified: false,
-        address: "Bandung, Jawa Barat",
-        phone: "(022) 123456",
-        email: "info@jabarprov.go.id",
-        shortDesc: "Kompleks Perkantoran Pemerintah. Pengelolaan jaringan pemerintahan dan data center...",
-        description: "Instansi pemerintah yang mengelola teknologi informasi dan komunikasi di Jawa Barat.",
-        reviews: []
-    },
-    {
-        id: 4,
-        name: "Indo Retail Digital",
-        category: "Retail",
-        verified: false,
-        address: "Jakarta Selatan",
-        phone: "(021) 987654",
-        email: "retail@indo.id",
-        shortDesc: "Pusat Perbelanjaan Lantai 2. IT Support untuk sistem kasir dan inventaris...",
-        description: "Perusahaan retail yang membutuhkan support IT untuk maintenance POS dan jaringan toko.",
-        reviews: []
-    }
+  {
+    "id": 1,
+    "name": "RSC KOMPUTER",
+    "category": null,
+    "verified": true,
+    "address": "Jl.Raya Wedi-Srowot Km 1, Ngering, Jogonalan, Klaten",
+    "phone": "087839999198",
+    "email": "-",
+    "shortDesc": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "description": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "reviews": []
+  },
+  {
+    "id": 2,
+    "name": "ONE LINK",
+    "category": null,
+    "verified": true,
+    "address": "Jogodayoh kidul RT.1 RW 1, Kalikotes, Klaten",
+    "phone": "085867615712",
+    "email": "-",
+    "shortDesc": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "description": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "reviews": []
+  },
+  {
+    "id": 3,
+    "name": "RJ COMUNIKASI",
+    "category": null,
+    "verified": true,
+    "address": "Drajat, Krakitan, Bayat, Klaten",
+    "phone": "083102445775, 082122462233",
+    "email": "-",
+    "shortDesc": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "description": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "reviews": []
+  },
+  {
+    "id": 4,
+    "name": "TEKNIK WIRELES GRUP",
+    "category": null,
+    "verified": true,
+    "address": "Tegalmas, Prawatan, Jogonalan, Klaten",
+    "phone": "0813288804720",
+    "email": "-",
+    "shortDesc": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "description": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "reviews": []
+  },
+  {
+    "id": 5,
+    "name": "ARCHIO COMPUTER",
+    "category": null,
+    "verified": true,
+    "address": "Jl.Sulawesi No.38 Sidowayah, Klaten",
+    "phone": "085102597664",
+    "email": "-",
+    "shortDesc": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "description": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "reviews": []
+  },
+  {
+    "id": 6,
+    "name": "LAPTOP CENTER",
+    "category": null,
+    "verified": true,
+    "address": "Jl. Tentara Pelajar no. 10 Klaten",
+    "phone": "085799555885",
+    "email": "-",
+    "shortDesc": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "description": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "reviews": []
+  },
+  {
+    "id": 7,
+    "name": "KOSEN KOMPUTER",
+    "category": null,
+    "verified": true,
+    "address": "Jl. Cempak no.10 Klaten",
+    "phone": "085868029292",
+    "email": "-",
+    "shortDesc": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "description": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "reviews": []
+  },
+  {
+    "id": 8,
+    "name": "RONAN BARU COMPUTER",
+    "category": null,
+    "verified": true,
+    "address": "JI.KH. Ahmad Dahlan no.6 Wedi, Klaten",
+    "phone": "085861833253",
+    "email": "-",
+    "shortDesc": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "description": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "reviews": []
+  },
+  {
+    "id": 9,
+    "name": "YM KOMPUTER",
+    "category": null,
+    "verified": true,
+    "address": "MORANGAN RT.01 RW.02, KARANG ANOM, KLATEN UTARA",
+    "phone": "082325720609",
+    "email": "-",
+    "shortDesc": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "description": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "reviews": []
+  },
+  {
+    "id": 10,
+    "name": "LPK SOLO COM",
+    "category": null,
+    "verified": true,
+    "address": "JL.Perentis Kemerdekan, No.4 Klaten utara",
+    "phone": "082324862001",
+    "email": "-",
+    "shortDesc": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "description": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "reviews": []
+  },
+  {
+    "id": 11,
+    "name": "PT.MEGA ARTHA LINTAS DATA",
+    "category": null,
+    "verified": true,
+    "address": "JL.Mlese-Gantiwarno, Klaten",
+    "phone": "085643345123",
+    "email": "-",
+    "shortDesc": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "description": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "reviews": []
+  },
+  {
+    "id": 12,
+    "name": "BE SMART COMPUTER",
+    "category": null,
+    "verified": true,
+    "address": "JL.MERBABU NO.30, KAUMAN, TONGGALAN, KLATEN",
+    "phone": "08156757857",
+    "email": "-",
+    "shortDesc": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "description": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "reviews": []
+  },
+  {
+    "id": 13,
+    "name": "SIGMA KOMPUTR",
+    "category": null,
+    "verified": true,
+    "address": "Jl.Candisewu no.17 Prambanan Klaten",
+    "phone": "085643751755",
+    "email": "-",
+    "shortDesc": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "description": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "reviews": []
+  },
+  {
+    "id": 14,
+    "name": "FIBER MEDIA NETWORK",
+    "category": null,
+    "verified": true,
+    "address": "JOGOSETRAN, JOGOSETRAN, GENTONGAN, KALIKOTES",
+    "phone": "081226122011",
+    "email": "-",
+    "shortDesc": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "description": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "reviews": []
+  },
+  {
+    "id": 15,
+    "name": "SIGMA COM",
+    "category": null,
+    "verified": true,
+    "address": "Jl.Candisewu no.17 Prambanan Klaten",
+    "phone": "085643751755",
+    "email": "-",
+    "shortDesc": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "description": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "reviews": []
+  },
+  {
+    "id": 16,
+    "name": "CV.MASTER COMPUTER",
+    "category": null,
+    "verified": true,
+    "address": "Jl.Kopral Sayom no.59 Klaten",
+    "phone": "085741912209",
+    "email": "-",
+    "shortDesc": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "description": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "reviews": []
+  },
+  {
+    "id": 17,
+    "name": "CV.INDONESIA CORNER",
+    "category": null,
+    "verified": true,
+    "address": "Jl.Pramuka no.48.Tonggalan, Klaten",
+    "phone": "0818570326",
+    "email": "-",
+    "shortDesc": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "description": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "reviews": []
+  },
+  {
+    "id": 18,
+    "name": "TEKNIK WIRELESS GRUP",
+    "category": null,
+    "verified": true,
+    "address": "Tegalmas, Prawatan, Jogonalan, Klaten",
+    "phone": "0895359004537",
+    "email": "-",
+    "shortDesc": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "description": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "reviews": []
+  },
+  {
+    "id": 19,
+    "name": "GALVIN COMPUTER",
+    "category": null,
+    "verified": true,
+    "address": "Demangan, Kajoran, Klaten, Selatan",
+    "phone": "085743452425",
+    "email": "-",
+    "shortDesc": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "description": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "reviews": []
+  },
+  {
+    "id": 20,
+    "name": "Terabite",
+    "category": null,
+    "verified": true,
+    "address": "Pacing, Wedi, Klaten",
+    "phone": "085868617354",
+    "email": "-",
+    "shortDesc": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "description": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "reviews": []
+  },
+  {
+    "id": 21,
+    "name": "AZKA NET ( LINTAS DATA PRIMA)",
+    "category": null,
+    "verified": true,
+    "address": "JOMBOR, KEMUDO, PRAMBANAN, KLATEN",
+    "phone": "085628188182",
+    "email": "-",
+    "shortDesc": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "description": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "reviews": []
+  },
+  {
+    "id": 22,
+    "name": "PT.LEMBIMJAR NEUTRON YOGYAKARTA",
+    "category": null,
+    "verified": true,
+    "address": "Jl.Tamansiswa, Gg Trustha jumena, Wirogunan, Mergangsang, yogyakarta",
+    "phone": "-",
+    "email": "-",
+    "shortDesc": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "description": "Tempat Praktek Kerja Industri (PKL) untuk siswa TKJ",
+    "reviews": []
+  }
 ];
 
 /**
