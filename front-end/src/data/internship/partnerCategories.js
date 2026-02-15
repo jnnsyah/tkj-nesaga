@@ -21,5 +21,10 @@ export const partnerCategories = [
         icon: "apartment",
         title: "Instansi",
         subtitle: "Pemerintahan & Kantor"
-    }
+    },
+    {
+        icon: "code",
+        title: "Software Engineer",
+        subtitle: "Pengembang Perangkat Lunak"
+    },   
 ];
