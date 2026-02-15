@@ -27,4 +27,9 @@ export const partnerCategories = [
         title: "Software Engineer",
         subtitle: "Pengembang Perangkat Lunak"
     },   
+    {
+        icon: "school",
+        title: "Pendidikan",
+        subtitle: "Lembaga Pelatihan & Kursus IT"
+    }   
 ];
