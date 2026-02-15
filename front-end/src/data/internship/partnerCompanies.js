@@ -18,8 +18,8 @@ export const partnerCompanies = [
   {
     "id": 2,
     "name": "ONE LINK",
-    "category": null,
-    "verified": "ISP",
+    "category": "ISP",
+    "verified": true,
     "address": "Jogodayoh kidul RT.1 RW 1, Kalikotes, Klaten",
     "phone": "085867615712",
     "email": "-",
