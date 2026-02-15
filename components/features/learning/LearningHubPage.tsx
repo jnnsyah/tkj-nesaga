@@ -1,14 +1,24 @@
 "use client"
 
-import {LearningPathCard, Badge, ResourceCard, LoadingOverlay} from "@/components";
+import {LearningPathCard, Badge, ResourceCard, LoadingOverlay, LearningPathTabs} from "@/components";
+import type { LearningPathTab } from "@/components";
 // import SectionHeader from "@/components/ui/SectionHeader";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { LearningPath, ExternalResource } from "./types";
+
+/** Kategori tab untuk filter learning paths */
+const LEARNING_TABS: LearningPathTab[] = [
+  { key: "all", label: "Semua", icon: "apps" },
+  { key: "Foundation", label: "Foundation", icon: "hub" },
+  { key: "Beginner", label: "Beginner", icon: "rocket_launch" },
+  { key: "Intermediate", label: "Intermediate", icon: "trending_up" },
+];
 
 export default function LearningHubPage() {
   const [loading, setLoading] = useState(false);
   const [learningPaths, setLearningPaths] = useState<LearningPath[]>([]);
   const [externalResources, setExternalResources] = useState<ExternalResource[]>([]);
+  const [activeTab, setActiveTab] = useState("all");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,6 +42,12 @@ export default function LearningHubPage() {
     fetchData();
   }, []);
 
+  /** Filter learning paths sesuai tab aktif */
+  const filteredPaths = useMemo(() => {
+    if (activeTab === "all") return learningPaths;
+    return learningPaths.filter((p) => p.level === activeTab);
+  }, [activeTab, learningPaths]);
+
   return (
     <div className="max-w-7xl mx-auto pb-20">
       {/* Hero */}
@@ -54,9 +70,18 @@ export default function LearningHubPage() {
             Updated Syllabus 2026
           </Badge>
         </div>
+
+        {/* Tab Navigation */}
+        <LearningPathTabs
+          tabs={LEARNING_TABS}
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
+          className="mb-8 px-2"
+        />
+
         <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8">
           <LoadingOverlay visible={loading}/>
-          {learningPaths.map((path) => (
+          {filteredPaths.map((path) => (
             <LearningPathCard key={path.id} {...path} />
           ))}
         </div>
