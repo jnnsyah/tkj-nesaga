@@ -59,6 +59,15 @@ enum ResourceColor {
 // ============================================================================
 
 /// Jalur pembelajaran terstruktur untuk kurikulum TKJ
+model Domain {
+  id            String    @id @default(uuid())
+  name          String
+  slug          String    @unique
+  
+  LearningPath  LearningPath[]
+  @@map("domains")
+}
+
 model LearningPath {
   id            String    @id @default(uuid())
   slug          String    @unique /// identifier unik (e.g. "basic-networking")
@@ -72,6 +81,9 @@ model LearningPath {
 
   steps           LearningStep[]
   recommendations LearningRecommendation[]
+
+  DomainId      String?
+  Domain        Domain? @relation(fields: [DomainId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
