@@ -6,8 +6,7 @@ import type { LearningPathTab } from "@/components";
 import { useEffect, useMemo, useState } from "react";
 import { LearningPath, ExternalResource } from "./types";
 
-/** Kategori tab untuk filter learning paths */
-const LEARNING_TABS: LearningPathTab[] = [
+const LEARNING_TABS_FILTERING_BY_LEVEL: LearningPathTab[] = [
   { key: "all", label: "Semua", icon: "apps" },
   { key: "Foundation", label: "Foundation", icon: "hub" },
   { key: "Beginner", label: "Beginner", icon: "rocket_launch" },
@@ -42,7 +41,6 @@ export default function LearningHubPage() {
     fetchData();
   }, []);
 
-  /** Filter learning paths sesuai tab aktif */
   const filteredPaths = useMemo(() => {
     if (activeTab === "all") return learningPaths;
     return learningPaths.filter((p) => p.level === activeTab);
@@ -73,7 +71,7 @@ export default function LearningHubPage() {
 
         {/* Tab Navigation */}
         <LearningPathTabs
-          tabs={LEARNING_TABS}
+          tabs={LEARNING_TABS_FILTERING_BY_LEVEL}
           activeTab={activeTab}
           onTabChange={setActiveTab}
           className="mb-8 px-2"
