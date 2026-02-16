@@ -25,13 +25,17 @@ export function CategoryBadge({ title, icon, className }: CategoryBadgeProps) {
     return (
         <div
             className={cn(
-                "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border transition-colors",
+                // Tambahkan flex-shrink-0 pada container jika perlu
+                "inline-flex items-center justify-center gap-3 px-3 py-1 rounded-full text-xs font-medium border transition-colors",
                 colorClass,
                 className
             )}
         >
-            <Icon name={icon} className="w-3 h-3" />
-            <span>{title}</span>
+            {/* Pastikan icon memiliki ukuran yang pas, coba naikkan ke w-3.5 */}
+            <Icon name={icon} className="w-3.5 h-3.5 flex-shrink-0 relative -top-[4px]" />
+            
+            {/* Tambahkan leading-none agar teks benar-benar di tengah secara vertikal */}
+            <span className="leading-none">{title}</span>
         </div>
     );
 }

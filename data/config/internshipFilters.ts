@@ -7,5 +7,7 @@ export const INTERNSHIP_FILTER_OPTIONS: string[] = [
   "ISP",
   "Retail",
   "Service",
-  "Instansi"
+  "Instansi",
+  "Pendidikan",
+  "Software"
 ];

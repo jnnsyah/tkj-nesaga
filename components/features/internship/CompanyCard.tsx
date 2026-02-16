@@ -19,7 +19,7 @@ export default function CompanyCard({
   isGridView = false,
   onClick
 }: CompanyCardProps) {
-  const { name, categories, verified } = company;
+  const { name, categories, address, verified } = company;
 
   return (
     <div
@@ -50,18 +50,25 @@ export default function CompanyCard({
         )}
       </div>
 
-      <div className="flex items-center justify-between">
+      <div>
+      <div className="flex items-center justify-between mb-2">
         <h3 className="font-bold text-lg group-hover:text-primary transition-colors line-clamp-1">
           {name}
         </h3>
         <Icon
           name="chevron_right"
           className={cn(
-            "text-muted-foreground transition-transform duration-300",
+            "text-muted-foreground transition-transform duration-300 shrink-0",
             isSelected ? "translate-x-1 text-primary" : "opacity-0 group-hover:opacity-100 group-hover:translate-x-1"
           )}
         />
       </div>
+      
+      {/* Address */}
+      <div className="flex items-center gap-2">
+        <p className="text-xs text-muted-foreground line-clamp-1">{address}</p>
+      </div>
+    </div>
     </div>
   );
 }
