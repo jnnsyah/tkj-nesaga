@@ -8,6 +8,10 @@ import prisma from "@/lib/prisma";
 export async function GET() {
   try {
     const companies = await prisma.partnerCompany.findMany({
+      include: {
+        categories: true,
+        reviews: true,
+      },
       orderBy: { id: "asc" },
     });
 

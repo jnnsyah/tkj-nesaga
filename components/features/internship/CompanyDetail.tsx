@@ -1,7 +1,8 @@
 import { cn } from "@/lib/utils";
-import { Icon} from "@/components";
+import { Icon } from "@/components";
 import { ReviewCard } from "@/components";
-import { type PartnerCompany } from "@/data/internship/partnerCompanies";
+import { CategoryBadge } from "./CategoryBadge";
+import { type PartnerCompany } from "./types";
 
 interface CompanyDetailProps {
   company?: PartnerCompany;
@@ -26,7 +27,7 @@ export default function CompanyDetail({ company, onClose, mobileFullscreen = fal
     );
   }
 
-  const { name, verified, address, phone, email, description, reviews } = company;
+  const { name, verified, address, phone, email, reviews } = company;
 
   // Root wrapper classes - jika mobileFullscreen, gunakan full-screen styling
   const rootClass = mobileFullscreen
@@ -35,95 +36,106 @@ export default function CompanyDetail({ company, onClose, mobileFullscreen = fal
 
   return (
     <div className={rootClass} role="dialog" aria-modal={mobileFullscreen ? "true" : "false"}>
-      {/* Header */}
-      <div className="p-6 md:p-8 border-b border-border bg-gradient-to-r from-background to-secondary/5 relative">
-        {onClose && (
-          <button onClick={onClose} className="flex items-center gap-2 text-sm font-semibold text-muted-foreground ml-auto">
-            <Icon name="arrow_back" size="sm" className="scale-70" />
-            Kembali
-          </button>
-        )}
+      {/* Drag Handle (Mobile only visual cue, or for desktop sheet header) */}
+      <div className="flex justify-center pt-3 pb-1">
+        <div className="w-12 h-1.5 bg-muted-foreground/20 rounded-full" />
+      </div>
 
-        <div className="flex items-start gap-6">
-          <div className="w-20 h-20 bg-secondary rounded-3xl flex items-center justify-center text-primary shadow-lg shrink-0">
-            <Icon name="business" size="2xl" />
-          </div>
+      {/* Header */}
+      <div className="px-6 pb-6 pt-2">
+        <div className="flex items-start gap-4">
           <div className="flex-1">
-            <div className="flex items-center gap-2 mb-2">
-              <h2 className="text-2xl md:text-3xl font-bold text-secondary dark:text-white">
+            <div className="flex flex-wrap gap-2 mb-3">
+              {company.categories.map((cat) => (
+                <CategoryBadge key={cat.id} title={cat.title} icon={cat.icon} />
+              ))}
+            </div>
+
+            <div className="flex items-center gap-2 mb-1">
+              <h2 className="text-2xl font-bold text-foreground">
                 {name}
               </h2>
               {verified && (
                 <Icon
                   name="verified"
-                  className="text-blue-500"
-                  filled
+                  className="text-primary shrink-0"
                 />
               )}
             </div>
-            <div className="space-y-4">
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <Icon name="location_on" size="md" />
-                <p className="text-sm">{address}</p>
-              </div>
-              <div className="flex flex-wrap items-center gap-6">
-                <ContactItem icon="call" value={phone} />
-                <ContactItem icon="mail" value={email} />
-              </div>
-            </div>
+
+            <p className="text-muted-foreground text-sm flex items-center gap-1.5">
+              <Icon name="map-pin" className="w-4 h-4" />
+              {address}
+            </p>
           </div>
         </div>
       </div>
 
-      {/* Content */}
-      <div className="flex-1 overflow-y-auto p-6 md:p-8 custom-scrollbar">
-        {/* Description */}
-        <div className="mb-8">
-          <SectionTitle icon="description" title="Deskripsi" />
-          <p className="text-muted-foreground leading-relaxed">
-            {description}
-          </p>
+      {/* Sticky Actions */}
+      <div className="px-6 pb-4 border-b border-border bg-background/95 backdrop-blur z-10 sticky top-0">
+        <div className="grid grid-cols-1 gap-3">
+          {company.mapsUrl && (
+            <a
+              href={company.mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 bg-secondary/10 hover:bg-secondary/20 text-secondary-foreground font-semibold py-3 px-4 rounded-xl transition-colors border border-secondary/20"
+            >
+              <Icon name="navigation" className="w-5 h-5" />
+              Rute Maps
+            </a>
+          )}
         </div>
+      </div>
 
-        {/* Map Placeholder */}
-        <div className="mb-8">
-          <div className="w-full h-56 md:h-64 bg-muted rounded-2xl overflow-hidden relative border-4 border-card shadow-lg flex items-center justify-center">
-            <Icon name="map" size="xl" className="text-muted-foreground" />
-            <span className="ml-2 text-muted-foreground font-bold">
-              Map Placeholder
-            </span>
-          </div>
+      {/* Body Content */}
+      <div className="flex-1 overflow-y-auto p-6 custom-scrollbar">
+        {/* Contact Info */}
+        <div className="mb-8 space-y-3">
+          {(phone || email) && (
+            <div className="space-y-3 p-4 bg-muted/30 rounded-xl border border-border/50">
+              <h4 className="font-semibold text-sm text-foreground flex items-center gap-2">
+                <Icon name="phone" className="w-4 h-4" />
+                Kontak Kami
+              </h4>
+              <div className="grid gap-3">
+                {phone && (
+                  <div className="flex items-center gap-3 text-sm">
+                    <span className="w-8 h-8 rounded-full bg-background flex items-center justify-center border text-muted-foreground">
+                      <Icon name="phone" className="w-4 h-4" />
+                    </span>
+                    <span className="font-medium">{phone}</span>
+                  </div>
+                )}
+                {email && (
+                  <div className="flex items-center gap-3 text-sm">
+                    <span className="w-8 h-8 rounded-full bg-background flex items-center justify-center border text-muted-foreground">
+                      <Icon name="mail" className="w-4 h-4" />
+                    </span>
+                    <span className="font-medium">{email}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Reviews */}
-        {reviews && reviews.length > 0 && (
+        {reviews && reviews.length > 0 ? (
           <div>
-            <SectionTitle icon="star" title="Ulasan Kakak Kelas" />
-            <div className="space-y-6">
+            <SectionTitle icon="star" title={`Ulasan (${reviews.length})`} />
+            <div className="space-y-4">
               {reviews.map((review, idx) => (
                 <ReviewCard key={idx} {...review} />
               ))}
             </div>
           </div>
+        ) : (
+          <div className="text-center py-8 text-muted-foreground/60 text-sm">
+            Belum ada ulasan untuk tempat ini.
+          </div>
         )}
       </div>
-    </div>
-  );
-}
-
-// Helper: Contact info item
-interface ContactItemProps {
-  icon: string;
-  value: string;
-}
-
-function ContactItem({ icon, value }: ContactItemProps) {
-  return (
-    <div className="flex items-center gap-2.5">
-      <div className="w-8 h-8 bg-secondary text-primary rounded-full flex items-center justify-center shadow-sm">
-        <Icon name={icon} size="sm" />
-      </div>
-      <span className="text-sm font-semibold tracking-wide">{value}</span>
     </div>
   );
 }
@@ -136,8 +148,8 @@ interface SectionTitleProps {
 
 function SectionTitle({ icon, title }: SectionTitleProps) {
   return (
-    <h4 className="font-bold text-lg mb-4 flex items-center gap-2 text-secondary dark:text-primary">
-      <Icon name={icon} />
+    <h4 className="font-bold text-md mb-3 flex items-center gap-2 text-foreground">
+      <Icon name={icon} className="text-primary" />
       {title}
     </h4>
   );
