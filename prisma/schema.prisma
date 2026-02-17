@@ -23,8 +23,8 @@ model LearningPath {
   prerequisites   String[]
   createdAt       DateTime                 @default(now())
   updatedAt       DateTime                 @updatedAt
-  DomainId        String?
-  domains         domains?                 @relation(fields: [DomainId], references: [id], onDelete: Cascade)
+  domainId        String?
+  domains         domains?                 @relation(fields: [domainId], references: [id], onDelete: Cascade)
   recommendations LearningRecommendation[]
   steps           LearningStep[]
 
