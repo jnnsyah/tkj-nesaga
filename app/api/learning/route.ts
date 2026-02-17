@@ -1,14 +1,30 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
 /**
  * GET /api/learning
  * Mengambil semua learning paths (tanpa nested steps/actions) dan external resources.
  */
-export async function GET() {
+export async function GET(req: NextRequest) {
+   const slug = req.nextUrl.searchParams.get("domain");
+
+  let where = {};
+
+  if (slug && slug !== "all") {
+    const domain = await prisma.domain.findUnique({
+      where: { slug },
+    });
+
+    if (!domain) {
+      return Response.json({ message: "Domain not found" }, { status: 404 });
+    }
+
+    where = { domainId: domain.id };
+  }
   try {
-    const [learningPaths, externalResources] = await Promise.all([
+    const [learningPaths, externalResources, domains] = await Promise.all([
       prisma.learningPath.findMany({
+        where,
         select: {
           id: true,
           slug: true,
@@ -19,19 +35,23 @@ export async function GET() {
           topics: true,
           actionIcon: true,
           prerequisites: true,
+          domain: true
         },
         orderBy: { createdAt: "asc" },
       }),
       prisma.externalResource.findMany({
         orderBy: { createdAt: "asc" },
       }),
+      prisma.domain.findMany({
+        orderBy: { id: "asc" },
+      })
     ]);
 
-    return NextResponse.json({ learningPaths, externalResources });
+    return NextResponse.json({ learningPaths, externalResources, domains });
   } catch (error) {
-    console.error("Failed to fetch learning data:", error);
+    console.error("Failed to fetch data:", error);
     return NextResponse.json(
-      { error: "Failed to fetch learning data" },
+      { error: "Failed to fetch data" },
       { status: 500 }
     );
   }

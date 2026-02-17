@@ -7,7 +7,15 @@ datasource db {
   provider = "postgresql"
 }
 
-/// Jalur pembelajaran terstruktur untuk kurikulum TKJ
+model Domain {
+  id             String         @id @default(uuid())
+  name           String
+  slug           String         @unique
+  learning_paths LearningPath[]
+
+  @@map("domains")
+}
+
 model LearningPath {
   id              String                   @id @default(uuid())
   /// identifier unik (e.g. "basic-networking")
@@ -24,7 +32,7 @@ model LearningPath {
   createdAt       DateTime                 @default(now())
   updatedAt       DateTime                 @updatedAt
   domainId        String?
-  domains         domains?                 @relation(fields: [domainId], references: [id], onDelete: Cascade)
+  domain          Domain?                  @relation(fields: [domainId], references: [id], onDelete: Cascade)
   recommendations LearningRecommendation[]
   steps           LearningStep[]
 
@@ -204,13 +212,6 @@ model CurriculumHighlight {
   text String
 
   @@map("curriculum_highlights")
-}
-
-model domains {
-  id             String         @id
-  name           String
-  slug           String         @unique
-  learning_paths LearningPath[]
 }
 
 /// Level kesulitan learning path

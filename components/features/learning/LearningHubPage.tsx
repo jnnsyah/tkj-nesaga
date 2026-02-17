@@ -1,36 +1,64 @@
 "use client"
 
-import {LearningPathCard, Badge, ResourceCard, LoadingOverlay} from "@/components";
+import { LearningPathCard, Badge, ResourceCard, LoadingOverlay, LearningPathTabs } from "@/components";
+import type { LearningPathTab } from "@/components";
 // import SectionHeader from "@/components/ui/SectionHeader";
-import { useEffect, useState } from "react";
-import { LearningPath, ExternalResource } from "./types";
+import { useEffect, useMemo, useState } from "react";
+import { LearningPath, ExternalResource, Domain } from "./types";
+
+const LEARNING_TABS_FILTERING_BY_LEVEL: LearningPathTab[] = [
+  { name: "Foundation", value: "Foundation", icon: "hub" },
+  { name: "Beginner", value: "Beginner", icon: "rocket_launch" },
+  { name: "Intermediate", value: "Intermediate", icon: "trending_up" },
+];
 
 export default function LearningHubPage() {
   const [loading, setLoading] = useState(false);
   const [learningPaths, setLearningPaths] = useState<LearningPath[]>([]);
   const [externalResources, setExternalResources] = useState<ExternalResource[]>([]);
 
+  const [activeDomain, setActiveDomain] = useState("all");
+  const [activeLevel, setActiveLevel] = useState("all");
+
+  const [domains, setDomains] = useState<Domain[]>([]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true)
         const response = await fetch(
-          "/api/learning"
+          `/api/learning?domain=${activeDomain}`
         );
 
         if (response.ok) {
           const data = await response.json();
           setLearningPaths(data.learningPaths);
           setExternalResources(data.externalResources)
+          setDomains(data.domains)
         }
       } catch (error) {
         console.error("Failed to fetch learning paths", error)
-      }finally{
+      } finally {
         setLoading(false)
       }
     }
     fetchData();
-  }, []);
+  }, [activeDomain]);
+
+  const domainTabs: LearningPathTab[] = useMemo(() => {
+    return domains.map(d => ({
+      name: d.name,
+      value: d.slug,
+      icon: "dns" 
+    }));
+  }, [domains]);
+
+  const filteredPaths = useMemo(() => {
+    return learningPaths.filter((path) => {
+      const matchesLevel = activeLevel === "all" || path.level === activeLevel
+      return matchesLevel 
+    });
+  }, [activeLevel, learningPaths]);
 
   return (
     <div className="max-w-7xl mx-auto pb-20">
@@ -54,9 +82,26 @@ export default function LearningHubPage() {
             Updated Syllabus 2026
           </Badge>
         </div>
+
+        {/* Domain Navigation */}
+        <LearningPathTabs
+          tabs={domainTabs}
+          activeTab={activeDomain}
+          onTabChange={setActiveDomain}
+          className="mb-8 px-2"
+        />
+
+        {/* Level Navigation */}
+        <LearningPathTabs
+          tabs={LEARNING_TABS_FILTERING_BY_LEVEL}
+          activeTab={activeLevel}
+          onTabChange={setActiveLevel}
+          className="mb-8 px-2"
+        />
+
         <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8">
-          <LoadingOverlay visible={loading}/>
-          {learningPaths.map((path) => (
+          <LoadingOverlay visible={loading} />
+          {filteredPaths.map((path) => (
             <LearningPathCard key={path.id} {...path} />
           ))}
         </div>
@@ -68,7 +113,7 @@ export default function LearningHubPage() {
           Resource Library
         </h2>
         <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <LoadingOverlay visible={loading}/>
+          <LoadingOverlay visible={loading} />
           {externalResources.map((resource, idx) => (
             <ResourceCard key={idx} {...resource} />
           ))}
