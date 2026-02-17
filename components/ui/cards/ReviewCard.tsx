@@ -14,20 +14,22 @@ interface ReviewCardProps {
 /**
  * Review card for displaying user reviews
  */
-export default function ReviewCard({ name, role, initial, rating, text }: ReviewCardProps) {
+export default function ReviewCard({ name, academicYear, initial, rating, text }: ReviewCardProps) {
   return (
     <div className="bg-secondary/5 p-6 rounded-2xl border border-border">
       <div className="flex justify-between items-start mb-4">
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-2xl bg-secondary text-primary flex items-center justify-center font-bold text-lg shadow-md">
-            {initial}
+          <div className="w-12 h-12 rounded-2xl bg-secondary text-primary flex items-center justify-center shadow-sm">
+            <Icon name="person" size="lg" />
           </div>
-          <div>
-            <p className="font-bold text-sm text-secondary dark:text-white">
-              {name}
-            </p>
-            <p className="text-xs text-muted-foreground">{role}</p>
-          </div>
+        <div>
+          <p className="font-bold text-sm text-secondary dark:text-white">
+            {name}
+          </p>
+          <span className="text-xs text-muted-foreground">
+            Periode {academicYear}
+          </span>
+        </div>
         </div>
         <div className="flex text-primary">
           {[...Array(5)].map((_, i) => (

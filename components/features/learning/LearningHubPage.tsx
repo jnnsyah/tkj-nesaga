@@ -30,7 +30,7 @@ export default function LearningHubPage() {
       try {
         setLoading(true)
         const response = await fetch(
-          "/api/learning"
+          `/api/learning?domain=${activeDomain}`
         );
 
         if (response.ok) {
@@ -46,12 +46,12 @@ export default function LearningHubPage() {
       }
     }
     fetchData();
-  }, []);
+  }, [activeDomain]);
 
   const domainTabs: LearningPathTab[] = useMemo(() => {
     return domains.map(d => ({
       name: d.name,
-      value: d.id,
+      value: d.slug,
       icon: "dns" 
     }));
   }, [domains]);
@@ -59,15 +59,10 @@ export default function LearningHubPage() {
   const filteredPaths = useMemo(() => {
     return learningPaths.filter((path) => {
       // Filter by Level
-      const matchesLevel = activeLevel === "all" || path.level === activeLevel;
-
-      // Filter by Domain
-      // Note: We need to ensure path.DomainId matches the activeDomain ID
-      const matchesDomain = activeDomain === "all" || path.DomainId === activeDomain;
-
-      return matchesLevel && matchesDomain;
+      const matchesLevel = activeLevel === "all" || path.level === activeLevel
+      return matchesLevel 
     });
-  }, [activeLevel, activeDomain, learningPaths]);
+  }, [activeLevel, learningPaths]);
 
   return (
     <div className="max-w-7xl mx-auto pb-20">

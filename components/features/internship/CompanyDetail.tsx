@@ -1,19 +1,38 @@
 import { cn } from "@/lib/utils";
-import { Icon} from "@/components";
+import { Icon } from "@/components";
 import { ReviewCard } from "@/components";
-import { type PartnerCompany } from "@/data/internship/partnerCompanies";
+import { CategoryBadge } from "./CategoryBadge";
+import { type PartnerCompany } from "./types";
 
 interface CompanyDetailProps {
   company?: PartnerCompany;
   onClose?: () => void;
   mobileFullscreen?: boolean;
+  isDragging?: boolean;
 }
 
-/**
- * Company detail view for Prakerin page
- */
-export default function CompanyDetail({ company, onClose, mobileFullscreen = false }: CompanyDetailProps) {
-  // If no company selected, show placeholder (this can appear in desktop split view)
+// Komponen Helper didefinisikan di atas atau luar agar bersih
+function ContactItem({ icon, value }: { icon: string; value: string }) {
+  return (
+    <div className="flex items-center gap-2.5">
+      <div className="w-8 h-8 bg-secondary text-primary rounded-full flex items-center justify-center shadow-sm">
+        <Icon name={icon} size="sm" className="relative -top-[0.5px]" />
+      </div>
+      <span className="text-sm font-semibold tracking-wide leading-none">{value}</span>
+    </div>
+  );
+}
+
+function SectionTitle({ icon, title }: { icon: string; title: string }) {
+  return (
+    <h4 className="font-bold text-md mb-3 flex items-center gap-2 text-foreground">
+      <Icon name={icon} className="text-primary relative -top-[0.5px]" />
+      <span className="leading-none">{title}</span>
+    </h4>
+  );
+}
+
+export default function CompanyDetail({ company, onClose, mobileFullscreen = false, isDragging = false }: CompanyDetailProps) {
   if (!company) {
     return (
       <div className={cn(
@@ -26,119 +45,85 @@ export default function CompanyDetail({ company, onClose, mobileFullscreen = fal
     );
   }
 
-  const { name, verified, address, phone, email, description, reviews } = company;
-
-  // Root wrapper classes - jika mobileFullscreen, gunakan full-screen styling
+  const { name, verified, address, phone, email, reviews } = company;
   const rootClass = mobileFullscreen
     ? "w-full h-full bg-card rounded-2xl shadow-2xl overflow-hidden flex flex-col"
     : "flex-1 overflow-hidden";
 
   return (
     <div className={rootClass} role="dialog" aria-modal={mobileFullscreen ? "true" : "false"}>
-      {/* Header */}
-      <div className="p-6 md:p-8 border-b border-border bg-gradient-to-r from-background to-secondary/5 relative">
-        {onClose && (
-          <button onClick={onClose} className="flex items-center gap-2 text-sm font-semibold text-muted-foreground ml-auto">
-            <Icon name="arrow_back" size="sm" className="scale-70" />
-            Kembali
-          </button>
-        )}
+      {/* Drag Handle */}
+      <div className="flex justify-center pt-3 pb-1 cursor-grab active:cursor-grabbing">
+        <div className={cn(
+          "h-1.5 rounded-full transition-all",
+          isDragging ? "w-16 bg-primary/40" : "w-12 bg-muted-foreground/20"
+        )} />
+      </div>
 
-        <div className="flex items-start gap-6">
-          <div className="w-20 h-20 bg-secondary rounded-3xl flex items-center justify-center text-primary shadow-lg shrink-0">
-            <Icon name="business" size="2xl" />
-          </div>
+      {/* Header Section */}
+      <div className="px-6 pb-6 pt-2">
+        <div className="flex items-start gap-4">
           <div className="flex-1">
-            <div className="flex items-center gap-2 mb-2">
-              <h2 className="text-2xl md:text-3xl font-bold text-secondary dark:text-white">
-                {name}
-              </h2>
-              {verified && (
-                <Icon
-                  name="verified"
-                  className="text-blue-500"
-                  filled
-                />
-              )}
+            {/* Categories */}
+            <div className="flex flex-wrap gap-2 mb-3">
+              {company.categories?.map((cat) => (
+                <CategoryBadge key={cat.id} title={cat.title} icon={cat.icon} />
+              ))}
             </div>
-            <div className="space-y-4">
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <Icon name="location_on" size="md" />
-                <p className="text-sm">{address}</p>
-              </div>
-              <div className="flex flex-wrap items-center gap-6">
-                <ContactItem icon="call" value={phone} />
-                <ContactItem icon="mail" value={email} />
-              </div>
+
+            {/* Company Name + Verified */}
+            <div className="flex items-center gap-2 mb-3">
+              <h2 className="text-2xl font-bold text-foreground">{name}</h2>
+              {verified && <Icon name="verified" className="text-primary shrink-0" />}
+            </div>
+
+            {/* Address */}
+            <div className="flex items-start gap-2 text-muted-foreground mb-4">
+              <Icon name="location_on" size="md" className="shrink-0 mt-0.5" />
+              <p className="text-sm leading-relaxed">{address}</p>
+            </div>
+
+            {/* Contact Info + Rute Maps Button */}
+            <div className="flex flex-wrap items-center gap-4">
+              {/* Rute Maps Button */}
+              {company.mapsUrl && (
+                <a
+                  href={company.mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2.5 px-4 py-2 bg-primary/10 hover:bg-primary/20 border border-primary/30 rounded-full transition-all hover:shadow-md active:scale-95 group"
+                >
+                  <ContactItem icon="navigation" value="Buka Maps" />
+                </a>
+              )}
+              
+              {/* Phone */}
+              {phone && <ContactItem icon="call" value={phone} />}
             </div>
           </div>
         </div>
       </div>
 
-      {/* Content */}
-      <div className="flex-1 overflow-y-auto p-6 md:p-8 custom-scrollbar">
-        {/* Description */}
-        <div className="mb-8">
-          <SectionTitle icon="description" title="Deskripsi" />
-          <p className="text-muted-foreground leading-relaxed">
-            {description}
-          </p>
-        </div>
+      {/* Divider */}
+      <div className="border-t border-border" />
 
-        {/* Map Placeholder */}
-        <div className="mb-8">
-          <div className="w-full h-56 md:h-64 bg-muted rounded-2xl overflow-hidden relative border-4 border-card shadow-lg flex items-center justify-center">
-            <Icon name="map" size="xl" className="text-muted-foreground" />
-            <span className="ml-2 text-muted-foreground font-bold">
-              Map Placeholder
-            </span>
-          </div>
-        </div>
-
-        {/* Reviews */}
-        {reviews && reviews.length > 0 && (
+      {/* Reviews Section */}
+      <div className="flex-1 p-6 overflow-y-auto custom-scrollbar">
+        {reviews && reviews.length > 0 ? (
           <div>
-            <SectionTitle icon="star" title="Ulasan Kakak Kelas" />
-            <div className="space-y-6">
+            <SectionTitle icon="star" title={`Ulasan (${reviews.length})`} />
+            <div className="space-y-4">
               {reviews.map((review, idx) => (
                 <ReviewCard key={idx} {...review} />
               ))}
             </div>
           </div>
+        ) : (
+          <div className="text-center py-8 text-muted-foreground/60 text-sm">
+            Kakak kelas belum memberikan ulasan :(
+          </div>
         )}
       </div>
     </div>
-  );
-}
-
-// Helper: Contact info item
-interface ContactItemProps {
-  icon: string;
-  value: string;
-}
-
-function ContactItem({ icon, value }: ContactItemProps) {
-  return (
-    <div className="flex items-center gap-2.5">
-      <div className="w-8 h-8 bg-secondary text-primary rounded-full flex items-center justify-center shadow-sm">
-        <Icon name={icon} size="sm" />
-      </div>
-      <span className="text-sm font-semibold tracking-wide">{value}</span>
-    </div>
-  );
-}
-
-// Helper: Section title with icon
-interface SectionTitleProps {
-  icon: string;
-  title: string;
-}
-
-function SectionTitle({ icon, title }: SectionTitleProps) {
-  return (
-    <h4 className="font-bold text-lg mb-4 flex items-center gap-2 text-secondary dark:text-primary">
-      <Icon name={icon} />
-      {title}
-    </h4>
   );
 }

@@ -6,16 +6,25 @@ import prisma from "@/lib/prisma";
  * Mengambil semua learning paths (tanpa nested steps/actions) dan external resources.
  */
 export async function GET(req: NextRequest) {
-  const domainParam = req.nextUrl.searchParams.get("domain");
+   const slug = req.nextUrl.searchParams.get("domain");
 
-  const where =
-  domainParam && domainParam !== "all"
-    ? { DomainId: domainParam}
-    : {}; 
+  let where = {};
 
+  if (slug && slug !== "all") {
+    const domain = await prisma.domain.findUnique({
+      where: { slug },
+    });
+
+    if (!domain) {
+      return Response.json({ message: "Domain not found" }, { status: 404 });
+    }
+
+    where = { domainId: domain.id };
+  }
   try {
     const [learningPaths, externalResources, domains] = await Promise.all([
       prisma.learningPath.findMany({
+        where,
         select: {
           id: true,
           slug: true,
