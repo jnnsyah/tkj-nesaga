@@ -1,17 +1,34 @@
 "use client"
-
 import Link from "next/link"
+import { Instagram } from "lucide-react"
 
 export default function Footer() {
   return (
     <footer className="border-t border-border/40 py-10 mt-10 bg-background-light dark:bg-background-dark">
       <div className="max-w-6xl mx-auto px-4 text-center">
-        <div className="flex justify-center gap-6 mb-6">
-          <Link href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">About</Link>
-          <Link href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Privacy</Link>
-          <Link href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Contact</Link>
+        <p className="text-muted-foreground text-sm">TKJ Nesaga - Growing together</p>
+        
+        <div className="flex items-center justify-center gap-2 mt-2 text-sm">
+          <span>Developed by</span>
+          <Link 
+            href="https://instagram.com/jnnsyah" 
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 hover:text-foreground transition-colors underline-offset-4 hover:underline"
+          >
+            <Instagram className="w-4 h-4" />
+            <span>Rama Jiansyah</span>
+          </Link>
+          <Link 
+            href="https://instagram.com/zlfrts_" 
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 hover:text-foreground transition-colors underline-offset-4 hover:underline"
+          >
+            <Instagram className="w-4 h-4" />
+            <span>Andryan Zulfi</span>
+          </Link>
         </div>
-        <p className="text-muted-foreground text-sm">© 2026 TKJ Nesaga. Curating the best resources for your success.</p>
       </div>
     </footer>
   );
