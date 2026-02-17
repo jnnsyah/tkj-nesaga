@@ -4,13 +4,13 @@ import {LearningPathCard, Badge, ResourceCard, LoadingOverlay, LearningPathTabs}
 import type { LearningPathTab } from "@/components";
 // import SectionHeader from "@/components/ui/SectionHeader";
 import { useEffect, useMemo, useState } from "react";
-import { LearningPath, ExternalResource } from "./types";
+import { LearningPath, ExternalResource, Domain } from "./types";
 
 const LEARNING_TABS_FILTERING_BY_LEVEL: LearningPathTab[] = [
-  { key: "all", label: "Semua", icon: "apps" },
-  { key: "Foundation", label: "Foundation", icon: "hub" },
-  { key: "Beginner", label: "Beginner", icon: "rocket_launch" },
-  { key: "Intermediate", label: "Intermediate", icon: "trending_up" },
+  { name: "all", icon: "apps" },
+  { name: "Foundation", icon: "hub" },
+  { name: "Beginner", icon: "rocket_launch" },
+  { name: "Intermediate", icon: "trending_up" },
 ];
 
 export default function LearningHubPage() {
@@ -18,7 +18,9 @@ export default function LearningHubPage() {
   const [learningPaths, setLearningPaths] = useState<LearningPath[]>([]);
   const [externalResources, setExternalResources] = useState<ExternalResource[]>([]);
   const [activeTab, setActiveTab] = useState("all");
+  const [domains, setDomains] = useState<Domain[]>([]);
 
+  console.log("ini domains", domains)
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -31,6 +33,7 @@ export default function LearningHubPage() {
           const data = await response.json();
           setLearningPaths(data.learningPaths);
           setExternalResources(data.externalResources)
+          setDomains(data.domains)
         }
       } catch (error) {
         console.error("Failed to fetch learning paths", error)
@@ -70,6 +73,13 @@ export default function LearningHubPage() {
         </div>
 
         {/* Tab Navigation */}
+         <LearningPathTabs
+          tabs={domains}
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
+          className="mb-8 px-2"
+        />
+
         <LearningPathTabs
           tabs={LEARNING_TABS_FILTERING_BY_LEVEL}
           activeTab={activeTab}

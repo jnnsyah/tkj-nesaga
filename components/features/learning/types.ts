@@ -40,3 +40,9 @@ export interface ExternalResource {
   href: string;
   color: string;
 }
+
+export interface Domain {
+  name: string;
+  slug: string;
+  learningPaths?: LearningPath[];
+}

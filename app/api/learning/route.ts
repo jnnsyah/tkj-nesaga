@@ -7,7 +7,7 @@ import prisma from "@/lib/prisma";
  */
 export async function GET() {
   try {
-    const [learningPaths, externalResources] = await Promise.all([
+    const [learningPaths, externalResources, domains] = await Promise.all([
       prisma.learningPath.findMany({
         select: {
           id: true,
@@ -25,13 +25,16 @@ export async function GET() {
       prisma.externalResource.findMany({
         orderBy: { createdAt: "asc" },
       }),
+      prisma.domain.findMany({
+        orderBy: { id: "asc" },
+      })
     ]);
 
-    return NextResponse.json({ learningPaths, externalResources });
+    return NextResponse.json({ learningPaths, externalResources, domains});
   } catch (error) {
-    console.error("Failed to fetch learning data:", error);
+    console.error("Failed to fetch data:", error);
     return NextResponse.json(
-      { error: "Failed to fetch learning data" },
+      { error: "Failed to fetch data" },
       { status: 500 }
     );
   }
