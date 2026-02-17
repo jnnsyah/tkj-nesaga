@@ -34,13 +34,19 @@ export default function CompanyCard({
     >
       <div className="flex justify-between items-start mb-3">
         <div className="flex flex-wrap gap-2">
-          {categories.map((cat) => (
-            <CategoryBadge
-              key={cat.id || cat.title}
-              title={cat.title}
-              icon={cat.icon}
-            />
-          ))}
+          {[...categories]
+            .sort((a, b) => {
+              const idA = a.id ?? 0;
+              const idB = b.id ?? 0;
+              return idA - idB;
+            })
+            .map((cat) => (
+              <CategoryBadge
+                key={cat.id || cat.title}
+                title={cat.title}
+                icon={cat.icon}
+              />
+            ))}
         </div>
         {verified && (
           <Icon
@@ -51,24 +57,24 @@ export default function CompanyCard({
       </div>
 
       <div>
-      <div className="flex items-center justify-between mb-2">
-        <h3 className="font-bold text-lg group-hover:text-primary transition-colors line-clamp-1">
-          {name}
-        </h3>
-        <Icon
-          name="chevron_right"
-          className={cn(
-            "text-muted-foreground transition-transform duration-300 shrink-0",
-            isSelected ? "translate-x-1 text-primary" : "opacity-0 group-hover:opacity-100 group-hover:translate-x-1"
-          )}
-        />
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="font-bold text-lg group-hover:text-primary transition-colors line-clamp-1">
+            {name}
+          </h3>
+          <Icon
+            name="chevron_right"
+            className={cn(
+              "text-muted-foreground transition-transform duration-300 shrink-0",
+              isSelected ? "translate-x-1 text-primary" : "opacity-0 group-hover:opacity-100 group-hover:translate-x-1"
+            )}
+          />
+        </div>
+
+        {/* Address */}
+        <div className="flex items-center gap-2">
+          <p className="text-xs text-muted-foreground line-clamp-1">{address}</p>
+        </div>
       </div>
-      
-      {/* Address */}
-      <div className="flex items-center gap-2">
-        <p className="text-xs text-muted-foreground line-clamp-1">{address}</p>
-      </div>
-    </div>
     </div>
   );
 }

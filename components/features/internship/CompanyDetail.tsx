@@ -66,9 +66,19 @@ export default function CompanyDetail({ company, onClose, mobileFullscreen = fal
           <div className="flex-1">
             {/* Categories */}
             <div className="flex flex-wrap gap-2 mb-3">
-              {company.categories?.map((cat) => (
-                <CategoryBadge key={cat.id} title={cat.title} icon={cat.icon} />
-              ))}
+              {[...company.categories]
+                .sort((a, b) => {
+                  const idA = a.id ?? 0;
+                  const idB = b.id ?? 0;
+                  return idA - idB;
+                })
+                .map((cat) => (
+                  <CategoryBadge
+                    key={cat.id || cat.title}
+                    title={cat.title}
+                    icon={cat.icon}
+                  />
+                ))}
             </div>
 
             {/* Company Name + Verified */}
@@ -96,7 +106,7 @@ export default function CompanyDetail({ company, onClose, mobileFullscreen = fal
                   <ContactItem icon="navigation" value="Buka Maps" />
                 </a>
               )}
-              
+
               {/* Phone */}
               {phone && <ContactItem icon="call" value={phone} />}
             </div>
