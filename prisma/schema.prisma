@@ -144,30 +144,30 @@ model InternshipStat {
 
 /// Definisi kategori mitra perusahaan dengan ikon dan deskripsi
 model PartnerCategory {
-  id        Int      @id @default(autoincrement())
+  id        Int              @id @default(autoincrement())
   icon      String
-  title     String   @unique
+  title     String           @unique
   subtitle  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  companies  PartnerCompany[]
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  companies PartnerCompany[] @relation("PartnerCategoryToPartnerCompany")
 
   @@map("partner_categories")
 }
 
 /// Perusahaan mitra magang untuk siswa TKJ
 model PartnerCompany {
-  id          Int                 @id @default(autoincrement())
-  name        String
-  verified    Boolean             @default(false)
-  address     String
-  phone       String?
-  email       String?
-  mapsUrl     String?           @db.Text
-  createdAt   DateTime            @default(now())
-  updatedAt   DateTime            @updatedAt
-  reviews     CompanyReview[]
-  categories  PartnerCategory[]
+  id         Int               @id @default(autoincrement())
+  name       String
+  verified   Boolean           @default(false)
+  address    String
+  phone      String?
+  email      String?
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @updatedAt
+  mapsUrl    String?
+  reviews    CompanyReview[]
+  categories PartnerCategory[] @relation("PartnerCategoryToPartnerCompany")
 
   @@map("partner_companies")
 }
@@ -176,11 +176,11 @@ model PartnerCompany {
 model CompanyReview {
   id               Int            @id @default(autoincrement())
   name             String
-  academicYear     String
   text             String
   partnerCompanyId Int
   createdAt        DateTime       @default(now())
   updatedAt        DateTime       @updatedAt
+  academicYear     String
   partnerCompany   PartnerCompany @relation(fields: [partnerCompanyId], references: [id], onDelete: Cascade)
 
   @@map("company_reviews")
