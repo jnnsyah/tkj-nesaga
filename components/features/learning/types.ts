@@ -31,6 +31,7 @@ export interface LearningPath {
   prerequisites: string[];
   steps: Step[];
   recommendations: Recommendation[];
+  DomainId: string | null;
 }
 
 export interface ExternalResource {
@@ -39,4 +40,11 @@ export interface ExternalResource {
   description: string;
   href: string;
   color: string;
+}
+
+export interface Domain {
+  id: string;
+  name: string;
+  slug: string;
+  learningPaths?: LearningPath[];
 }

@@ -7,7 +7,15 @@ datasource db {
   provider = "postgresql"
 }
 
-/// Jalur pembelajaran terstruktur untuk kurikulum TKJ
+model Domain {
+  id             String         @id @default(uuid())
+  name           String
+  slug           String         @unique
+  learning_paths LearningPath[]
+
+  @@map("domains")
+}
+
 model LearningPath {
   id              String                   @id @default(uuid())
   /// identifier unik (e.g. "basic-networking")
@@ -23,8 +31,8 @@ model LearningPath {
   prerequisites   String[]
   createdAt       DateTime                 @default(now())
   updatedAt       DateTime                 @updatedAt
-  DomainId        String?
-  domains         domains?                 @relation(fields: [DomainId], references: [id], onDelete: Cascade)
+  domainId        String?
+  domain          Domain?                  @relation(fields: [domainId], references: [id], onDelete: Cascade)
   recommendations LearningRecommendation[]
   steps           LearningStep[]
 
@@ -144,30 +152,30 @@ model InternshipStat {
 
 /// Definisi kategori mitra perusahaan dengan ikon dan deskripsi
 model PartnerCategory {
-  id        Int      @id @default(autoincrement())
+  id        Int              @id @default(autoincrement())
   icon      String
-  title     String   @unique
+  title     String           @unique
   subtitle  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  companies  PartnerCompany[]
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  companies PartnerCompany[] @relation("PartnerCategoryToPartnerCompany")
 
   @@map("partner_categories")
 }
 
 /// Perusahaan mitra magang untuk siswa TKJ
 model PartnerCompany {
-  id          Int                 @id @default(autoincrement())
-  name        String
-  verified    Boolean             @default(false)
-  address     String
-  phone       String?
-  email       String?
-  mapsUrl     String?           @db.Text
-  createdAt   DateTime            @default(now())
-  updatedAt   DateTime            @updatedAt
-  reviews     CompanyReview[]
-  categories  PartnerCategory[]
+  id         Int               @id @default(autoincrement())
+  name       String
+  verified   Boolean           @default(false)
+  address    String
+  phone      String?
+  email      String?
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @updatedAt
+  mapsUrl    String?
+  reviews    CompanyReview[]
+  categories PartnerCategory[] @relation("PartnerCategoryToPartnerCompany")
 
   @@map("partner_companies")
 }
@@ -176,11 +184,11 @@ model PartnerCompany {
 model CompanyReview {
   id               Int            @id @default(autoincrement())
   name             String
-  academicYear     String
   text             String
   partnerCompanyId Int
   createdAt        DateTime       @default(now())
   updatedAt        DateTime       @updatedAt
+  academicYear     String
   partnerCompany   PartnerCompany @relation(fields: [partnerCompanyId], references: [id], onDelete: Cascade)
 
   @@map("company_reviews")
@@ -204,13 +212,6 @@ model CurriculumHighlight {
   text String
 
   @@map("curriculum_highlights")
-}
-
-model domains {
-  id             String         @id
-  name           String
-  slug           String         @unique
-  learning_paths LearningPath[]
 }
 
 /// Level kesulitan learning path
