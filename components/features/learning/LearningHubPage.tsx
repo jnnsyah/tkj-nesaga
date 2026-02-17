@@ -21,9 +21,6 @@ export default function LearningHubPage() {
   const [activeLevel, setActiveLevel] = useState("all");
 
   const [domains, setDomains] = useState<Domain[]>([]);
-  console.log(activeDomain) 
-  console.log(domains)
-  console.log("ini learningPaths", learningPaths)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,7 +55,6 @@ export default function LearningHubPage() {
 
   const filteredPaths = useMemo(() => {
     return learningPaths.filter((path) => {
-      // Filter by Level
       const matchesLevel = activeLevel === "all" || path.level === activeLevel
       return matchesLevel 
     });
