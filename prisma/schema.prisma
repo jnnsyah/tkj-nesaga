@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "../generated/prisma"
@@ -13,9 +7,214 @@ datasource db {
   provider = "postgresql"
 }
 
-// ============================================================================
-// ENUMS
-// ============================================================================
+/// Jalur pembelajaran terstruktur untuk kurikulum TKJ
+model Domain {
+  id             String         @id @default(uuid())
+  name           String
+  slug           String         @unique
+  learning_paths LearningPath[]
+
+  @@map("domains")
+}
+
+model LearningPath {
+  id              String                   @id @default(uuid())
+  /// identifier unik (e.g. "basic-networking")
+  slug            String                   @unique
+  icon            String
+  title           String
+  level           LearningLevel
+  levelVariant    String
+  actionIcon      String?
+  /// topik-topik yang dicakup
+  topics          String[]
+  /// prasyarat yang dibutuhkan
+  prerequisites   String[]
+  createdAt       DateTime                 @default(now())
+  updatedAt       DateTime                 @updatedAt
+  DomainId        String?
+  domains         Domain?                  @relation(fields: [DomainId], references: [id], onDelete: Cascade)
+  recommendations LearningRecommendation[]
+  steps           LearningStep[]
+
+  @@map("learning_paths")
+}
+
+/// Langkah-langkah dalam sebuah learning path
+model LearningStep {
+  id             Int                  @id @default(autoincrement())
+  title          String
+  description    String
+  status         StepStatus
+  /// Tipe media (e.g. "Video", "Video & Teks")
+  mediaType      String?
+  /// Urutan langkah dalam path
+  order          Int
+  learningPathId String
+  actions        LearningStepAction[]
+  learningPath   LearningPath         @relation(fields: [learningPathId], references: [id], onDelete: Cascade)
+
+  @@map("learning_steps")
+}
+
+/// Aksi yang tersedia di setiap langkah learning (link video, teks, dsb)
+model LearningStepAction {
+  id             Int          @id @default(autoincrement())
+  icon           String
+  label          String
+  /// URL tujuan (opsional)
+  to             String?
+  learningStepId Int
+  learningStep   LearningStep @relation(fields: [learningStepId], references: [id], onDelete: Cascade)
+
+  @@map("learning_step_actions")
+}
+
+/// Rekomendasi resource untuk learning path
+model LearningRecommendation {
+  id             Int           @id @default(autoincrement())
+  icon           String
+  title          String
+  description    String
+  href           String
+  color          ResourceColor
+  learningPathId String
+  learningPath   LearningPath  @relation(fields: [learningPathId], references: [id], onDelete: Cascade)
+
+  @@map("learning_recommendations")
+}
+
+/// Sumber belajar eksternal (YouTube, sertifikasi, tutorial)
+model ExternalResource {
+  id          Int           @id @default(autoincrement())
+  icon        String
+  title       String
+  description String
+  href        String
+  color       ResourceColor
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@map("external_resources")
+}
+
+/// Dokumen template yang bisa diunduh untuk keperluan magang
+model DownloadableDocument {
+  id        Int      @id @default(autoincrement())
+  title     String
+  /// Ekstensi file (e.g. ".DOCX")
+  ext       String
+  icon      String
+  href      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("downloadable_documents")
+}
+
+/// Pertanyaan yang sering ditanyakan (FAQ) untuk bimbingan magang
+model FrequentlyAskedQuestion {
+  id          Int      @id @default(autoincrement())
+  question    String
+  answer      String
+  defaultOpen Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("frequently_asked_questions")
+}
+
+/// Timeline fase magang (pra, pelaksanaan, pasca)
+model InternshipTimeline {
+  id          Int          @id @default(autoincrement())
+  icon        String
+  title       String
+  description String
+  size        TimelineSize @default(normal)
+  highlight   Boolean      @default(false)
+  /// Urutan fase dalam timeline
+  order       Int
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@map("internship_timelines")
+}
+
+/// Statistik program magang (jumlah mitra, persentase tersalurkan, durasi)
+model InternshipStat {
+  id    Int    @id @default(autoincrement())
+  /// Nilai statistik (e.g. "50+", "100%")
+  value String
+  /// Label deskriptif
+  label String
+
+  @@map("internship_stats")
+}
+
+/// Definisi kategori mitra perusahaan dengan ikon dan deskripsi
+model PartnerCategory {
+  id                Int              @id @default(autoincrement())
+  icon              String
+  title             String           @unique
+  subtitle          String
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  partner_companies PartnerCompany[] @relation("PartnerCategoryToPartnerCompany")
+
+  @@map("partner_categories")
+}
+
+/// Perusahaan mitra magang untuk siswa TKJ
+model PartnerCompany {
+  id                 Int               @id @default(autoincrement())
+  name               String
+  verified           Boolean           @default(false)
+  address            String
+  phone              String?
+  email              String?
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+  mapsUrl            String?
+  reviews            CompanyReview[]
+  partner_categories PartnerCategory[] @relation("PartnerCategoryToPartnerCompany")
+
+  @@map("partner_companies")
+}
+
+/// Review/testimoni dari siswa yang pernah magang di perusahaan mitra
+model CompanyReview {
+  id               Int            @id @default(autoincrement())
+  /// Nama reviewer
+  name             String
+  text             String
+  partnerCompanyId Int
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  academicYear     String
+  partnerCompany   PartnerCompany @relation(fields: [partnerCompanyId], references: [id], onDelete: Cascade)
+
+  @@map("company_reviews")
+}
+
+/// Fitur utama program TKJ (bidang keahlian yang diajarkan)
+model ProgramFeature {
+  id          Int      @id @default(autoincrement())
+  icon        String
+  title       String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("program_features")
+}
+
+/// Highlight kurikulum TKJ
+model CurriculumHighlight {
+  id   Int    @id @default(autoincrement())
+  text String
+
+  @@map("curriculum_highlights")
+}
 
 /// Level kesulitan learning path
 enum LearningLevel {
@@ -32,14 +231,6 @@ enum StepStatus {
   locked
 }
 
-/// Kategori mitra perusahaan
-enum PartnerCategoryType {
-  ISP
-  Retail
-  Service
-  Instansi
-}
-
 /// Ukuran tampilan timeline
 enum TimelineSize {
   normal
@@ -52,237 +243,4 @@ enum ResourceColor {
   blue
   green
   orange
-}
-
-// ============================================================================
-// LEARNING MODELS
-// ============================================================================
-
-/// Jalur pembelajaran terstruktur untuk kurikulum TKJ
-model Domain {
-  id            String    @id @default(uuid())
-  name          String
-  slug          String    @unique
-  
-  LearningPath  LearningPath[]
-  @@map("domains")
-}
-
-model LearningPath {
-  id            String    @id @default(uuid())
-  slug          String    @unique /// identifier unik (e.g. "basic-networking")
-  icon          String
-  title         String
-  level         LearningLevel
-  levelVariant  String
-  actionIcon    String?
-  topics        String[]  /// topik-topik yang dicakup
-  prerequisites String[]  /// prasyarat yang dibutuhkan
-
-  steps           LearningStep[]
-  recommendations LearningRecommendation[]
-
-  DomainId      String?
-  Domain        Domain? @relation(fields: [DomainId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("learning_paths")
-}
-
-/// Langkah-langkah dalam sebuah learning path
-model LearningStep {
-  id          Int        @id @default(autoincrement())
-  title       String
-  description String
-  status      StepStatus
-  mediaType   String?    /// Tipe media (e.g. "Video", "Video & Teks")
-  order       Int        /// Urutan langkah dalam path
-
-  learningPathId String
-  learningPath   LearningPath @relation(fields: [learningPathId], references: [id], onDelete: Cascade)
-
-  actions LearningStepAction[]
-
-  @@map("learning_steps")
-}
-
-/// Aksi yang tersedia di setiap langkah learning (link video, teks, dsb)
-model LearningStepAction {
-  id    Int     @id @default(autoincrement())
-  icon  String
-  label String
-  to    String? /// URL tujuan (opsional)
-
-  learningStepId Int
-  learningStep   LearningStep @relation(fields: [learningStepId], references: [id], onDelete: Cascade)
-
-  @@map("learning_step_actions")
-}
-
-/// Rekomendasi resource untuk learning path
-model LearningRecommendation {
-  id          Int           @id @default(autoincrement())
-  icon        String
-  title       String
-  description String
-  href        String
-  color       ResourceColor
-
-  learningPathId String
-  learningPath   LearningPath @relation(fields: [learningPathId], references: [id], onDelete: Cascade)
-
-  @@map("learning_recommendations")
-}
-
-/// Sumber belajar eksternal (YouTube, sertifikasi, tutorial)
-model ExternalResource {
-  id          Int           @id @default(autoincrement())
-  icon        String
-  title       String
-  description String
-  href        String
-  color       ResourceColor
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("external_resources")
-}
-
-// ============================================================================
-// GUIDANCE MODELS
-// ============================================================================
-
-/// Dokumen template yang bisa diunduh untuk keperluan magang
-model DownloadableDocument {
-  id    Int    @id @default(autoincrement())
-  title String
-  ext   String /// Ekstensi file (e.g. ".DOCX")
-  icon  String
-  href  String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("downloadable_documents")
-}
-
-/// Pertanyaan yang sering ditanyakan (FAQ) untuk bimbingan magang
-model FrequentlyAskedQuestion {
-  id          Int     @id @default(autoincrement())
-  question    String
-  answer      String  @db.Text
-  defaultOpen Boolean @default(false)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("frequently_asked_questions")
-}
-
-/// Timeline fase magang (pra, pelaksanaan, pasca)
-model InternshipTimeline {
-  id          Int          @id @default(autoincrement())
-  icon        String
-  title       String
-  description String       @db.Text
-  size        TimelineSize @default(normal)
-  highlight   Boolean      @default(false)
-  order       Int          /// Urutan fase dalam timeline
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("internship_timelines")
-}
-
-// ============================================================================
-// INTERNSHIP MODELS
-// ============================================================================
-
-/// Statistik program magang (jumlah mitra, persentase tersalurkan, durasi)
-model InternshipStat {
-  id    Int    @id @default(autoincrement())
-  value String /// Nilai statistik (e.g. "50+", "100%")
-  label String /// Label deskriptif
-
-  @@map("internship_stats")
-}
-
-/// Definisi kategori mitra perusahaan dengan ikon dan deskripsi
-model PartnerCategory {
-  id       Int    @id @default(autoincrement())
-  icon     String
-  title    String @unique
-  subtitle String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("partner_categories")
-}
-
-/// Perusahaan mitra magang untuk siswa TKJ
-model PartnerCompany {
-  id          Int                 @id @default(autoincrement())
-  name        String
-  category    PartnerCategoryType
-  verified    Boolean             @default(false)
-  address     String
-  phone       String?
-  email       String?
-  shortDesc   String?             @db.Text
-  description String?             @db.Text
-
-  reviews CompanyReview[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("partner_companies")
-}
-
-/// Review/testimoni dari siswa yang pernah magang di perusahaan mitra
-model CompanyReview {
-  id      Int    @id @default(autoincrement())
-  name    String /// Nama reviewer
-  role    String /// Peran/angkatan (e.g. "Angkatan 2022 • Jan - Jun 2023")
-  initial String /// Inisial nama
-  rating  Int    /// Rating 1-5
-  text    String @db.Text
-
-  partnerCompanyId Int
-  partnerCompany   PartnerCompany @relation(fields: [partnerCompanyId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("company_reviews")
-}
-
-// ============================================================================
-// PROGRAM MODELS
-// ============================================================================
-
-/// Fitur utama program TKJ (bidang keahlian yang diajarkan)
-model ProgramFeature {
-  id          Int    @id @default(autoincrement())
-  icon        String
-  title       String
-  description String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("program_features")
-}
-
-/// Highlight kurikulum TKJ
-model CurriculumHighlight {
-  id   Int    @id @default(autoincrement())
-  text String
-
-  @@map("curriculum_highlights")
 }

@@ -1,4 +1,4 @@
 export * from "./guidance"
 export * from "./internship"
-export * from "./landing"
+export { LandingPage } from "./landing"
 export * from "./learning"

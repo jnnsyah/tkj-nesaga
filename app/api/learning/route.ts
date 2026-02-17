@@ -1,11 +1,18 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
 /**
  * GET /api/learning
  * Mengambil semua learning paths (tanpa nested steps/actions) dan external resources.
  */
-export async function GET() {
+export async function GET(req: NextRequest) {
+  const domainParam = req.nextUrl.searchParams.get("domain");
+
+  const where =
+  domainParam && domainParam !== "all"
+    ? { DomainId: domainParam}
+    : {}; 
+
   try {
     const [learningPaths, externalResources, domains] = await Promise.all([
       prisma.learningPath.findMany({
@@ -19,6 +26,7 @@ export async function GET() {
           topics: true,
           actionIcon: true,
           prerequisites: true,
+          domain: true
         },
         orderBy: { createdAt: "asc" },
       }),
@@ -30,7 +38,7 @@ export async function GET() {
       })
     ]);
 
-    return NextResponse.json({ learningPaths, externalResources, domains});
+    return NextResponse.json({ learningPaths, externalResources, domains });
   } catch (error) {
     console.error("Failed to fetch data:", error);
     return NextResponse.json(

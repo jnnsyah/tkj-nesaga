@@ -1,26 +1,30 @@
 "use client"
 
-import {LearningPathCard, Badge, ResourceCard, LoadingOverlay, LearningPathTabs} from "@/components";
+import { LearningPathCard, Badge, ResourceCard, LoadingOverlay, LearningPathTabs } from "@/components";
 import type { LearningPathTab } from "@/components";
 // import SectionHeader from "@/components/ui/SectionHeader";
 import { useEffect, useMemo, useState } from "react";
 import { LearningPath, ExternalResource, Domain } from "./types";
 
 const LEARNING_TABS_FILTERING_BY_LEVEL: LearningPathTab[] = [
-  { name: "all", icon: "apps" },
-  { name: "Foundation", icon: "hub" },
-  { name: "Beginner", icon: "rocket_launch" },
-  { name: "Intermediate", icon: "trending_up" },
+  { name: "Foundation", value: "Foundation", icon: "hub" },
+  { name: "Beginner", value: "Beginner", icon: "rocket_launch" },
+  { name: "Intermediate", value: "Intermediate", icon: "trending_up" },
 ];
 
 export default function LearningHubPage() {
   const [loading, setLoading] = useState(false);
   const [learningPaths, setLearningPaths] = useState<LearningPath[]>([]);
   const [externalResources, setExternalResources] = useState<ExternalResource[]>([]);
-  const [activeTab, setActiveTab] = useState("all");
-  const [domains, setDomains] = useState<Domain[]>([]);
 
-  console.log("ini domains", domains)
+  const [activeDomain, setActiveDomain] = useState("all");
+  const [activeLevel, setActiveLevel] = useState("all");
+
+  const [domains, setDomains] = useState<Domain[]>([]);
+  console.log(activeDomain) 
+  console.log(domains)
+  console.log("ini learningPaths", learningPaths)
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -37,17 +41,33 @@ export default function LearningHubPage() {
         }
       } catch (error) {
         console.error("Failed to fetch learning paths", error)
-      }finally{
+      } finally {
         setLoading(false)
       }
     }
     fetchData();
   }, []);
 
+  const domainTabs: LearningPathTab[] = useMemo(() => {
+    return domains.map(d => ({
+      name: d.name,
+      value: d.id,
+      icon: "dns" 
+    }));
+  }, [domains]);
+
   const filteredPaths = useMemo(() => {
-    if (activeTab === "all") return learningPaths;
-    return learningPaths.filter((p) => p.level === activeTab);
-  }, [activeTab, learningPaths]);
+    return learningPaths.filter((path) => {
+      // Filter by Level
+      const matchesLevel = activeLevel === "all" || path.level === activeLevel;
+
+      // Filter by Domain
+      // Note: We need to ensure path.DomainId matches the activeDomain ID
+      const matchesDomain = activeDomain === "all" || path.DomainId === activeDomain;
+
+      return matchesLevel && matchesDomain;
+    });
+  }, [activeLevel, activeDomain, learningPaths]);
 
   return (
     <div className="max-w-7xl mx-auto pb-20">
@@ -72,23 +92,24 @@ export default function LearningHubPage() {
           </Badge>
         </div>
 
-        {/* Tab Navigation */}
-         <LearningPathTabs
-          tabs={domains}
-          activeTab={activeTab}
-          onTabChange={setActiveTab}
+        {/* Domain Navigation */}
+        <LearningPathTabs
+          tabs={domainTabs}
+          activeTab={activeDomain}
+          onTabChange={setActiveDomain}
           className="mb-8 px-2"
         />
 
+        {/* Level Navigation */}
         <LearningPathTabs
           tabs={LEARNING_TABS_FILTERING_BY_LEVEL}
-          activeTab={activeTab}
-          onTabChange={setActiveTab}
+          activeTab={activeLevel}
+          onTabChange={setActiveLevel}
           className="mb-8 px-2"
         />
 
         <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8">
-          <LoadingOverlay visible={loading}/>
+          <LoadingOverlay visible={loading} />
           {filteredPaths.map((path) => (
             <LearningPathCard key={path.id} {...path} />
           ))}
@@ -101,7 +122,7 @@ export default function LearningHubPage() {
           Resource Library
         </h2>
         <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <LoadingOverlay visible={loading}/>
+          <LoadingOverlay visible={loading} />
           {externalResources.map((resource, idx) => (
             <ResourceCard key={idx} {...resource} />
           ))}
