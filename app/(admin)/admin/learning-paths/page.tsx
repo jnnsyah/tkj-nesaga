@@ -1,3 +1,4 @@
+// Schema migration: level is now a relation, removed icon/levelVariant/actionIcon/topics/prerequisites from form
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
@@ -9,12 +10,10 @@ interface LearningPathRecord {
   id: string;
   slug: string;
   title: string;
-  icon: string;
-  level: string;
-  levelVariant: string;
-  topics: string[];
-  prerequisites: string[];
-  actionIcon?: string;
+  level: { id: number; name: string; color: string };
+  topics: { id: number; topic: string }[];
+  prerequisites: { id: number; prerequisite: string }[];
+  isPublished: boolean;
   domainId?: string;
   domain?: { id: string; name: string };
   _count?: { steps: number; recommendations: number };
@@ -63,8 +62,8 @@ export default function LearningPathsPage() {
       key: "level",
       label: "Level",
       render: (item) => (
-        <Badge variant={item.level === "Foundation" ? "primary" : item.level === "Beginner" ? "secondary" : "default"}>
-          {item.level}
+        <Badge variant={item.level?.name === "Foundation" ? "primary" : item.level?.name === "Beginner" ? "secondary" : "default"}>
+          {item.level?.name ?? "—"}
         </Badge>
       ),
     },
@@ -83,29 +82,13 @@ export default function LearningPathsPage() {
   const fields: FieldConfig[] = [
     { key: "title", label: "Title", required: true, placeholder: "e.g. Basic Networking" },
     { key: "slug", label: "Slug", required: true, placeholder: "e.g. basic-networking" },
-    { key: "icon", label: "Icon", required: true, placeholder: "Material icon name" },
-    {
-      key: "level",
-      label: "Level",
-      type: "select",
-      required: true,
-      options: [
-        { label: "Foundation", value: "Foundation" },
-        { label: "Beginner", value: "Beginner" },
-        { label: "Intermediate", value: "Intermediate" },
-        { label: "Advanced", value: "Advanced" },
-      ],
-    },
-    { key: "levelVariant", label: "Level Variant", required: true, placeholder: "e.g. Dasar" },
     {
       key: "domainId",
       label: "Domain",
       type: "select",
       options: domains.map((d) => ({ label: d.name, value: d.id })),
     },
-    { key: "topics", label: "Topics", type: "tags", placeholder: "Comma-separated topics" },
-    { key: "prerequisites", label: "Prerequisites", type: "tags", placeholder: "Comma-separated prerequisites" },
-    { key: "actionIcon", label: "Action Icon", placeholder: "e.g. arrow_forward" },
+    { key: "isPublished", label: "Published", type: "checkbox", placeholder: "Mark as published" },
   ];
 
   const handleSubmit = async (formData: Record<string, unknown>) => {

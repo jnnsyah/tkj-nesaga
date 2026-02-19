@@ -1,3 +1,4 @@
+// Schema migration: categories filter now goes through junction table (c.category.title)
 "use client"
 
 import { useState, useEffect, useMemo } from "react";
@@ -32,15 +33,15 @@ export default function PrakerinPage() {
   // Selection state
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [selectedPlace, setSelectedPlace] = useState<PartnerCompany>()
-  
+
   // Data state
   const [companies, setCompanies] = useState<PartnerCompany[]>([])
   const [loading, setLoading] = useState(false)
-  
+
   // Filter & Search state
   const [activeFilter, setActiveFilter] = useState<string>("Semua")
   const [searchQuery, setSearchQuery] = useState("")
-  
+
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 9 // 3 columns x 3 rows
@@ -78,8 +79,8 @@ export default function PrakerinPage() {
     // Apply category filter
     if (activeFilter !== "Semua") {
       filtered = filtered.filter(company =>
-        company.categories.some(cat =>
-          cat.title.toLowerCase().includes(activeFilter.toLowerCase())
+        company.categories.some(c =>
+          c.category?.title.toLowerCase().includes(activeFilter.toLowerCase())
         )
       )
     }
@@ -104,7 +105,7 @@ export default function PrakerinPage() {
   const totalPages = Math.ceil(filteredCompanies.length / itemsPerPage)
   const startIndex = (currentPage - 1) * itemsPerPage
   const endIndex = startIndex + itemsPerPage
-  const paginatedCompanies = useMemo(() => 
+  const paginatedCompanies = useMemo(() =>
     filteredCompanies.slice(startIndex, endIndex),
     [filteredCompanies, startIndex, endIndex]
   )
@@ -154,10 +155,10 @@ export default function PrakerinPage() {
 
   const handleTouchMove = (e: React.TouchEvent) => {
     if (!isDragging) return
-    
+
     const currentY = e.touches[0].clientY
     const diff = currentY - startY
-    
+
     // Only allow dragging down (positive diff)
     if (diff > 0) {
       setDragY(diff)
@@ -166,7 +167,7 @@ export default function PrakerinPage() {
 
   const handleTouchEnd = () => {
     setIsDragging(false)
-    
+
     // If dragged more than 150px, close modal
     if (dragY > 150) {
       handleClose()
@@ -257,7 +258,7 @@ export default function PrakerinPage() {
       {/* Company Grid */}
       <main className="relative">
         <LoadingOverlay visible={loading} />
-        
+
         {!loading && paginatedCompanies.length === 0 ? (
           // Empty State
           <div className="flex flex-col items-center justify-center py-16 px-4">
@@ -312,9 +313,9 @@ export default function PrakerinPage() {
           <div className="flex gap-1">
             {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => {
               // Show first page, last page, current page, and pages around current
-              const showPage = 
-                page === 1 || 
-                page === totalPages || 
+              const showPage =
+                page === 1 ||
+                page === totalPages ||
                 (page >= currentPage - 1 && page <= currentPage + 1)
 
               if (!showPage) {

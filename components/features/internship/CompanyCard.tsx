@@ -1,3 +1,4 @@
+// Schema migration: categories now accessed through explicit junction table (c.category)
 import { cn } from "@/lib/utils";
 import { CategoryBadge } from "./CategoryBadge";
 import { Icon } from "@/components";
@@ -36,15 +37,15 @@ export default function CompanyCard({
         <div className="flex flex-wrap gap-2">
           {[...categories]
             .sort((a, b) => {
-              const idA = a.id ?? 0;
-              const idB = b.id ?? 0;
+              const idA = a.category?.id ?? 0;
+              const idB = b.category?.id ?? 0;
               return idA - idB;
             })
-            .map((cat) => (
+            .map((c) => (
               <CategoryBadge
-                key={cat.id || cat.title}
-                title={cat.title}
-                icon={cat.icon}
+                key={c.category?.id || c.category?.title}
+                title={c.category?.title}
+                icon={c.category?.icon}
               />
             ))}
         </div>

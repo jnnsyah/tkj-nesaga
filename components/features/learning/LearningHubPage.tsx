@@ -1,4 +1,5 @@
 "use client"
+// Schema migration: path.level is now a relation object, domain has icon field
 
 import { LearningPathCard, Badge, ResourceCard, LoadingOverlay, LearningPathTabs, EmptyState } from "@/components";
 import type { LearningPathTab } from "@/components";
@@ -49,14 +50,14 @@ export default function LearningHubPage() {
     return domains.map(d => ({
       name: d.name,
       value: d.slug,
-      icon: "dns" 
+      icon: d.icon
     }));
   }, [domains]);
 
   const filteredPaths = useMemo(() => {
     return learningPaths.filter((path) => {
-      const matchesLevel = activeLevel === "all" || path.level === activeLevel
-      return matchesLevel 
+      const matchesLevel = activeLevel === "all" || path.level.name === activeLevel
+      return matchesLevel
     });
   }, [activeLevel, learningPaths]);
 
@@ -102,7 +103,7 @@ export default function LearningHubPage() {
         <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8">
           <LoadingOverlay visible={loading} />
           {filteredPaths && filteredPaths.length > 0 ? (
-            filteredPaths.map (path => (
+            filteredPaths.map(path => (
               <LearningPathCard key={path.id} {...path} />
             ))
           ) : (
@@ -125,8 +126,8 @@ export default function LearningHubPage() {
           <LoadingOverlay visible={loading} />
           {externalResources && externalResources.length > 0 ? (
             externalResources.map((resource, idx) => (
-                <ResourceCard key={idx} {...resource} />
-            ))  
+              <ResourceCard key={idx} {...resource} />
+            ))
           ) : (
             <EmptyState />
           )}

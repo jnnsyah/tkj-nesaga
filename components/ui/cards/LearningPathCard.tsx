@@ -1,3 +1,8 @@
+// Schema migration: Updated props to match new schema.
+// - icon, levelVariant, actionIcon now come from domain relation
+// - level is now a relation object { name, color }
+// - topics is now { id, topic }[] instead of string[]
+
 "use client"
 
 import Link from "next/link"
@@ -6,19 +11,18 @@ import Icon from "@/components/ui/Icon";
 import Badge from "@/components/ui/Badge";
 import CheckItem from "@/components/ui/CheckItem";
 
-// Need to match Variant from Badge.tsx, but since we can't import types easily without exporting them cleanly or using 'typeof', I'll redefine or use string for now if Badge doesn't export it.
-// Checking Badge.tsx again... I didn't export Variant type.
-// I'll assume string is fine or just redefine the union.
 type BadgeVariant = "default" | "blue" | "green" | "orange" | "primary" | "secondary";
 
 interface LearningPathCardProps {
   id: string;
-  icon: string;
   title: string;
-  level: string;
-  levelVariant?: string;
-  topics?: string[];
-  actionIcon?: string;
+  level: { name: string; color: string };
+  topics?: { id: number; topic: string }[];
+  domain?: {
+    icon: string;
+    levelVariant: string;
+    actionIcon?: string;
+  };
 }
 
 /**
@@ -26,20 +30,22 @@ interface LearningPathCardProps {
  */
 export default function LearningPathCard({
   id,
-  icon,
   title,
   level,
-  levelVariant = "blue",
   topics = [],
-  actionIcon = "menu_book"
+  domain,
 }: LearningPathCardProps) {
+  const icon = domain?.icon ?? "school";
+  const levelVariant = domain?.levelVariant ?? "blue";
+  const actionIcon = domain?.actionIcon ?? "menu_book";
+
   return (
     <Card className="group rounded-3xl" padding="lg">
       <div className="flex justify-between items-start mb-6">
         <div className="p-4 bg-primary/20 rounded-2xl">
           <Icon name={icon} size="xl" className="text-primary" />
         </div>
-        <Badge variant={levelVariant as any}>{level}</Badge>
+        <Badge variant={levelVariant as BadgeVariant}>{level.name}</Badge>
       </div>
 
       <h3 className="text-2xl font-bold mb-4 text-secondary dark:text-white">
@@ -47,8 +53,8 @@ export default function LearningPathCard({
       </h3>
 
       <ul className="space-y-3 mb-8">
-        {topics.map((topic, idx) => (
-          <CheckItem key={idx}>{topic}</CheckItem>
+        {topics.map((t) => (
+          <CheckItem key={t.id}>{t.topic}</CheckItem>
         ))}
       </ul>
 

@@ -1,20 +1,20 @@
+// Schema migration: Updated to match CompanyReview schema (name, text, academicYear).
+// Removed role, initial, and rating fields that no longer exist in the schema.
+
 "use client"
 
-import { cn } from "@/lib/utils";
 import Icon from "@/components/ui/Icon";
 
-interface ReviewCardProps {
+export interface ReviewCardProps {
   name: string;
-  role: string;
-  initial: string;
-  rating: number;
   text: string;
+  academicYear: string;
 }
 
 /**
  * Review card for displaying user reviews
  */
-export default function ReviewCard({ name, academicYear, initial, rating, text }: ReviewCardProps) {
+export default function ReviewCard({ name, academicYear, text }: ReviewCardProps) {
   return (
     <div className="bg-secondary/5 p-6 rounded-2xl border border-border">
       <div className="flex justify-between items-start mb-4">
@@ -22,31 +22,18 @@ export default function ReviewCard({ name, academicYear, initial, rating, text }
           <div className="w-12 h-12 rounded-2xl bg-secondary text-primary flex items-center justify-center shadow-sm">
             <Icon name="person" size="lg" />
           </div>
-        <div>
-          <p className="font-bold text-sm text-secondary dark:text-white">
-            {name}
-          </p>
-          <span className="text-xs text-muted-foreground">
-            Periode {academicYear}
-          </span>
-        </div>
-        </div>
-        <div className="flex text-primary">
-          {[...Array(5)].map((_, i) => (
-            <Icon
-              key={i}
-              name="star"
-              size="sm"
-              filled
-              className={cn(
-                i < rating ? "text-primary" : "text-muted"
-              )}
-            />
-          ))}
+          <div>
+            <p className="font-bold text-sm text-secondary dark:text-white">
+              {name}
+            </p>
+            <span className="text-xs text-muted-foreground">
+              Periode {academicYear}
+            </span>
+          </div>
         </div>
       </div>
       <p className="text-sm text-muted-foreground leading-relaxed italic border-l-4 border-primary pl-4 py-1">
-        "{text}"
+        &quot;{text}&quot;
       </p>
     </div>
   );

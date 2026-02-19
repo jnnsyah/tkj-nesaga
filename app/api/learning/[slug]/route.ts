@@ -1,3 +1,8 @@
+// Schema migration: Updated Prisma queries for new schema.
+// - Added level, topics, prerequisites, domain includes
+// - Actions now include category relation (replaces direct icon field)
+// - Recommendations now include category relation (replaces direct icon/color fields)
+
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
@@ -16,13 +21,17 @@ export async function GET(
     const learningPath = await prisma.learningPath.findUnique({
       where: { slug },
       include: {
+        level: true,
+        topics: true,
+        prerequisites: true,
+        domain: true,
         steps: {
           orderBy: { order: "asc" },
           include: {
-            actions: true,
+            actions: { include: { category: true } },
           },
         },
-        recommendations: true,
+        recommendations: { include: { category: true } },
       },
     });
 

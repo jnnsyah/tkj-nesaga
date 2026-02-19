@@ -1,3 +1,7 @@
+// Schema migration: Updated for new schema.
+// - GET: added level, topics, prerequisites includes; actions include category
+// - PUT: handles topics/prerequisites relational updates (deleteMany + create)
+
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
@@ -9,7 +13,17 @@ export async function GET(
     const { id } = await params;
     const learningPath = await prisma.learningPath.findUnique({
       where: { id },
-      include: { domain: true, steps: { orderBy: { order: "asc" }, include: { actions: true } }, recommendations: true },
+      include: {
+        domain: true,
+        level: true,
+        topics: true,
+        prerequisites: true,
+        steps: {
+          orderBy: { order: "asc" },
+          include: { actions: { include: { category: true } } },
+        },
+        recommendations: { include: { category: true } },
+      },
     });
     if (!learningPath) return NextResponse.json({ error: "Not found" }, { status: 404 });
     return NextResponse.json(learningPath);
@@ -25,8 +39,31 @@ export async function PUT(
 ) {
   try {
     const { id } = await params;
-    const body = await req.json();
-    const learningPath = await prisma.learningPath.update({ where: { id }, data: body });
+    const { topics, prerequisites, ...data } = await req.json();
+
+    // Update core learning path data
+    const learningPath = await prisma.learningPath.update({ where: { id }, data });
+
+    // Replace topics if provided
+    if (topics) {
+      await prisma.learningPathTopic.deleteMany({ where: { learningPathId: id } });
+      if (topics.length > 0) {
+        await prisma.learningPathTopic.createMany({
+          data: topics.map((t: string) => ({ topic: t, learningPathId: id })),
+        });
+      }
+    }
+
+    // Replace prerequisites if provided
+    if (prerequisites) {
+      await prisma.learningPathPrerequisite.deleteMany({ where: { learningPathId: id } });
+      if (prerequisites.length > 0) {
+        await prisma.learningPathPrerequisite.createMany({
+          data: prerequisites.map((p: string) => ({ prerequisite: p, learningPathId: id })),
+        });
+      }
+    }
+
     return NextResponse.json(learningPath);
   } catch (error) {
     console.error("Failed to update learning path:", error);

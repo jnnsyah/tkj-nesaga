@@ -1,3 +1,8 @@
+// Schema migration: Updated types to match refactored Prisma schema.
+// - PartnerCompany.categories: now uses explicit junction table PartnerCompanyCategory
+// - PartnerCompany.isActive: new field
+// - Review: updated to match CompanyReview schema (academicYear, no role/initial/rating)
+
 export interface StatItem {
   value: string;
   label: string;
@@ -12,22 +17,26 @@ export const internshipStats: StatItem[] = [
 export interface PartnerCompany {
   id: number;
   name: string;
-  categories: PartnerCategory[];
+  categories: PartnerCompanyCategory[];
   verified: boolean;
+  isActive: boolean;
   address: string;
   phone?: string | null;
   email?: string | null;
   mapsUrl?: string | null;
   reviews: Review[];
-  // description text removed as requested
+}
+
+export interface PartnerCompanyCategory {
+  companyId: number;
+  categoryId: number;
+  category: PartnerCategory;
 }
 
 export interface Review {
   name: string;
-  role: string;
-  initial: string;
-  rating: number;
   text: string;
+  academicYear: string;
 }
 
 export interface PartnerCategory {

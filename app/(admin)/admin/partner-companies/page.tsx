@@ -1,10 +1,11 @@
+// Schema migration: categories now accessed through explicit junction table
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
 import { AdminPageHeader, DataTable, FormModal, DeleteConfirmDialog } from "@/components/admin";
 import type { Column, FieldConfig } from "@/components/admin";
 
-interface CompanyRecord { id: number; name: string; verified: boolean; address: string; phone?: string; email?: string; mapsUrl?: string; categories?: { id: number; title: string }[]; _count?: { reviews: number }; [key: string]: unknown; }
+interface CompanyRecord { id: number; name: string; verified: boolean; isActive: boolean; address: string; phone?: string; email?: string; mapsUrl?: string; categories?: { category: { id: number; title: string } }[]; _count?: { reviews: number };[key: string]: unknown; }
 
 const API = "/api/admin/partner-companies";
 
@@ -21,7 +22,7 @@ export default function PartnerCompaniesPage() {
     { key: "name", label: "Name" },
     { key: "address", label: "Address", render: (item) => (item.address?.length > 40 ? item.address.slice(0, 40) + "…" : item.address) },
     { key: "verified", label: "Verified", render: (item) => item.verified ? "✓" : "—" },
-    { key: "categories", label: "Categories", render: (item) => item.categories?.map((c) => c.title).join(", ") || "—" },
+    { key: "categories", label: "Categories", render: (item) => item.categories?.map((c) => c.category?.title).join(", ") || "—" },
     { key: "_count", label: "Reviews", render: (item) => String(item._count?.reviews ?? 0) },
   ];
 

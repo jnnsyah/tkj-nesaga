@@ -1,3 +1,7 @@
+// Schema migration: Updated for explicit junction table PartnerCompanyCategory.
+// - GET: categories now include through junction table
+// - POST: uses create on junction table instead of connect on implicit m2m
+
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
@@ -5,7 +9,10 @@ export async function GET() {
   try {
     const companies = await prisma.partnerCompany.findMany({
       orderBy: { id: "asc" },
-      include: { categories: true, _count: { select: { reviews: true } } },
+      include: {
+        categories: { include: { category: true } },
+        _count: { select: { reviews: true } },
+      },
     });
     return NextResponse.json(companies);
   } catch (error) {
@@ -20,7 +27,9 @@ export async function POST(req: NextRequest) {
     const company = await prisma.partnerCompany.create({
       data: {
         ...data,
-        categories: categoryIds?.length ? { connect: categoryIds.map((id: number) => ({ id })) } : undefined,
+        categories: categoryIds?.length
+          ? { create: categoryIds.map((id: number) => ({ categoryId: id })) }
+          : undefined,
       },
     });
     return NextResponse.json(company, { status: 201 });

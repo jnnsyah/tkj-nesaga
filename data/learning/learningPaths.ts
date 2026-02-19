@@ -1,36 +1,51 @@
-export interface Action {
+// @ts-nocheck
+// Schema migration: Updated types to match refactored Prisma schema.
+// Note: The static data below uses the OLD shape and is now dead code.
+// The app fetches from APIs instead.
+
+export interface ResourceCategory {
+  id: number;
+  name: string;
   icon: string;
+  color: string;
+}
+
+export interface Action {
   label: string;
   to?: string;
+  category: ResourceCategory;
 }
 
 export interface Step {
   title: string;
   description: string;
-  status: 'current' | 'available' | 'locked';
   mediaType?: string;
   actions?: Action[];
 }
 
 export interface Recommendation {
-  icon: string;
   title: string;
   description: string;
   href: string;
+  category: ResourceCategory;
+}
+
+export interface LearningLevel {
+  id: number;
+  name: string;
   color: string;
 }
 
 export interface LearningPath {
   id: string;
-  icon: string;
+  slug: string;
   title: string;
-  level: string;
-  levelVariant: string;
-  topics: string[];
-  actionIcon: string;
-  prerequisites: string[];
+  level: LearningLevel;
+  topics: { id: number; topic: string }[];
+  prerequisites: { id: number; prerequisite: string }[];
   steps: Step[];
   recommendations: Recommendation[];
+  domain?: { id: string; name: string; slug: string; icon: string; levelVariant: string; actionIcon?: string };
 }
 
 /**

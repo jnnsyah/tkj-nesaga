@@ -1,8 +1,9 @@
+// Schema migration: prerequisites is now { prerequisite: string }[], recommendations use category relation
 "use client"
 
-import {Badge, LoadingOverlay} from "@/components";
+import { Badge, LoadingOverlay } from "@/components";
 // import Button from "@/components/ui/Button";
-import {Icon, ResourceCard, CheckItem, TimelineStep} from "@/components";
+import { Icon, ResourceCard, CheckItem, TimelineStep } from "@/components";
 // import { getLearningPathById, learningPaths } from "@/data/learning";
 import "./LearningPathDetail.css";
 import { useEffect, useState } from "react";
@@ -28,26 +29,26 @@ export default function LearningPathDetail({ id }: LearningPathDetailProps) {
   // };
 
   useEffect(() => {
-    const fetchData = async() => {
-      try{
+    const fetchData = async () => {
+      try {
         setLoading(true)
         const response = await fetch(
           `/api/learning/${id}`
         )
 
-        if(response.ok){
+        if (response.ok) {
           const data = await response.json()
           setModule(data)
         }
-      }catch (e) {
+      } catch (e) {
         console.log("Failed to fetch module", e)
-      }finally{
+      } finally {
         setLoading(false)
-      } 
+      }
     }
 
     fetchData()
-  },[])
+  }, [])
 
   return (
     <div className="max-w-6xl mx-auto pb-20">
@@ -111,8 +112,8 @@ export default function LearningPathDetail({ id }: LearningPathDetailProps) {
             <ul className="relative space-y-3">
               <LoadingOverlay visible={loading} />
               {module?.prerequisites.map((prereq, idx) => (
-                <CheckItem key={idx} className="text-sm">
-                  {prereq}
+                <CheckItem key={prereq.id ?? idx} className="text-sm">
+                  {prereq.prerequisite}
                 </CheckItem>
               ))}
             </ul>

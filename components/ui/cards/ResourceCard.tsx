@@ -1,3 +1,7 @@
+// Schema migration: Updated props to accept category relation.
+// - icon/color can come from category relation or direct props (backward compatible)
+// - ExternalResource and Recommendation both now use category.icon/category.color
+
 "use client"
 
 import Card from "@/components/ui/Card";
@@ -13,30 +17,34 @@ const colorVariants = {
 type ColorVariant = keyof typeof colorVariants;
 
 interface ResourceCardProps {
-  icon: string;
   title: string;
   description: string;
   href?: string;
-  color?: string; // Changed from ColorVariant to string to allow matching with data
+  icon?: string;
+  color?: string;
+  category?: { icon: string; color: string };
 }
 
 /**
  * Resource card for external learning resources
  */
 export default function ResourceCard({
-  icon,
   title,
   description,
   href = "#",
-  color = "red"
+  icon,
+  color,
+  category,
 }: ResourceCardProps) {
-  const variantClass = colorVariants[color as ColorVariant] || colorVariants.red;
+  const resolvedIcon = category?.icon ?? icon ?? "link";
+  const resolvedColor = category?.color ?? color ?? "red";
+  const variantClass = colorVariants[resolvedColor as ColorVariant] || colorVariants.red;
 
   return (
     <Card className="group rounded-3xl" padding="md">
       <div className="flex items-start justify-between mb-4">
         <div className={`p-3 rounded-2xl ${variantClass}`}>
-          <Icon name={icon} size="lg" className="font-bold" />
+          <Icon name={resolvedIcon} size="lg" className="font-bold" />
         </div>
         <a
           href={href}
