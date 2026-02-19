@@ -60,7 +60,7 @@ export default function LearningPathDetail({ id }: LearningPathDetailProps) {
               Curated Learning Path
             </Badge>
             <h1 className="text-4xl md:text-5xl font-extrabold text-secondary dark:text-primary mb-4 leading-tight">
-              Detail Referensi Belajar {formatTitle(id)}
+              Detail Referensi Belajar {formatTitle(module?.title)}
             </h1>
             <p className="text-muted-foreground text-lg leading-relaxed max-w-3xl">
               Selamat datang di kurasi sumber belajar eksternal pilihan. Roadmap ini adalah panduan

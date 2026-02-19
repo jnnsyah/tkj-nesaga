@@ -12,7 +12,7 @@ import CheckItem from "@/components/ui/CheckItem";
 type BadgeVariant = "default" | "blue" | "green" | "orange" | "primary" | "secondary";
 
 interface LearningPathCardProps {
-  id: string;
+  slug: string;
   icon: string;
   title: string;
   level: string;
@@ -25,7 +25,7 @@ interface LearningPathCardProps {
  * Learning path card for LearningHubPage
  */
 export default function LearningPathCard({
-  id,
+  slug,
   icon,
   title,
   level,
@@ -54,7 +54,7 @@ export default function LearningPathCard({
 
       <div className="flex items-center gap-3">
         <Link
-          href={`/learning/path/${id}`}
+          href={`/learning/path/${slug}`}
           className="bg-primary text-secondary px-8 py-3 rounded-2xl font-bold flex-1 hover:brightness-105 transition-all text-center"
         >
           Alur Belajar
