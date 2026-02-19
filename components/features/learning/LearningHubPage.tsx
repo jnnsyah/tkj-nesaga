@@ -1,6 +1,6 @@
 "use client"
 
-import { LearningPathCard, Badge, ResourceCard, LoadingOverlay, LearningPathTabs } from "@/components";
+import { LearningPathCard, Badge, ResourceCard, LoadingOverlay, LearningPathTabs, EmptyState } from "@/components";
 import type { LearningPathTab } from "@/components";
 // import SectionHeader from "@/components/ui/SectionHeader";
 import { useEffect, useMemo, useState } from "react";
@@ -101,9 +101,18 @@ export default function LearningHubPage() {
 
         <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8">
           <LoadingOverlay visible={loading} />
-          {filteredPaths.map((path) => (
+          {filteredPaths && filteredPaths.length > 0 ? (
+            filteredPaths.map (path => (
+              <LearningPathCard key={path.id} {...path} />
+            ))
+          ) : (
+            !loading && (
+              <EmptyState />
+            )
+          )}
+          {/* {filteredPaths.map((path) => (
             <LearningPathCard key={path.id} {...path} />
-          ))}
+          ))} */}
         </div>
       </section>
 
@@ -114,9 +123,13 @@ export default function LearningHubPage() {
         </h2>
         <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <LoadingOverlay visible={loading} />
-          {externalResources.map((resource, idx) => (
-            <ResourceCard key={idx} {...resource} />
-          ))}
+          {externalResources && externalResources.length > 0 ? (
+            externalResources.map((resource, idx) => (
+                <ResourceCard key={idx} {...resource} />
+            ))  
+          ) : (
+            <EmptyState />
+          )}
         </div>
       </section>
     </div>

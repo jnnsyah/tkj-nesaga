@@ -1,7 +1,10 @@
 import { LearningHubPage } from "@/components"
+import Layout from "@/components/layout/Layout"
 
 export default function LearningPage() {
   return (
-    <LearningHubPage />
+    <Layout>
+      <LearningHubPage />
+    </Layout>
   )
 }

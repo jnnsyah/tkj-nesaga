@@ -1,6 +1,6 @@
 "use client"
 
-import { DownloadCard, FAQAccordion, Icon, LoadingOverlay } from "@/components";
+import { DownloadCard, EmptyState, FAQAccordion, Icon, LoadingOverlay } from "@/components";
 import { useEffect, useState } from "react"
 import { DownloadableDocument, FAQItem, TimelineItem } from "./types";
 
@@ -53,9 +53,15 @@ export default function PanduanPage() {
           <div className="absolute top-[40px] left-[10%] right-[10%] h-1 bg-border hidden md:block z-0" />
           <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
             <LoadingOverlay visible={loading}/>
-            {internshipTimeline.map((step, idx) => (
-              <TimelineCard key={idx} {...step} />
-            ))}
+            {internshipTimeline && internshipTimeline.length > 0 ? (
+              internshipTimeline.map((step, idx) => (
+                <TimelineCard key={idx} {...step} />
+              ))
+            ) : (
+              !loading && (
+                <EmptyState />
+              )
+            )}
           </div>
         </div>
       </section>
@@ -67,9 +73,15 @@ export default function PanduanPage() {
         </h2>
         <div className="relative grid grid-cols-1 md:grid-cols-3 gap-8">
           <LoadingOverlay visible={loading}/>
-          {downloadableDocuments.map((item, idx) => (
-            <DownloadCard key={idx} {...item} />
-          ))}
+          {downloadableDocuments && downloadableDocuments.length > 0 ? (
+            downloadableDocuments.map((item, idx) => (
+              <DownloadCard key={idx} {...item} />
+            ))
+          ) : (
+            !loading && (
+              <EmptyState />
+            )
+          )}
         </div>
       </section>
 
@@ -81,9 +93,15 @@ export default function PanduanPage() {
         </h2>
         <div className="relative space-y-4">
           <LoadingOverlay visible={loading}/>
-          {frequentlyAskedQuestions.map((item, idx) => (
-            <FAQAccordion key={idx} {...item} />
-          ))}
+          {frequentlyAskedQuestions && frequentlyAskedQuestions.length > 0 ? (
+            frequentlyAskedQuestions.map((item, idx) => (
+              <FAQAccordion key={idx} {...item} />
+            ))
+          ) : (
+            !loading && (
+              <EmptyState />
+            )
+          )}
         </div>
       </section>
     </div>

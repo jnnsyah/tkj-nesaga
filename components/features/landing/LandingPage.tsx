@@ -1,6 +1,6 @@
 "use client"
 
-import { FeatureCard,CategoryCard, Icon, Button, LoadingOverlay} from "@/components";
+import { FeatureCard,CategoryCard, Icon, Button, LoadingOverlay, PrakerinPage, EmptyState} from "@/components";
 import { PartnerCategory, ProgramFeature} from "./types";
 import { useEffect, useState } from "react";
 
@@ -103,9 +103,15 @@ export default function LandingPage() {
             </div>
             <div className="relative lg:w-2/3 grid sm:grid-cols-2 gap-6">
               <LoadingOverlay visible={loading} />
-              {programFeatures.map((feature, idx) => (
-                <FeatureCard key={idx} {...feature} />
-              ))}
+              {programFeatures && programFeatures.length > 0 ? (
+                programFeatures.map((features, idx) => (
+                  <FeatureCard key={idx} {...features} />
+                ))
+              ) : (
+                !loading && (
+                <EmptyState />
+                )
+              )}
             </div>
           </div>
         </div>
@@ -125,9 +131,15 @@ export default function LandingPage() {
 
           <div className="relative grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
             <LoadingOverlay visible={loading} />
-            {partnerCategories.map((cat, idx) => (
-              <CategoryCard key={idx} {...cat} />
-            ))}
+            {partnerCategories && partnerCategories.length > 0 ? (
+              partnerCategories.map((cat, idx) => (
+                <CategoryCard key={idx} {...cat} />
+              ))
+            ) : (
+              !loading && (
+                <EmptyState />
+              )
+            )}
           </div>
 
           {/* <div className="grid md:grid-cols-3 gap-6 mb-16">

@@ -1,4 +1,5 @@
 import { LearningPathDetail } from "@/components"
+import Layout from "@/components/layout/Layout"
 
 export default async function LearningPathDetailPage({
   params
@@ -7,6 +8,8 @@ export default async function LearningPathDetailPage({
 }) {
   const { id } = await params;
   return (
-    <LearningPathDetail id={id} />
+    <Layout>
+      <LearningPathDetail id={id} />
+    </Layout>
   )
 }

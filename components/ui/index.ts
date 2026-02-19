@@ -1,6 +1,7 @@
 export * from "../sections"
 export * from "./cards"
 export * from "../layout"
+export * from "./EmptyState"
 export { default as Badge } from "./Badge"
 export { default as Button } from "./Button"
 export { default as Card } from "./Card"
