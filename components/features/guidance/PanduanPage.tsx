@@ -55,7 +55,11 @@ export default function PanduanPage() {
             <LoadingOverlay visible={loading}/>
             {internshipTimeline && internshipTimeline.length > 0 ? (
               internshipTimeline.map((step, idx) => (
-                <TimelineCard key={idx} {...step} />
+              <TimelineCard
+                  key={idx}
+                  {...step}
+                  isCenter={idx === Math.floor(internshipTimeline.length / 2)}
+                />
               ))
             ) : (
               !loading && (
@@ -113,26 +117,23 @@ interface TimelineCardProps {
   icon: string;
   title: string;
   description: string;
-  size?: string;
-  highlight?: boolean;
+  isCenter?: boolean;
 }
 
-function TimelineCard({ icon, title, description, size = "normal", highlight = false }: TimelineCardProps) {
-  const isLarge = size === "large" || highlight;
-
+function TimelineCard({ icon, title, description, isCenter = false }: TimelineCardProps) {
   return (
     <div className="flex flex-col items-center text-center px-4 group">
       <div className={`
-                rounded-full flex items-center justify-center mb-6 shadow-lg z-10 
-                transition-transform group-hover:scale-110
-                ${isLarge
+        rounded-full flex items-center justify-center mb-6 shadow-lg z-10 
+        transition-transform group-hover:scale-110
+        ${isCenter
           ? "w-24 h-24 bg-primary border-4 border-secondary shadow-xl md:-mt-2"
           : "w-20 h-20 bg-card border-4 border-secondary"
         }
-            `}>
+      `}>
         <Icon
           name={icon}
-          size={isLarge ? "xl" : "lg"}
+          size={isCenter ? "xl" : "lg"}
           className="text-secondary font-bold"
         />
       </div>
