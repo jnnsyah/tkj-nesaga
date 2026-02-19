@@ -10,7 +10,6 @@ interface Action {
 interface TimelineStepProps {
   title: string;
   description: string;
-  status?: "available" | "current" | "locked";
   isLast?: boolean;
   actions?: Action[];
   mediaType?: string;
@@ -23,32 +22,26 @@ interface TimelineStepProps {
 export default function TimelineStep({
   title,
   description,
-  status = "available",
   isLast = false,
   actions = [],
   mediaType,
   onViewReference
 }: TimelineStepProps) {
-  const isActive = status === "current";
-  const isAvailable = status === "available" || status === "current";
 
   return (
     <div className={cn("relative pl-10", !isLast && "pb-12")}>
       {/* Timeline dot */}
       <div className={cn(
-        "absolute left-[-11px] top-0 w-6 h-6 rounded-full border-4 border-white dark:border-background z-10 flex items-center justify-center",
-        isActive ? "bg-primary" : isAvailable ? "bg-primary" : "bg-muted"
+        "absolute left-[-11px] top-0 w-6 h-6 rounded-full border-4 border-white dark:border-background z-10 flex items-center justify-center bg-primary"
       )}>
-        {isActive && <div className="w-2 h-2 rounded-full bg-secondary" />}
+        <div className="w-2 h-2 rounded-full bg-secondary" />
       </div>
 
       {/* Content card */}
       <div className={cn(
-        "bg-card rounded-xl border p-6",
-        isActive ? "border-2 border-primary shadow-md hover:shadow-lg transition-all" : "border-border shadow-sm"
+        "bg-card rounded-xl border p-6 hover:shadow-lg hover:border-primary border-border shadow-sm"
       )}>
         {/* Header */}
-        {isAvailable && (
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
             {mediaType && (
               <div className="flex items-center gap-4 text-muted-foreground text-sm">
@@ -59,7 +52,6 @@ export default function TimelineStep({
               </div>
             )}
           </div>
-        )}
 
         {/* Title */}
         <h4 className="text-xl font-bold text-secondary dark:text-white mb-2">
