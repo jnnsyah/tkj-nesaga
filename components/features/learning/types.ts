@@ -22,6 +22,7 @@ export interface Recommendation {
 
 export interface LearningPath {
   id: string;
+  slug: string;
   icon: string;
   title: string;
   level: string;
