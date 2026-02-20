@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AdminSidebar, Icon } from "@/components";
+import { useSession, signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function AdminLayout({
   children,
@@ -9,6 +11,17 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.replace("/login");
+    }
+  }, [status, router]);
+
+  // Jangan render apapun selama ngecek session
+  if (status === "loading" || !session) return null;
 
   return (
     <div className="flex min-h-screen bg-background text-foreground font-display">
@@ -26,6 +39,24 @@ export default function AdminLayout({
           <div className="flex items-center gap-2">
             <img src="/nlc.ico" alt="NLC Logo" className="w-7 h-7 object-contain" />
             <span className="font-bold text-sm text-secondary">TKJ Nesaga</span>
+          </div>
+
+          {/* User info + logout (mobile) */}
+          <div className="ml-auto flex items-center gap-2">
+            {session.user?.image && (
+              <img
+                src={session.user.image}
+                alt={session.user.name ?? "User"}
+                className="w-7 h-7 rounded-full"
+              />
+            )}
+            <button
+              onClick={() => signOut({ callbackUrl: "/login" })}
+              className="p-2 rounded-xl hover:bg-secondary/10 text-secondary transition-colors"
+              title="Logout"
+            >
+              <Icon name="log-out" size="md" />
+            </button>
           </div>
         </header>
 

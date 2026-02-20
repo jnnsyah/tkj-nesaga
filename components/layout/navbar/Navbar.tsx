@@ -3,17 +3,24 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link"
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { useSession, signOut } from "next-auth/react";
+import { Icon } from "@/components/ui/icon";
 
 export function Navbar() {
   const pathname = usePathname();
+  const { data: session } = useSession();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
 
   const isActive = (path: string) => {
     return pathname === path ? "text-primary font-bold" : "text-foreground/80 hover:text-primary";
   };
 
-  const closeMenu = () => setIsMobileMenuOpen(false);
+  const closeMenu = () => {
+    setIsMobileMenuOpen(false);
+    setIsProfileOpen(false);
+  };
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -23,14 +30,14 @@ export function Navbar() {
       }
     };
 
-    if (isMobileMenuOpen) {
+    if (isMobileMenuOpen || isProfileOpen) {
       document.addEventListener('mousedown', handleClickOutside);
     }
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isMobileMenuOpen]);
+  }, [isMobileMenuOpen, isProfileOpen]);
 
   // Close menu on route change
   useEffect(() => {
@@ -67,6 +74,45 @@ export function Navbar() {
             {pathname.startsWith('/prakerin') && (
               <Link href="/prakerin/guide" className={cn("text-sm font-semibold transition-colors", isActive("/prakerin/guide"))}>Panduan</Link>
             )}
+
+            {/* Desktop Auth Profile */}
+            {session?.user && (
+              <div className="relative border-l border-border/50 pl-6 ml-2">
+                <button
+                  onClick={() => setIsProfileOpen(!isProfileOpen)}
+                  className="flex items-center gap-2 focus:outline-none group"
+                >
+                  <img
+                    src={session.user.image ?? ""}
+                    alt={session.user.name ?? "Avatar"}
+                    className="w-8 h-8 rounded-full border border-border group-hover:ring-2 ring-primary/50 transition-all"
+                  />
+                </button>
+
+                {/* Profile Dropdown */}
+                {isProfileOpen && (
+                  <div className="absolute right-0 top-full mt-3 w-56 bg-white dark:bg-background-dark border border-border shadow-xl rounded-2xl overflow-hidden py-2 origin-top animate-in fade-in slide-in-from-top-2">
+                    <div className="px-4 py-2 border-b border-border">
+                      <p className="text-sm font-bold text-foreground truncate">{session.user.name}</p>
+                      <p className="text-xs text-foreground/60 truncate">{session.user.email}</p>
+                    </div>
+                    <div className="flex flex-col p-2 space-y-1">
+                      <Link href="/admin" onClick={closeMenu} className="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-foreground hover:bg-primary/10 transition-colors">
+                        <Icon name="dashboard" size="sm" />
+                        Dashboard Admin
+                      </Link>
+                      <button
+                        onClick={() => { closeMenu(); signOut({ callbackUrl: "/login" }); }}
+                        className="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors w-full text-left"
+                      >
+                        <Icon name="logout" size="sm" />
+                        Log out
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Mobile Menu toggle Button */}
@@ -100,6 +146,35 @@ export function Navbar() {
               <Link href="/prakerin/guide" onClick={closeMenu} className={cn("p-3 rounded-xl hover:bg-primary/10 transition-colors text-sm font-semibold", isActive("/prakerin/guide"))}>
                 Panduan
               </Link>
+            )}
+
+            {/* Mobile Auth Snippet */}
+            {session?.user && (
+              <div className="mt-2 pt-2 border-t border-border">
+                <div className="flex items-center gap-3 p-3 mb-2 rounded-xl bg-primary/5">
+                  <img
+                    src={session.user.image ?? ""}
+                    alt={session.user.name ?? "Avatar"}
+                    className="w-10 h-10 rounded-full border border-border"
+                  />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-bold text-foreground truncate">{session.user.name}</p>
+                    <p className="text-xs text-foreground/60 truncate">{session.user.email}</p>
+                  </div>
+                </div>
+
+                <Link href="/admin" onClick={closeMenu} className="flex items-center gap-3 p-3 rounded-xl hover:bg-primary/10 transition-colors text-sm font-semibold text-foreground">
+                  <Icon name="dashboard" size="sm" />
+                  Dashboard Admin
+                </Link>
+                <button
+                  onClick={() => { closeMenu(); signOut({ callbackUrl: "/login" }); }}
+                  className="flex items-center gap-3 p-3 rounded-xl hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors text-sm font-semibold text-red-600 dark:text-red-400 w-full text-left mt-1"
+                >
+                  <Icon name="logout" size="sm" />
+                  Log out
+                </button>
+              </div>
             )}
           </div>
         </div>
