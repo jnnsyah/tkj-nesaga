@@ -80,8 +80,7 @@ export function PanduanPage() {
         <h2 className="text-2xl font-bold mb-10 text-center text-secondary dark:text-foreground">
           Survival Kit — Download Area
         </h2>
-        <div className="relative grid grid-cols-1 md:grid-cols-3 gap-8">
-          <LoadingOverlay visible={loading} />
+        <div className="relative grid grid-cols-[repeat(auto-fit,minmax(280px,320px))] gap-8 justify-center">          <LoadingOverlay visible={loading} />
           {downloadableDocuments && downloadableDocuments.length > 0 ? (
             downloadableDocuments.map((item, idx) => (
               <DownloadCard key={idx} {...item} />

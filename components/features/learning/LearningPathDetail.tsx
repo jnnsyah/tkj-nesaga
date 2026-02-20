@@ -7,6 +7,7 @@ import { Icon } from "@/components/ui/icon";
 import { CheckItem } from "@/components/ui/check-item";
 import { TimelineStep } from "@/components/common/timeline-step";
 import { ResourceCard } from "./ResourceCard";
+import { Button } from "@/components/ui/button";
 // import { getLearningPathById, learningPaths } from "@/data/learning";
 import "./LearningPathDetail.css";
 import { useEffect, useState } from "react";
@@ -123,7 +124,7 @@ export function LearningPathDetail({ id }: LearningPathDetailProps) {
           </div>
 
           {/* Documentation */}
-          <div className="bg-secondary text-white p-6 rounded-xl shadow-md overflow-hidden relative">
+          {/* <div className="bg-secondary text-white p-6 rounded-xl shadow-md overflow-hidden relative">
             <div className="absolute bottom-0 right-0 opacity-10">
               <Icon name="link" size="2xl" className="text-8xl" />
             </div>
@@ -137,7 +138,16 @@ export function LearningPathDetail({ id }: LearningPathDetailProps) {
                 <Icon name="open_in_new" size="sm" />
               </a>
             </div>
-          </div>
+          </div> */}
+          {/* Back Button */}
+          <Button
+            variant="outline"
+            to="/learning"
+            icon="arrow_back"
+            className="w-full rounded-xl hover:bg-secondary hover:text-white transition-all shadow-sm border-border font-bold"
+          >
+            Kembali
+          </Button>
         </aside>
       </div>
 
