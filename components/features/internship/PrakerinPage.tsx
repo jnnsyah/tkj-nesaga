@@ -3,7 +3,10 @@
 
 import { useState, useEffect, useMemo } from "react";
 import { cn } from "@/lib/utils";
-import { CompanyCard, Icon, CompanyDetail, LoadingOverlay } from "@/components";
+import { CompanyCard } from "./CompanyCard";
+import { CompanyDetail } from "./CompanyDetail";
+import { Icon } from "@/components/ui/icon";
+import { LoadingOverlay } from "@/components/ui/loading-overlay";
 import { INTERNSHIP_FILTER_OPTIONS as filterCategories } from "@/data/config/internshipFilters";
 import { PartnerCompany } from "./types"
 
@@ -29,7 +32,7 @@ function useIsMobile() {
   return isMobile;
 }
 
-export default function PrakerinPage() {
+export function PrakerinPage() {
   // Selection state
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [selectedPlace, setSelectedPlace] = useState<PartnerCompany>()

@@ -1,5 +1,5 @@
 import { LearningPathDetail } from "@/components"
-import Layout from "@/components/layout/Layout"
+import { Layout } from "@/components";
 
 export default async function LearningPathDetailPage({
   params

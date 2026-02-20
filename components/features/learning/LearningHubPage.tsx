@@ -1,8 +1,12 @@
 "use client"
 // Schema migration: path.level is now a relation object, domain has icon field
 
-import { LearningPathCard, Badge, ResourceCard, LoadingOverlay, LearningPathTabs, EmptyState } from "@/components";
-import type { LearningPathTab } from "@/components";
+import { LearningPathCard } from "./LearningPathCard";
+import { ResourceCard } from "./ResourceCard";
+import { LearningPathTabs, type Tab as LearningPathTab } from "./LearningPathTabs";
+import { Badge } from "@/components/ui/badge";
+import { LoadingOverlay } from "@/components/ui/loading-overlay";
+import { EmptyState } from "@/components/ui/empty-state";
 // import SectionHeader from "@/components/ui/SectionHeader";
 import { useEffect, useMemo, useState } from "react";
 import { LearningPath, ExternalResource, Domain } from "./types";
@@ -13,7 +17,7 @@ const LEARNING_TABS_FILTERING_BY_LEVEL: LearningPathTab[] = [
   { name: "Intermediate", value: "Intermediate", icon: "trending_up" },
 ];
 
-export default function LearningHubPage() {
+export function LearningHubPage() {
   const [loading, setLoading] = useState(false);
   const [learningPaths, setLearningPaths] = useState<LearningPath[]>([]);
   const [externalResources, setExternalResources] = useState<ExternalResource[]>([]);

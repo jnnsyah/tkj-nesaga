@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { AdminPageHeader, DataTable, FormModal, DeleteConfirmDialog } from "@/components/admin";
-import type { Column, FieldConfig } from "@/components/admin";
+import { AdminPageHeader, DataTable, FormModal, DeleteConfirmDialog } from "@/components";
+import type { Column, FieldConfig } from "@/components";
 
-interface FaqRecord { id: number; question: string; answer: string; defaultOpen: boolean; [key: string]: unknown; }
+interface FaqRecord { id: number; question: string; answer: string; defaultOpen: boolean;[key: string]: unknown; }
 
 const columns: Column<FaqRecord>[] = [
   { key: "question", label: "Question", render: (item) => (item.question?.length > 80 ? item.question.slice(0, 80) + "…" : item.question) },

@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { AdminPageHeader, DataTable, FormModal, DeleteConfirmDialog } from "@/components/admin";
-import type { Column, FieldConfig } from "@/components/admin";
+import { AdminPageHeader, DataTable, FormModal, DeleteConfirmDialog } from "@/components";
+import type { Column, FieldConfig } from "@/components";
 
-interface DocRecord { id: number; title: string; ext: string; icon: string; href: string; [key: string]: unknown; }
+interface DocRecord { id: number; title: string; ext: string; icon: string; href: string;[key: string]: unknown; }
 
 const columns: Column<DocRecord>[] = [
   { key: "title", label: "Title" },

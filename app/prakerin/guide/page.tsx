@@ -1,10 +1,10 @@
 import { PanduanPage } from "@/components"
-import Layout from "@/components/layout/Layout"
+import { Layout } from "@/components";
 
 export default function GuidePage() {
   return (
     <Layout>
-      <PanduanPage/>
+      <PanduanPage />
     </Layout>
   )
 }

@@ -1,11 +1,11 @@
-import Navbar from "./Navbar";
-import Footer from "./Footer";
+import { Navbar } from "./navbar";
+import { Footer } from "./footer";
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
-export default function Layout({ children }: LayoutProps) {
+export function Layout({ children }: LayoutProps) {
   return (
     <div className="min-h-screen bg-background text-foreground font-display flex flex-col selection:bg-primary/30">
       <Navbar />

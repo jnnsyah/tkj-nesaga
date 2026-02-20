@@ -1,10 +1,10 @@
 import { PrakerinPage } from "@/components"
-import Layout from "@/components/layout/Layout"
+import { Layout } from "@/components";
 
 export default function IntershipPage() {
   return (
     <Layout>
-      <PrakerinPage/>
+      <PrakerinPage />
     </Layout>
   )
 }

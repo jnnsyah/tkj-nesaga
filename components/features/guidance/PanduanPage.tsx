@@ -1,18 +1,23 @@
 "use client"
 
-import { DownloadCard, EmptyState, FAQAccordion, Icon, LoadingOverlay } from "@/components";
+import { Icon } from "@/components/ui/icon";
+import { EmptyState } from "@/components/ui/empty-state";
+import { LoadingOverlay } from "@/components/ui/loading-overlay";
+import { FAQAccordion } from "@/components/common/faq-accordion";
+import { DownloadCard } from "./DownloadCard";
+import { TimelineCard } from "./TimelineCard";
 import { useEffect, useState } from "react"
 import { DownloadableDocument, FAQItem, TimelineItem } from "./types";
 
-export default function PanduanPage() {
-  const [ frequentlyAskedQuestions, setFrequentlyAskedQuestions] = useState<FAQItem[]>([])
-  const [ downloadableDocuments, setDownloadableDocuments ] = useState<DownloadableDocument[]>([])
-  const [ internshipTimeline, setInternshipTimeline ] = useState<TimelineItem[]>([])
+export function PanduanPage() {
+  const [frequentlyAskedQuestions, setFrequentlyAskedQuestions] = useState<FAQItem[]>([])
+  const [downloadableDocuments, setDownloadableDocuments] = useState<DownloadableDocument[]>([])
+  const [internshipTimeline, setInternshipTimeline] = useState<TimelineItem[]>([])
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    const fetchData = async() => {
-      try{
+    const fetchData = async () => {
+      try {
         setLoading(true)
         const response = await fetch(
           "/api/guidance"
@@ -23,15 +28,15 @@ export default function PanduanPage() {
           setDownloadableDocuments(data.downloadableDocuments)
           setInternshipTimeline(data.internshipTimeline)
         }
-      }catch {
+      } catch {
         console.error("Failed to fetch data")
-      }finally{
+      } finally {
         setLoading(false)
       }
     }
 
     fetchData()
-  },[])
+  }, [])
   return (
     <div className="min-h-screen bg-background text-foreground pt-32 pb-24 px-6 max-w-6xl mx-auto">
       {/* Hero */}
@@ -52,10 +57,10 @@ export default function PanduanPage() {
         <div className="relative max-w-5xl mx-auto">
           <div className="absolute top-[40px] left-[10%] right-[10%] h-1 bg-border hidden md:block z-0" />
           <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
-            <LoadingOverlay visible={loading}/>
+            <LoadingOverlay visible={loading} />
             {internshipTimeline && internshipTimeline.length > 0 ? (
               internshipTimeline.map((step, idx) => (
-              <TimelineCard
+                <TimelineCard
                   key={idx}
                   {...step}
                   isCenter={idx === Math.floor(internshipTimeline.length / 2)}
@@ -76,7 +81,7 @@ export default function PanduanPage() {
           Survival Kit — Download Area
         </h2>
         <div className="relative grid grid-cols-1 md:grid-cols-3 gap-8">
-          <LoadingOverlay visible={loading}/>
+          <LoadingOverlay visible={loading} />
           {downloadableDocuments && downloadableDocuments.length > 0 ? (
             downloadableDocuments.map((item, idx) => (
               <DownloadCard key={idx} {...item} />
@@ -96,7 +101,7 @@ export default function PanduanPage() {
           P3K: Pertolongan Pertama — FAQ
         </h2>
         <div className="relative space-y-4">
-          <LoadingOverlay visible={loading}/>
+          <LoadingOverlay visible={loading} />
           {frequentlyAskedQuestions && frequentlyAskedQuestions.length > 0 ? (
             frequentlyAskedQuestions.map((item, idx) => (
               <FAQAccordion key={idx} {...item} />
@@ -112,37 +117,4 @@ export default function PanduanPage() {
   );
 }
 
-// Timeline card component for Panduan page
-interface TimelineCardProps {
-  icon: string;
-  title: string;
-  description: string;
-  isCenter?: boolean;
-}
 
-function TimelineCard({ icon, title, description, isCenter = false }: TimelineCardProps) {
-  return (
-    <div className="flex flex-col items-center text-center px-4 group">
-      <div className={`
-        rounded-full flex items-center justify-center mb-6 shadow-lg z-10 
-        transition-transform group-hover:scale-110
-        ${isCenter
-          ? "w-24 h-24 bg-primary border-4 border-secondary shadow-xl md:-mt-2"
-          : "w-20 h-20 bg-card border-4 border-secondary"
-        }
-      `}>
-        <Icon
-          name={icon}
-          size={isCenter ? "xl" : "lg"}
-          className="text-secondary font-bold"
-        />
-      </div>
-      <h3 className="font-bold text-lg mb-3 text-secondary dark:text-primary">
-        {title}
-      </h3>
-      <p className="text-sm text-muted-foreground leading-relaxed">
-        {description}
-      </p>
-    </div>
-  );
-}

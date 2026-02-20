@@ -1,2 +1,5 @@
-export { default as LandingPage } from "./LandingPage"
-export * from "./types"
+export * from "./LandingPage";
+export * from "./FeatureCard";
+export * from "./CategoryCard";
+export * from "./HeroGraphic";
+export * from "./types";

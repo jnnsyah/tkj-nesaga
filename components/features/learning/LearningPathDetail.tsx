@@ -1,9 +1,12 @@
 // Schema migration: prerequisites is now { prerequisite: string }[], recommendations use category relation
 "use client"
 
-import { Badge, LoadingOverlay } from "@/components";
-// import Button from "@/components/ui/Button";
-import { Icon, ResourceCard, CheckItem, TimelineStep } from "@/components";
+import { Badge } from "@/components/ui/badge";
+import { LoadingOverlay } from "@/components/ui/loading-overlay";
+import { Icon } from "@/components/ui/icon";
+import { CheckItem } from "@/components/ui/check-item";
+import { TimelineStep } from "@/components/common/timeline-step";
+import { ResourceCard } from "./ResourceCard";
 // import { getLearningPathById, learningPaths } from "@/data/learning";
 import "./LearningPathDetail.css";
 import { useEffect, useState } from "react";
@@ -12,7 +15,7 @@ interface LearningPathDetailProps {
   id: string;
 }
 
-export default function LearningPathDetail({ id }: LearningPathDetailProps) {
+export function LearningPathDetail({ id }: LearningPathDetailProps) {
   // const path = getLearningPathById(id) || learningPaths[0];
   const [loading, setLoading] = useState(false)
   const [module, setModule] = useState<LearningPath>()

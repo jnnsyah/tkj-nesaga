@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { AdminPageHeader, DataTable, FormModal, DeleteConfirmDialog } from "@/components/admin";
-import type { Column, FieldConfig } from "@/components/admin";
+import { AdminPageHeader, DataTable, FormModal, DeleteConfirmDialog } from "@/components";
+import type { Column, FieldConfig } from "@/components";
 
 interface ResourceRecord {
   id: number;
@@ -26,10 +26,12 @@ const fields: FieldConfig[] = [
   { key: "title", label: "Title", required: true },
   { key: "description", label: "Description", type: "textarea", required: true },
   { key: "href", label: "URL", required: true, placeholder: "https://..." },
-  { key: "color", label: "Color", type: "select", required: true, options: [
-    { label: "Red", value: "red" }, { label: "Blue", value: "blue" },
-    { label: "Green", value: "green" }, { label: "Orange", value: "orange" },
-  ]},
+  {
+    key: "color", label: "Color", type: "select", required: true, options: [
+      { label: "Red", value: "red" }, { label: "Blue", value: "blue" },
+      { label: "Green", value: "green" }, { label: "Orange", value: "orange" },
+    ]
+  },
 ];
 
 const API = "/api/admin/external-resources";

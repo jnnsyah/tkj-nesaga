@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { AdminPageHeader, DataTable, FormModal, DeleteConfirmDialog } from "@/components/admin";
-import type { Column, FieldConfig } from "@/components/admin";
+import { AdminPageHeader, DataTable, FormModal, DeleteConfirmDialog } from "@/components";
+import type { Column, FieldConfig } from "@/components";
 
-interface TimelineRecord { id: number; icon: string; title: string; description: string; size: string; highlight: boolean; order: number; [key: string]: unknown; }
+interface TimelineRecord { id: number; icon: string; title: string; description: string; size: string; highlight: boolean; order: number;[key: string]: unknown; }
 
 const columns: Column<TimelineRecord>[] = [
   { key: "order", label: "#" },
@@ -19,9 +19,11 @@ const fields: FieldConfig[] = [
   { key: "description", label: "Description", type: "textarea", required: true },
   { key: "icon", label: "Icon", required: true, placeholder: "Material icon name" },
   { key: "order", label: "Order", type: "number", required: true },
-  { key: "size", label: "Size", type: "select", required: true, options: [
-    { label: "Normal", value: "normal" }, { label: "Large", value: "large" },
-  ]},
+  {
+    key: "size", label: "Size", type: "select", required: true, options: [
+      { label: "Normal", value: "normal" }, { label: "Large", value: "large" },
+    ]
+  },
   { key: "highlight", label: "Highlight", type: "checkbox", placeholder: "Highlight this step" },
 ];
 

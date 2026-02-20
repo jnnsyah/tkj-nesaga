@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { AdminPageHeader, DataTable, FormModal, DeleteConfirmDialog } from "@/components/admin";
-import type { Column, FieldConfig } from "@/components/admin";
+import { AdminPageHeader, DataTable, FormModal, DeleteConfirmDialog } from "@/components";
+import type { Column, FieldConfig } from "@/components";
 
-interface StatRecord { id: number; value: string; label: string; [key: string]: unknown; }
+interface StatRecord { id: number; value: string; label: string;[key: string]: unknown; }
 
 const columns: Column<StatRecord>[] = [
   { key: "value", label: "Value" },

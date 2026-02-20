@@ -4,7 +4,7 @@ export interface ProgramFeature {
   description: string;
 }
 
-export interface PartnerCategory {
+export interface LandingPartnerCategory {
   icon: string;
   title: string;
   subtitle: string;

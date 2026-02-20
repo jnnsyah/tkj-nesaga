@@ -1,2 +1,4 @@
-export { default as PanduanPage } from "./PanduanPage";
+export * from "./PanduanPage";
+export * from "./TimelineCard";
+export * from "./DownloadCard";
 export * from "./types";

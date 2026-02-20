@@ -1,4 +1,5 @@
-import { Badge, Icon } from "@/components";
+import { Badge } from "@/components/ui/badge";
+import { Icon } from "@/components/ui/icon";
 import { cn } from "@/lib/utils";
 
 interface CategoryBadgeProps {

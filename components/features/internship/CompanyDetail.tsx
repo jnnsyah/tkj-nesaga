@@ -12,28 +12,10 @@ interface CompanyDetailProps {
   isDragging?: boolean;
 }
 
-// Komponen Helper didefinisikan di atas atau luar agar bersih
-function ContactItem({ icon, value }: { icon: string; value: string }) {
-  return (
-    <div className="flex items-center gap-2.5">
-      <div className="w-8 h-8 bg-secondary text-primary rounded-full flex items-center justify-center shadow-sm">
-        <Icon name={icon} size="sm" className="relative -top-[0.5px]" />
-      </div>
-      <span className="text-sm font-semibold tracking-wide leading-none">{value}</span>
-    </div>
-  );
-}
+import { ContactItem } from "./ContactItem";
+import { SectionTitle } from "./SectionTitle";
 
-function SectionTitle({ icon, title }: { icon: string; title: string }) {
-  return (
-    <h4 className="font-bold text-md mb-3 flex items-center gap-2 text-foreground">
-      <Icon name={icon} className="text-primary relative -top-[0.5px]" />
-      <span className="leading-none">{title}</span>
-    </h4>
-  );
-}
-
-export default function CompanyDetail({ company, onClose, mobileFullscreen = false, isDragging = false }: CompanyDetailProps) {
+export function CompanyDetail({ company, onClose, mobileFullscreen = false, isDragging = false }: CompanyDetailProps) {
   if (!company) {
     return (
       <div className={cn(

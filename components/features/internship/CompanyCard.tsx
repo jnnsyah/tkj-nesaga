@@ -14,7 +14,7 @@ interface CompanyCardProps {
 /**
  * Company card for Prakerin list view
  */
-export default function CompanyCard({
+export function CompanyCard({
   company,
   isSelected = false,
   isGridView = false,

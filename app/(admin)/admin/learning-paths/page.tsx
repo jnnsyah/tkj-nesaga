@@ -2,9 +2,8 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { AdminPageHeader, DataTable, FormModal, DeleteConfirmDialog } from "@/components/admin";
-import type { Column, FieldConfig } from "@/components/admin";
-import Badge from "@/components/ui/Badge";
+import { AdminPageHeader, DataTable, FormModal, DeleteConfirmDialog, Badge } from "@/components";
+import type { Column, FieldConfig } from "@/components";
 
 interface LearningPathRecord {
   id: string;

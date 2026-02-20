@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import AdminCard from "@/components/admin/AdminCard";
-import Icon from "@/components/ui/Icon";
+import { AdminCard, Icon } from "@/components";
 
 interface EntityCount {
   label: string;

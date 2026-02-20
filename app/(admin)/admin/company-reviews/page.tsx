@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { AdminPageHeader, DataTable, FormModal, DeleteConfirmDialog } from "@/components/admin";
-import type { Column, FieldConfig } from "@/components/admin";
+import { AdminPageHeader, DataTable, FormModal, DeleteConfirmDialog } from "@/components";
+import type { Column, FieldConfig } from "@/components";
 
-interface ReviewRecord { id: number; name: string; text: string; academicYear: string; partnerCompanyId: number; partnerCompany?: { id: number; name: string }; [key: string]: unknown; }
+interface ReviewRecord { id: number; name: string; text: string; academicYear: string; partnerCompanyId: number; partnerCompany?: { id: number; name: string };[key: string]: unknown; }
 interface CompanyOption { id: number; name: string; }
 
 const API = "/api/admin/company-reviews";

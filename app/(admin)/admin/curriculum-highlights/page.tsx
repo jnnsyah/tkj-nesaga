@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { AdminPageHeader, DataTable, FormModal, DeleteConfirmDialog } from "@/components/admin";
-import type { Column, FieldConfig } from "@/components/admin";
+import { AdminPageHeader, DataTable, FormModal, DeleteConfirmDialog } from "@/components";
+import type { Column, FieldConfig } from "@/components";
 
-interface HighlightRecord { id: number; text: string; [key: string]: unknown; }
+interface HighlightRecord { id: number; text: string;[key: string]: unknown; }
 
 const columns: Column<HighlightRecord>[] = [
   { key: "id", label: "ID" },
