@@ -12,6 +12,7 @@ model LearningLevel {
   id             Int            @id @default(autoincrement())
   name           String         @unique
   color          String
+  icon           String         @default("default-icon")
   learning_paths LearningPath[]
 
   @@map("learning_levels")
@@ -35,9 +36,7 @@ model Domain {
   name              String
   slug              String             @unique
   icon              String
-  levelVariant      String
-  actionIcon        String?
-  isPublished       Boolean            @default(false)  
+  
   learning_paths    LearningPath[]
   externalResources ExternalResource[]                  
 

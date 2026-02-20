@@ -7,7 +7,6 @@ import { CompanyCard } from "./CompanyCard";
 import { CompanyDetail } from "./CompanyDetail";
 import { Icon } from "@/components/ui/icon";
 import { LoadingOverlay } from "@/components/ui/loading-overlay";
-import { INTERNSHIP_FILTER_OPTIONS as filterCategories } from "@/data/config/internshipFilters";
 import { PartnerCompany } from "./types"
 
 /**
@@ -39,6 +38,7 @@ export function PrakerinPage() {
 
   // Data state
   const [companies, setCompanies] = useState<PartnerCompany[]>([])
+  const [filterCategories, setFilterCategories] = useState<string[]>(["Semua"])
   const [loading, setLoading] = useState(false)
 
   // Filter & Search state
@@ -54,19 +54,30 @@ export function PrakerinPage() {
   const [isDragging, setIsDragging] = useState(false)
   const [startY, setStartY] = useState(0)
 
-  // Fetch companies data
+  // Fetch companies data and partner categories
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true)
-        const response = await fetch("/api/internship/companies")
+        const [companiesRes, categoriesRes] = await Promise.all([
+          fetch("/api/internship/companies"),
+          fetch("/api/internship"),
+        ])
 
-        if (response.ok) {
-          const data = await response.json()
+        if (companiesRes.ok) {
+          const data = await companiesRes.json()
           setCompanies(data)
         }
+
+        if (categoriesRes.ok) {
+          const data = await categoriesRes.json()
+          const categoryTitles = (data.partnerCategories || []).map(
+            (cat: { title: string }) => cat.title
+          )
+          setFilterCategories(["Semua", ...categoryTitles])
+        }
       } catch (e) {
-        console.error("Failed to fetch landing data", e)
+        console.error("Failed to fetch data", e)
       } finally {
         setLoading(false)
       }

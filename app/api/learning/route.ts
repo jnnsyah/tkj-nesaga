@@ -1,15 +1,10 @@
-// Schema migration: Updated Prisma queries for new schema.
-// - LearningPath: select level relation instead of enum, topics/prerequisites as relations,
-//   domain with icon/levelVariant/actionIcon, added isPublished filter
-// - ExternalResource: include category relation for icon/color
-// - Domain: added isPublished filter, select icon field
-
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
 /**
  * GET /api/learning
- * Mengambil semua learning paths (tanpa nested steps/actions) dan external resources.
+ * Mengambil semua learning paths (tanpa nested steps/actions), external resources,
+ * domains, dan learning levels.
  */
 export async function GET(req: NextRequest) {
   const slug = req.nextUrl.searchParams.get("domain");
@@ -28,14 +23,14 @@ export async function GET(req: NextRequest) {
     where = { ...where, domainId: domain.id };
   }
   try {
-    const [learningPaths, externalResources, domains] = await Promise.all([
+    const [learningPaths, externalResources, domains, learningLevels] = await Promise.all([
       prisma.learningPath.findMany({
         where,
         select: {
           id: true,
           slug: true,
           title: true,
-          level: { select: { id: true, name: true, color: true } },
+          level: { select: { id: true, name: true, color: true, icon: true } },
           topics: { select: { id: true, topic: true } },
           prerequisites: { select: { id: true, prerequisite: true } },
           domain: {
@@ -44,8 +39,6 @@ export async function GET(req: NextRequest) {
               name: true,
               slug: true,
               icon: true,
-              levelVariant: true,
-              actionIcon: true,
             },
           },
         },
@@ -60,12 +53,16 @@ export async function GET(req: NextRequest) {
         orderBy: { createdAt: "asc" },
       }),
       prisma.domain.findMany({
-        where: { isPublished: true },
+        select: { id: true, name: true, slug: true, icon: true },
         orderBy: { id: "asc" },
-      })
+      }),
+      prisma.learningLevel.findMany({
+        select: { id: true, name: true, color: true, icon: true },
+        orderBy: { id: "asc" },
+      }),
     ]);
 
-    return NextResponse.json({ learningPaths, externalResources, domains });
+    return NextResponse.json({ learningPaths, externalResources, domains, learningLevels });
   } catch (error) {
     console.error("Failed to fetch data:", error);
     return NextResponse.json(

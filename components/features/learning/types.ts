@@ -1,11 +1,7 @@
-// Schema migration: Updated all types to match refactored Prisma schema.
-// - Action: icon/color now from ResourceCategory relation
-// - Step: removed 'status' field (no longer in schema)
-// - Recommendation: icon/color now from ResourceCategory relation
-// - LearningPath: icon/levelVariant/actionIcon moved to Domain, level is now a relation,
-//   topics/prerequisites are now relational tables
-// - ExternalResource: icon/color now from ResourceCategory relation
-// - Domain: added icon, levelVariant, actionIcon, isPublished fields
+// Schema: types aligned with Prisma schema
+// - Domain: id, name, slug, icon only
+// - LearningLevel: added icon field
+// - Action/Recommendation: icon/color from ResourceCategory relation
 
 export interface ResourceCategory {
   id: number;
@@ -38,6 +34,7 @@ export interface LearningLevel {
   id: number;
   name: string;
   color: string;
+  icon: string;
 }
 
 export interface LearningPathTopic {
@@ -75,8 +72,5 @@ export interface Domain {
   name: string;
   slug: string;
   icon: string;
-  levelVariant: string;
-  actionIcon?: string;
-  isPublished?: boolean;
   learningPaths?: LearningPath[];
 }

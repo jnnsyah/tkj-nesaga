@@ -25,6 +25,7 @@ const columns: Column<DomainRecord>[] = [
 const fields: FieldConfig[] = [
   { key: "name", label: "Name", required: true, placeholder: "e.g. Networking" },
   { key: "slug", label: "Slug", required: true, placeholder: "e.g. networking" },
+  { key: "icon", label: "Icon", required: true, placeholder: "e.g. lan" },
 ];
 
 const API = "/api/admin/domains";

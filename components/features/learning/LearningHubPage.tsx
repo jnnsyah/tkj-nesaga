@@ -1,5 +1,4 @@
 "use client"
-// Schema migration: path.level is now a relation object, domain has icon field
 
 import { LearningPathCard } from "./LearningPathCard";
 import { ResourceCard } from "./ResourceCard";
@@ -7,15 +6,8 @@ import { LearningPathTabs, type Tab as LearningPathTab } from "./LearningPathTab
 import { Badge } from "@/components/ui/badge";
 import { LoadingOverlay } from "@/components/ui/loading-overlay";
 import { EmptyState } from "@/components/ui/empty-state";
-// import SectionHeader from "@/components/ui/SectionHeader";
 import { useEffect, useMemo, useState } from "react";
-import { LearningPath, ExternalResource, Domain } from "./types";
-
-const LEARNING_TABS_FILTERING_BY_LEVEL: LearningPathTab[] = [
-  { name: "Foundation", value: "Foundation", icon: "hub" },
-  { name: "Beginner", value: "Beginner", icon: "rocket_launch" },
-  { name: "Intermediate", value: "Intermediate", icon: "trending_up" },
-];
+import { LearningPath, LearningLevel, ExternalResource, Domain } from "./types";
 
 export function LearningHubPage() {
   const [loading, setLoading] = useState(false);
@@ -26,6 +18,7 @@ export function LearningHubPage() {
   const [activeLevel, setActiveLevel] = useState("all");
 
   const [domains, setDomains] = useState<Domain[]>([]);
+  const [learningLevels, setLearningLevels] = useState<LearningLevel[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,6 +33,7 @@ export function LearningHubPage() {
           setLearningPaths(data.learningPaths);
           setExternalResources(data.externalResources)
           setDomains(data.domains)
+          setLearningLevels(data.learningLevels)
         }
       } catch (error) {
         console.error("Failed to fetch learning paths", error)
@@ -57,6 +51,14 @@ export function LearningHubPage() {
       icon: d.icon
     }));
   }, [domains]);
+
+  const levelTabs: LearningPathTab[] = useMemo(() => {
+    return learningLevels.map(l => ({
+      name: l.name,
+      value: l.name,
+      icon: l.icon
+    }));
+  }, [learningLevels]);
 
   const filteredPaths = useMemo(() => {
     return learningPaths.filter((path) => {
@@ -98,7 +100,7 @@ export function LearningHubPage() {
 
         {/* Level Navigation */}
         <LearningPathTabs
-          tabs={LEARNING_TABS_FILTERING_BY_LEVEL}
+          tabs={levelTabs}
           activeTab={activeLevel}
           onTabChange={setActiveLevel}
           className="mb-8 px-2"
@@ -115,9 +117,6 @@ export function LearningHubPage() {
               <EmptyState />
             )
           )}
-          {/* {filteredPaths.map((path) => (
-            <LearningPathCard key={path.id} {...path} />
-          ))} */}
         </div>
       </section>
 
