@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
+    const { searchParams } = new URL(req.url);
+    const partnerCompanyId = searchParams.get("partnerCompanyId");
     const reviews = await prisma.companyReview.findMany({
+      where: partnerCompanyId ? { partnerCompanyId: Number(partnerCompanyId) } : undefined,
       orderBy: { createdAt: "desc" },
       include: { partnerCompany: { select: { id: true, name: true } } },
     });

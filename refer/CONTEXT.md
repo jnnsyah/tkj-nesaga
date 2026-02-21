@@ -298,15 +298,15 @@ program_features, curriculum_highlights, downloadable_documents
 - [x] Learning Path Topics & Prerequisites (tag input)
 - [x] Learning Recommendations
 
-### 🔲 Tahap 3 — Prakerin & Company
-- [ ] Partner Companies
-- [ ] Partner Company Categories (many-to-many)
-- [ ] Company Reviews
-- [ ] FAQ
-- [ ] Internship Stats
-- [ ] Internship Timelines
-- [ ] Program Features
-- [ ] Curriculum Highlights
+### ✅ Tahap 3 — Prakerin & Company
+- [x] Partner Companies
+- [x] Partner Company Categories (many-to-many)
+- [x] Company Reviews
+- [x] FAQ
+- [x] Internship Stats
+- [x] Internship Timelines
+- [x] Program Features
+- [x] Curriculum Highlights
 
 ---
 
