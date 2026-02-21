@@ -7,9 +7,11 @@ import { useMemo } from "react";
 
 interface TopbarProps {
     onMobileMenuClick: () => void;
+    onSidebarToggle: () => void;
+    isSidebarCollapsed: boolean;
 }
 
-export function Topbar({ onMobileMenuClick }: TopbarProps) {
+export function Topbar({ onMobileMenuClick, onSidebarToggle, isSidebarCollapsed }: TopbarProps) {
     const { data: session } = useSession();
     const pathname = usePathname();
 
@@ -57,26 +59,38 @@ export function Topbar({ onMobileMenuClick }: TopbarProps) {
 
             {/* Desktop Topbar */}
             <header className="hidden md:flex h-20 w-full shrink-0 items-center justify-between border-b border-slate-200 bg-white px-8 z-10">
-                <div className="flex flex-col gap-1">
-                    <h2 className="text-xl font-bold text-slate-800 tracking-tight">{title}</h2>
-                    <div className="flex items-center gap-2 text-xs font-medium text-slate-500">
-                        {breadcrumbs.map((crumb, index) => {
-                            const isLast = index === breadcrumbs.length - 1;
-                            return (
-                                <div key={crumb.url} className="flex items-center gap-2">
-                                    {isLast ? (
-                                        <span className="text-slate-800">{crumb.label}</span>
-                                    ) : (
-                                        <>
-                                            <Link href={crumb.url} className="hover:text-[#ffd900] transition-colors">
-                                                {crumb.label}
-                                            </Link>
-                                            <span className="material-symbols-outlined text-[10px]">chevron_right</span>
-                                        </>
-                                    )}
-                                </div>
-                            );
-                        })}
+                <div className="flex items-center gap-4">
+                    <button
+                        onClick={onSidebarToggle}
+                        className="p-2 rounded-lg hover:bg-slate-100 text-slate-500 transition-colors flex items-center justify-center"
+                        title={isSidebarCollapsed ? "Show Sidebar" : "Hide Sidebar"}
+                    >
+                        <span className="material-symbols-outlined">
+                            {isSidebarCollapsed ? "menu" : "menu_open"}
+                        </span>
+                    </button>
+
+                    <div className="flex flex-col gap-1">
+                        <h2 className="text-xl font-bold text-slate-800 tracking-tight">{title}</h2>
+                        <div className="flex items-center gap-2 text-xs font-medium text-slate-500">
+                            {breadcrumbs.map((crumb, index) => {
+                                const isLast = index === breadcrumbs.length - 1;
+                                return (
+                                    <div key={crumb.url} className="flex items-center gap-2">
+                                        {isLast ? (
+                                            <span className="text-slate-800">{crumb.label}</span>
+                                        ) : (
+                                            <>
+                                                <Link href={crumb.url} className="hover:text-[#ffd900] transition-colors">
+                                                    {crumb.label}
+                                                </Link>
+                                                <span className="material-symbols-outlined text-[10px]">chevron_right</span>
+                                            </>
+                                        )}
+                                    </div>
+                                );
+                            })}
+                        </div>
                     </div>
                 </div>
 

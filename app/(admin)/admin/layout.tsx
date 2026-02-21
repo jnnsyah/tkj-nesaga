@@ -43,10 +43,14 @@ export default function AdminLayout({
                 <div
                     className={cn(
                         "flex h-screen flex-1 flex-col overflow-hidden transition-all duration-300 relative",
-                        sidebarCollapsed ? "md:ml-20" : "md:ml-72"
+                        sidebarCollapsed ? "md:ml-0" : "md:ml-72"
                     )}
                 >
-                    <Topbar onMobileMenuClick={() => setMobileMenuOpen(true)} />
+                    <Topbar
+                        onMobileMenuClick={() => setMobileMenuOpen(true)}
+                        onSidebarToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
+                        isSidebarCollapsed={sidebarCollapsed}
+                    />
 
                     <main className="flex-1 overflow-y-auto p-4 md:p-8 styled-scrollbars">
                         <div className="mx-auto max-w-7xl animate-in fade-in duration-500">
