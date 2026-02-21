@@ -4,13 +4,13 @@ import prisma from "@/lib/prisma";
 export async function GET() {
   try {
     const categories = await prisma.partnerCategory.findMany({
-      orderBy: { id: "asc" },
+      orderBy: { title: "asc" },
       include: { _count: { select: { companies: true } } },
     });
     return NextResponse.json(categories);
   } catch (error) {
     console.error("Failed to fetch partner categories:", error);
-    return NextResponse.json({ error: "Failed to fetch partner categories" }, { status: 500 });
+    return NextResponse.json({ error: "Failed to fetch" }, { status: 500 });
   }
 }
 
@@ -21,6 +21,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(category, { status: 201 });
   } catch (error) {
     console.error("Failed to create partner category:", error);
-    return NextResponse.json({ error: "Failed to create partner category" }, { status: 500 });
+    return NextResponse.json({ error: "Failed to create" }, { status: 500 });
   }
 }

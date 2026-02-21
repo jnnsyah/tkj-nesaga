@@ -7,12 +7,12 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
-    const doc = await prisma.downloadableDocument.findUnique({ where: { id: parseInt(id, 10) } });
+    const doc = await prisma.downloadableDocument.findUnique({ where: { id: Number(id) } });
     if (!doc) return NextResponse.json({ error: "Not found" }, { status: 404 });
     return NextResponse.json(doc);
   } catch (error) {
-    console.error("Failed to fetch downloadable document:", error);
-    return NextResponse.json({ error: "Failed to fetch downloadable document" }, { status: 500 });
+    console.error("Failed to fetch document:", error);
+    return NextResponse.json({ error: "Failed to fetch" }, { status: 500 });
   }
 }
 
@@ -23,11 +23,11 @@ export async function PUT(
   try {
     const { id } = await params;
     const body = await req.json();
-    const doc = await prisma.downloadableDocument.update({ where: { id: parseInt(id, 10) }, data: body });
+    const doc = await prisma.downloadableDocument.update({ where: { id: Number(id) }, data: body });
     return NextResponse.json(doc);
   } catch (error) {
-    console.error("Failed to update downloadable document:", error);
-    return NextResponse.json({ error: "Failed to update downloadable document" }, { status: 500 });
+    console.error("Failed to update document:", error);
+    return NextResponse.json({ error: "Failed to update" }, { status: 500 });
   }
 }
 
@@ -37,10 +37,10 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
-    await prisma.downloadableDocument.delete({ where: { id: parseInt(id, 10) } });
+    await prisma.downloadableDocument.delete({ where: { id: Number(id) } });
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Failed to delete downloadable document:", error);
-    return NextResponse.json({ error: "Failed to delete downloadable document" }, { status: 500 });
+    console.error("Failed to delete document:", error);
+    return NextResponse.json({ error: "Failed to delete" }, { status: 500 });
   }
 }

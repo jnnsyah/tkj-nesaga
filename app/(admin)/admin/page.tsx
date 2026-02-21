@@ -1,107 +1,147 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import { StatsCard, RecentActivity } from "@/components/features/admin";
 import Link from "next/link";
-import { AdminCard, Icon } from "@/components";
 
-interface EntityCount {
-  label: string;
-  count: number;
-  icon: string;
-  href: string;
+interface DashboardData {
+  stats: {
+    totalPerusahaan: number;
+    totalLearningPaths: number;
+    totalFaq: number;
+    totalDokumen: number;
+  };
+  recentActivity: {
+    name: string;
+    module: string;
+    updatedAt: string;
+  }[];
 }
 
-const entityConfigs = [
-  { label: "Domains", endpoint: "/api/admin/domains", icon: "category", href: "/admin/domains" },
-  { label: "Learning Paths", endpoint: "/api/admin/learning-paths", icon: "route", href: "/admin/learning-paths" },
-  { label: "External Resources", endpoint: "/api/admin/external-resources", icon: "link", href: "/admin/external-resources" },
-  { label: "Documents", endpoint: "/api/admin/downloadable-documents", icon: "description", href: "/admin/downloadable-documents" },
-  { label: "FAQs", endpoint: "/api/admin/faqs", icon: "help", href: "/admin/faqs" },
-  { label: "Timelines", endpoint: "/api/admin/internship-timelines", icon: "timeline", href: "/admin/internship-timelines" },
-  { label: "Internship Stats", endpoint: "/api/admin/internship-stats", icon: "bar_chart", href: "/admin/internship-stats" },
-  { label: "Partner Categories", endpoint: "/api/admin/partner-categories", icon: "label", href: "/admin/partner-categories" },
-  { label: "Partner Companies", endpoint: "/api/admin/partner-companies", icon: "business", href: "/admin/partner-companies" },
-  { label: "Company Reviews", endpoint: "/api/admin/company-reviews", icon: "rate_review", href: "/admin/company-reviews" },
-  { label: "Program Features", endpoint: "/api/admin/program-features", icon: "star", href: "/admin/program-features" },
-  { label: "Curriculum Highlights", endpoint: "/api/admin/curriculum-highlights", icon: "school", href: "/admin/curriculum-highlights" },
-];
-
-export default function AdminDashboard() {
-  const [counts, setCounts] = useState<EntityCount[]>([]);
-  const [loading, setLoading] = useState(true);
+export default function AdminDashboardOverview() {
+  const { data: session } = useSession();
+  const [data, setData] = useState<DashboardData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchCounts() {
+    const fetchDashboardData = async () => {
       try {
-        const results = await Promise.all(
-          entityConfigs.map(async (cfg) => {
-            try {
-              const res = await fetch(cfg.endpoint);
-              const data = await res.json();
-              return {
-                label: cfg.label,
-                count: Array.isArray(data) ? data.length : 0,
-                icon: cfg.icon,
-                href: cfg.href,
-              };
-            } catch {
-              return { label: cfg.label, count: 0, icon: cfg.icon, href: cfg.href };
-            }
-          })
-        );
-        setCounts(results);
+        const response = await fetch("/api/admin/dashboard");
+        if (response.ok) {
+          const result = await response.json();
+          setData(result);
+        }
+      } catch (error) {
+        console.error("Failed to fetch dashboard data:", error);
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
-    }
-    fetchCounts();
+    };
+
+    fetchDashboardData();
   }, []);
 
+  const today = new Date().toLocaleDateString("id-ID", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
+  if (isLoading || !data) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#ffd900]"></div>
+      </div>
+    );
+  }
+
   return (
-    <div>
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-secondary dark:text-white font-display">Dashboard</h1>
-        <p className="text-sm text-muted-foreground mt-1">
-          Manage all TKJ Nesaga data from one place.
-        </p>
+    <div className="space-y-8">
+      {/* Welcome Banner */}
+      <div className="relative overflow-hidden rounded-[24px] bg-[#301934] p-8 shadow-xl">
+        <div className="absolute right-0 top-0 h-full w-1/2 bg-gradient-to-l from-[#ffd900]/10 to-transparent pointer-events-none" />
+        <div className="absolute -right-10 -bottom-10 h-64 w-64 rounded-full bg-[#ffd900]/20 blur-3xl pointer-events-none" />
+        <div className="relative z-10 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div>
+            <p className="mb-1 text-sm font-medium text-[#ffd900]">Admin Panel v2.0</p>
+            <h2 className="text-3xl lg:text-4xl font-black text-white mb-2 tracking-tight">
+              Halo, {session?.user?.name?.split(" ")[0] || "Admin"}! 👋
+            </h2>
+            <p className="text-white/70 max-w-lg font-medium leading-relaxed">
+              Selamat datang kembali. Kelola mitra, panduan belajar, dan publikasi dengan mudah dari dashboard ini.
+            </p>
+          </div>
+          <div className="flex items-center gap-3 rounded-xl bg-white/10 px-5 py-3 backdrop-blur-md border border-white/10 shadow-sm">
+            <span className="material-symbols-outlined text-[#ffd900]">calendar_today</span>
+            <span className="text-sm font-bold text-white">{today}</span>
+          </div>
+        </div>
       </div>
 
-      {loading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {Array.from({ length: 12 }).map((_, i) => (
-            <div key={i} className="bg-card border border-border rounded-2xl p-6 h-24 animate-pulse" />
-          ))}
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {counts.map((item) => (
-            <Link key={item.href} href={item.href} className="block hover:scale-[1.02] transition-transform">
-              <AdminCard title={item.label} value={item.count} icon={item.icon} />
-            </Link>
-          ))}
-        </div>
-      )}
+      {/* Quick Actions */}
+      <div className="flex flex-wrap gap-4">
+        <Link
+          href="/admin/partner-companies"
+          className="flex items-center gap-2 rounded-xl bg-[#ffd900] px-5 py-3 text-sm font-bold text-[#301934] shadow-lg shadow-[#ffd900]/20 hover:bg-[#ffd900]/90 hover:-translate-y-0.5 transition-all"
+        >
+          <span className="material-symbols-outlined text-[20px]">add_business</span>
+          Tambah Mitra
+        </Link>
+        <Link
+          href="/admin/learning-paths"
+          className="flex items-center gap-2 rounded-xl bg-white border border-slate-200 px-5 py-3 text-sm font-bold text-slate-700 shadow-sm hover:bg-slate-50 hover:text-[#301934] hover:border-[#301934]/20 transition-all hover:-translate-y-0.5"
+        >
+          <span className="material-symbols-outlined text-[20px]">add_road</span>
+          Tambah Learning Path
+        </Link>
+        <Link
+          href="/admin/downloadable-documents"
+          className="flex items-center gap-2 rounded-xl bg-white border border-slate-200 px-5 py-3 text-sm font-bold text-slate-700 shadow-sm hover:bg-slate-50 hover:text-[#301934] hover:border-[#301934]/20 transition-all hover:-translate-y-0.5"
+        >
+          <span className="material-symbols-outlined text-[20px]">upload_file</span>
+          Tambah Dokumen
+        </Link>
+      </div>
 
-      {/* Quick info */}
-      <div className="mt-10 bg-card border border-border rounded-2xl p-6">
-        <div className="flex items-center gap-3 mb-3">
-          <Icon name="info" size="md" className="text-primary" />
-          <h2 className="font-bold text-secondary dark:text-white font-display">Quick Guide</h2>
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <StatsCard
+          icon="business"
+          value={data.stats.totalPerusahaan}
+          label="Total Perusahaan Mitra"
+          color="bg-blue-50 text-blue-600"
+        />
+        <StatsCard
+          icon="route"
+          value={data.stats.totalLearningPaths}
+          label="Total Learning Paths"
+          color="bg-[#ffd900]/20 text-[#301934]"
+        />
+        <StatsCard
+          icon="help"
+          value={data.stats.totalFaq}
+          label="Total FAQ"
+          color="bg-purple-50 text-purple-600"
+        />
+        <StatsCard
+          icon="folder_open"
+          value={data.stats.totalDokumen}
+          label="Total Dokumen Unduhan"
+          color="bg-orange-50 text-orange-600"
+        />
+      </div>
+
+      {/* Recent Activity */}
+      <div className="rounded-[24px] bg-white p-6 md:p-8 shadow-sm border border-slate-100">
+        <div className="mb-6 flex items-center justify-between">
+          <div>
+            <h3 className="text-xl font-bold text-slate-800 tracking-tight">Recent Activity</h3>
+            <p className="text-sm font-medium text-slate-500 mt-1">Aktivitas update data terakhir.</p>
+          </div>
         </div>
-        <ul className="space-y-2 text-sm text-muted-foreground">
-          <li className="flex items-center gap-2">
-            <Icon name="arrow_right" size="sm" className="text-primary" />
-            Click any card above to manage that entity
-          </li>
-          <li className="flex items-center gap-2">
-            <Icon name="arrow_right" size="sm" className="text-primary" />
-            Use the sidebar to navigate between sections
-          </li>
-          <li className="flex items-center gap-2">
-            <Icon name="arrow_right" size="sm" className="text-primary" />
-            Each page supports creating, editing, and deleting records
-          </li>
-        </ul>
+        <RecentActivity items={data.recentActivity} />
       </div>
     </div>
   );

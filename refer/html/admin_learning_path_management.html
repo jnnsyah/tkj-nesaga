@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin Learning Step Manager</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#eccb13",
+                        "primary-dark": "#dcb900",
+                        "secondary": "#5b21b6","background-light": "#f8f8f6",
+                        "background-dark": "#221f10",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "2xl": "2rem",
+                        "3xl": "2.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased overflow-hidden h-screen flex">
+<aside class="w-64 bg-white dark:bg-[#1a180e] border-r border-gray-100 dark:border-gray-800 flex flex-col justify-between hidden lg:flex h-full shrink-0">
+<div class="flex flex-col gap-4 p-4 h-full">
+<div class="flex gap-3 items-center mb-6">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 shrink-0 shadow-sm border border-gray-100" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuComwvRkMlZWVU_KAmoNvpu0U-mGuBQDgkCNBXQxuPY-8KkOF2xJ771D2knxI32_E6NfAaxmisa4kecFJfcC0nAX-eATXMkc-Ej0bNKq0OlSBXEmvfdVIK0nAWm0TmMKWww-VK-TtpH_Ea1wQ5QdN7xbz7TjjJOewLNA5igrSvzQkJaYZ61o64vuW6JwvtIP8mTtQlKQR6z_oU2elKdh0tBuqrSYahcrQ89BbDbJr1_lsWfDwYT2z84l_WfiYGf1zA0HDLFHECPu5U");'></div>
+<div class="flex flex-col overflow-hidden">
+<h1 class="text-slate-900 dark:text-white text-base font-semibold truncate">TKJ Nesaga</h1>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-normal">Admin Panel</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2 flex-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-2xl text-slate-600 dark:text-slate-400 hover:bg-background-light dark:hover:bg-white/5 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-slate-900 dark:group-hover:text-white text-[22px]">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-2xl text-slate-600 dark:text-slate-400 hover:bg-background-light dark:hover:bg-white/5 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-slate-900 dark:group-hover:text-white text-[22px]">school</span>
+<span class="text-sm font-medium">Learning Paths</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-2xl bg-secondary/10 text-secondary dark:text-secondary-dark group font-semibold" href="#">
+<span class="material-symbols-outlined text-secondary text-[22px]">list_alt</span>
+<span class="text-sm">Kelola Learning Steps</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-2xl text-slate-600 dark:text-slate-400 hover:bg-background-light dark:hover:bg-white/5 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-slate-900 dark:group-hover:text-white text-[22px]">group</span>
+<span class="text-sm font-medium">Users</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-2xl text-slate-600 dark:text-slate-400 hover:bg-background-light dark:hover:bg-white/5 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-slate-900 dark:group-hover:text-white text-[22px]">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+<a class="flex items-center gap-3 px-3 py-2.5 mt-auto rounded-2xl text-slate-600 dark:text-slate-400 hover:bg-red-50 dark:hover:bg-red-900/10 hover:text-red-600 dark:hover:text-red-400 transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">logout</span>
+<span class="text-sm font-medium">Logout</span>
+</a>
+</div>
+</aside>
+<main class="flex-1 flex flex-col min-w-0 h-screen overflow-hidden bg-gray-50 dark:bg-black/40">
+<header class="flex items-center justify-between bg-white dark:bg-[#1a180e] border-b border-gray-100 dark:border-gray-800 px-6 py-4 z-20 shrink-0">
+<div class="flex items-center gap-4">
+<button class="lg:hidden p-1 text-slate-600 dark:text-slate-400">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="flex items-center gap-3">
+<div class="bg-secondary/10 p-2 rounded-xl text-secondary dark:text-purple-400">
+<span class="material-symbols-outlined text-xl">list_alt</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold tracking-tight">Step Manager</h2>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="relative p-2 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1.5 right-1.5 size-2 bg-red-500 rounded-full border-2 border-white dark:border-[#1a180e]"></span>
+</button>
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-9 border-2 border-white dark:border-gray-700 shadow-sm" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDldnoOSenUuknygEDxegm6RNIb_ELsDNGn5FH1uNyx1LAJgpEBAHCrr1FtnapWwZWgM-rtYxmbykySBn9PU179Nx-uP6LjNPVpHiNpelE8hwpB1Hl8kIdMzETR9lwFqMgspNNTDKmRt1DD28nh6bKZIRgeZbhRwivG7nbT1F-S0abvy9sdmpeiSdq2e1oIH-AgdfQPpg7kByLnV3ghH33c6E6EWMrrcbos-P1_IZUDxG4u4JrhW1w1dZMg5QUcyLfnm3Z0szPailA");'></div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<div class="w-[35%] min-w-[320px] max-w-md bg-white dark:bg-[#1a180e] border-r border-gray-100 dark:border-gray-800 flex flex-col z-10">
+<div class="p-4 border-b border-gray-100 dark:border-gray-800 flex gap-2 shrink-0">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-slate-400 text-[20px]">search</span>
+<input class="w-full bg-gray-50 dark:bg-white/5 border-none rounded-xl pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-secondary/50 placeholder:text-slate-400 text-slate-900 dark:text-white" placeholder="Cari Path..." type="text"/>
+</div>
+<button class="bg-primary hover:bg-primary-dark text-slate-900 p-2 rounded-xl transition-colors shadow-sm shadow-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar p-3 space-y-3">
+<div class="bg-secondary/5 border border-secondary/20 rounded-2xl p-4 cursor-pointer relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-secondary"></div>
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-bold tracking-wider text-secondary uppercase bg-white dark:bg-white/10 px-2 py-0.5 rounded-full shadow-sm">Networking</span>
+<div class="flex items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined text-[16px]">more_horiz</span>
+</div>
+</div>
+<h3 class="font-bold text-slate-900 dark:text-white mb-1 group-hover:text-secondary transition-colors">Fundamental Jaringan</h3>
+<div class="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400 mt-3">
+<span class="flex items-center gap-1 bg-white dark:bg-white/5 px-2 py-1 rounded-lg border border-gray-100 dark:border-gray-700">
+<span class="material-symbols-outlined text-[14px] text-yellow-600">military_tech</span>
+                            Pemula
+                        </span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">format_list_numbered</span>
+                            12 Steps
+                        </span>
+</div>
+</div>
+<div class="bg-white dark:bg-white/5 border border-gray-100 dark:border-gray-700 hover:border-secondary/30 rounded-2xl p-4 cursor-pointer relative overflow-hidden group transition-all">
+<div class="absolute top-0 left-0 w-1 h-full bg-blue-500/50 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-bold tracking-wider text-blue-600 uppercase bg-blue-50 dark:bg-blue-900/20 px-2 py-0.5 rounded-full">SysAdmin</span>
+</div>
+<h3 class="font-bold text-slate-900 dark:text-white mb-1 group-hover:text-secondary transition-colors">Linux System Administration</h3>
+<div class="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400 mt-3">
+<span class="flex items-center gap-1 bg-gray-50 dark:bg-white/5 px-2 py-1 rounded-lg">
+<span class="material-symbols-outlined text-[14px] text-gray-400">military_tech</span>
+                            Menengah
+                        </span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">format_list_numbered</span>
+                            8 Steps
+                        </span>
+</div>
+</div>
+<div class="bg-white dark:bg-white/5 border border-gray-100 dark:border-gray-700 hover:border-secondary/30 rounded-2xl p-4 cursor-pointer relative overflow-hidden group transition-all">
+<div class="absolute top-0 left-0 w-1 h-full bg-orange-500/50 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-bold tracking-wider text-orange-600 uppercase bg-orange-50 dark:bg-orange-900/20 px-2 py-0.5 rounded-full">Mikrotik</span>
+</div>
+<h3 class="font-bold text-slate-900 dark:text-white mb-1 group-hover:text-secondary transition-colors">Mikrotik Routing</h3>
+<div class="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400 mt-3">
+<span class="flex items-center gap-1 bg-gray-50 dark:bg-white/5 px-2 py-1 rounded-lg">
+<span class="material-symbols-outlined text-[14px] text-gray-400">military_tech</span>
+                            Lanjut
+                        </span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">format_list_numbered</span>
+                            15 Steps
+                        </span>
+</div>
+</div>
+<div class="bg-white dark:bg-white/5 border border-gray-100 dark:border-gray-700 hover:border-secondary/30 rounded-2xl p-4 cursor-pointer relative overflow-hidden group transition-all">
+<div class="absolute top-0 left-0 w-1 h-full bg-teal-500/50 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-bold tracking-wider text-teal-600 uppercase bg-teal-50 dark:bg-teal-900/20 px-2 py-0.5 rounded-full">Security</span>
+</div>
+<h3 class="font-bold text-slate-900 dark:text-white mb-1 group-hover:text-secondary transition-colors">Network Security Basic</h3>
+<div class="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400 mt-3">
+<span class="flex items-center gap-1 bg-gray-50 dark:bg-white/5 px-2 py-1 rounded-lg">
+<span class="material-symbols-outlined text-[14px] text-gray-400">military_tech</span>
+                            Pemula
+                        </span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">format_list_numbered</span>
+                            5 Steps
+                        </span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex-1 bg-gray-50/50 dark:bg-[#15130b] flex flex-col h-full overflow-hidden relative">
+<div class="px-8 py-6 flex items-end justify-between shrink-0">
+<div>
+<div class="flex items-center gap-3 mb-2">
+<span class="px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-secondary text-white uppercase tracking-wider">Networking</span>
+<span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Last updated: 2 hours ago</span>
+</div>
+<h1 class="text-3xl font-black text-slate-900 dark:text-white">Fundamental Jaringan</h1>
+<p class="text-slate-500 dark:text-slate-400 text-sm mt-1 max-w-2xl">Manage the sequence and content of steps for this learning path.</p>
+</div>
+<button class="px-4 py-2.5 rounded-xl bg-secondary text-white font-semibold text-sm hover:bg-secondary/90 shadow-md shadow-secondary/20 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+                    Tambah Step
+                </button>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar px-8 pb-8 space-y-3">
+<div class="bg-white dark:bg-[#1a180e] border border-gray-200 dark:border-gray-700 rounded-2xl p-4 flex items-center gap-4 group hover:shadow-md transition-all hover:border-secondary/30">
+<div class="cursor-grab active:cursor-grabbing p-2 text-slate-300 hover:text-slate-500">
+<span class="material-symbols-outlined">drag_indicator</span>
+</div>
+<div class="size-10 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center font-bold text-slate-500 dark:text-slate-400 text-sm shrink-0 border border-gray-200 dark:border-gray-700">
+                        01
+                    </div>
+<div class="flex-1 min-w-0">
+<h4 class="font-bold text-slate-900 dark:text-white truncate">Pengenalan Model OSI Layer</h4>
+<div class="flex items-center gap-4 mt-1">
+<div class="flex items-center gap-1.5 text-xs text-slate-500">
+<span class="material-symbols-outlined text-[14px]">article</span>
+<span>Article</span>
+</div>
+<div class="flex items-center gap-1.5 text-xs text-green-600 bg-green-50 dark:bg-green-900/20 px-2 py-0.5 rounded-md">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+<span>Published</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="px-3 py-1.5 rounded-lg text-xs font-medium bg-secondary/10 text-secondary hover:bg-secondary hover:text-white transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">bolt</span>
+                            Actions
+                        </button>
+<button class="p-2 rounded-lg text-slate-400 hover:text-primary hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-2 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+<div class="bg-white dark:bg-[#1a180e] border border-gray-200 dark:border-gray-700 rounded-2xl p-4 flex items-center gap-4 group hover:shadow-md transition-all hover:border-secondary/30">
+<div class="cursor-grab active:cursor-grabbing p-2 text-slate-300 hover:text-slate-500">
+<span class="material-symbols-outlined">drag_indicator</span>
+</div>
+<div class="size-10 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center font-bold text-slate-500 dark:text-slate-400 text-sm shrink-0 border border-gray-200 dark:border-gray-700">
+                        02
+                    </div>
+<div class="flex-1 min-w-0">
+<h4 class="font-bold text-slate-900 dark:text-white truncate">TCP/IP Protocol Suite</h4>
+<div class="flex items-center gap-4 mt-1">
+<div class="flex items-center gap-1.5 text-xs text-slate-500">
+<span class="material-symbols-outlined text-[14px]">play_circle</span>
+<span>Video</span>
+</div>
+<div class="flex items-center gap-1.5 text-xs text-green-600 bg-green-50 dark:bg-green-900/20 px-2 py-0.5 rounded-md">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+<span>Published</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="px-3 py-1.5 rounded-lg text-xs font-medium bg-secondary/10 text-secondary hover:bg-secondary hover:text-white transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">bolt</span>
+                            Actions
+                        </button>
+<button class="p-2 rounded-lg text-slate-400 hover:text-primary hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-2 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+<div class="bg-white dark:bg-[#1a180e] border border-gray-200 dark:border-gray-700 rounded-2xl p-4 flex items-center gap-4 group hover:shadow-md transition-all hover:border-secondary/30">
+<div class="cursor-grab active:cursor-grabbing p-2 text-slate-300 hover:text-slate-500">
+<span class="material-symbols-outlined">drag_indicator</span>
+</div>
+<div class="size-10 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center font-bold text-slate-500 dark:text-slate-400 text-sm shrink-0 border border-gray-200 dark:border-gray-700">
+                        03
+                    </div>
+<div class="flex-1 min-w-0">
+<h4 class="font-bold text-slate-900 dark:text-white truncate">Quiz: Basic Networking Concepts</h4>
+<div class="flex items-center gap-4 mt-1">
+<div class="flex items-center gap-1.5 text-xs text-slate-500">
+<span class="material-symbols-outlined text-[14px]">quiz</span>
+<span>Quiz</span>
+</div>
+<div class="flex items-center gap-1.5 text-xs text-yellow-600 bg-yellow-50 dark:bg-yellow-900/20 px-2 py-0.5 rounded-md">
+<span class="material-symbols-outlined text-[14px]">edit_note</span>
+<span>Draft</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="px-3 py-1.5 rounded-lg text-xs font-medium bg-secondary/10 text-secondary hover:bg-secondary hover:text-white transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">bolt</span>
+                            Actions
+                        </button>
+<button class="p-2 rounded-lg text-slate-400 hover:text-primary hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-2 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+<div class="absolute inset-y-0 right-0 w-80 bg-white dark:bg-[#1f1d14] border-l border-gray-200 dark:border-gray-700 shadow-2xl z-20 flex flex-col transform transition-transform duration-300 translate-x-0">
+<div class="p-5 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50/50 dark:bg-white/5">
+<div>
+<h3 class="font-bold text-slate-900 dark:text-white">Kelola Actions</h3>
+<p class="text-xs text-slate-500">Step: Pengenalan OSI</p>
+</div>
+<button class="text-slate-400 hover:text-slate-600">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto p-5 space-y-4">
+<div class="flex items-start gap-3 p-3 rounded-xl border border-gray-100 dark:border-gray-700 bg-white dark:bg-black/20 group hover:border-secondary/30 transition-colors">
+<div class="size-8 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-blue-600 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">link</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-semibold text-slate-900 dark:text-white">Baca Referensi</p>
+<p class="text-xs text-slate-400 truncate">https://cisco.com/osi-model...</p>
+</div>
+<button class="text-slate-300 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+</div>
+<div class="flex items-start gap-3 p-3 rounded-xl border border-gray-100 dark:border-gray-700 bg-white dark:bg-black/20 group hover:border-secondary/30 transition-colors">
+<div class="size-8 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-semibold text-slate-900 dark:text-white">Download PDF</p>
+<p class="text-xs text-slate-400 truncate">/files/modul-1-osi.pdf</p>
+</div>
+<button class="text-slate-300 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+</div>
+</div>
+<div class="p-5 bg-gray-50 dark:bg-white/5 border-t border-gray-100 dark:border-gray-700">
+<h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Add New Action</h4>
+<div class="space-y-3">
+<div>
+<select class="w-full text-sm rounded-lg border-gray-200 dark:border-gray-700 bg-white dark:bg-black/20 py-2 px-3 focus:ring-1 focus:ring-secondary focus:border-secondary">
+<option>External Link</option>
+<option>Download File</option>
+<option>Open Modal</option>
+</select>
+</div>
+<div>
+<input class="w-full text-sm rounded-lg border-gray-200 dark:border-gray-700 bg-white dark:bg-black/20 py-2 px-3 focus:ring-1 focus:ring-secondary focus:border-secondary placeholder:text-slate-400" placeholder="Label (e.g. Baca Artikel)" type="text"/>
+</div>
+<div>
+<input class="w-full text-sm rounded-lg border-gray-200 dark:border-gray-700 bg-white dark:bg-black/20 py-2 px-3 focus:ring-1 focus:ring-secondary focus:border-secondary placeholder:text-slate-400" placeholder="URL / Target" type="text"/>
+</div>
+<button class="w-full py-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg text-sm font-bold hover:opacity-90 transition-opacity">
+                            Add Action
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+
+</body></html>
