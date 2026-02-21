@@ -45,3 +45,7 @@ next-env.d.ts
 /refer
 /agents
 /docs
+/context
+/prompt
+/plan
+/task
