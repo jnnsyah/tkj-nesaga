@@ -26,18 +26,26 @@ export async function PUT(
     try {
         const { id } = await params;
         const body = await req.json();
+
+        if (!id || isNaN(Number(id))) {
+            return NextResponse.json({ error: "Valid ID is required" }, { status: 400 });
+        }
+
         const step = await prisma.learningStep.update({
             where: { id: Number(id) },
             data: {
                 title: body.title,
-                description: body.description,
+                description: body.description ?? "",
                 mediaType: body.mediaType ?? null,
             },
         });
         return NextResponse.json(step);
-    } catch (error) {
+    } catch (error: any) {
         console.error("Failed to update step:", error);
-        return NextResponse.json({ error: "Failed to update" }, { status: 500 });
+        return NextResponse.json({
+            error: "Failed to update",
+            details: error?.message || "Unknown error"
+        }, { status: 500 });
     }
 }
 

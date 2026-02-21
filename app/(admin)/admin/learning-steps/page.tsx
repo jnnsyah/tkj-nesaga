@@ -65,6 +65,7 @@ export default function LearningStepsPage() {
     const [actionTo, setActionTo] = useState("");
     const [actionCategoryId, setActionCategoryId] = useState<number | null>(null);
     const [actionSaving, setActionSaving] = useState(false);
+    const [editingAction, setEditingAction] = useState<StepAction | null>(null);
 
     // ── Drag state ──
     const dragItem = useRef<number | null>(null);
@@ -171,27 +172,54 @@ export default function LearningStepsPage() {
         setDrawerStepId(step.id);
         setDrawerActions(step.actions);
         setActionLabel(""); setActionTo(""); setActionCategoryId(null);
+        setEditingAction(null);
     };
 
-    const closeActionDrawer = () => { setDrawerStepId(null); setDrawerActions([]); };
+    const closeActionDrawer = () => { setDrawerStepId(null); setDrawerActions([]); setEditingAction(null); };
 
-    const handleAddAction = async () => {
+    const handleEditAction = (action: StepAction) => {
+        setEditingAction(action);
+        setActionLabel(action.label);
+        setActionTo(action.to || "");
+        setActionCategoryId(action.categoryId);
+    };
+
+    const handleCancelEditAction = () => {
+        setEditingAction(null);
+        setActionLabel("");
+        setActionTo("");
+        setActionCategoryId(null);
+    };
+
+    const handleSaveAction = async () => {
         if (!actionLabel.trim() || !actionCategoryId || !drawerStepId) return;
         setActionSaving(true);
         try {
-            const res = await fetch(ACTIONS_API, {
-                method: "POST",
+            const url = editingAction ? `${ACTIONS_API}/${editingAction.id}` : ACTIONS_API;
+            const method = editingAction ? "PUT" : "POST";
+            const body: Record<string, any> = { label: actionLabel, to: actionTo || null, categoryId: actionCategoryId };
+            if (!editingAction) body.learningStepId = drawerStepId;
+
+            const res = await fetch(url, {
+                method,
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ label: actionLabel, to: actionTo || null, categoryId: actionCategoryId, learningStepId: drawerStepId }),
+                body: JSON.stringify(body),
             });
+
             if (res.ok) {
-                const action = await res.json();
-                setDrawerActions((prev) => [...prev, action]);
+                const updatedAction = await res.json();
+                if (editingAction) {
+                    setDrawerActions((prev) => prev.map((a) => (a.id === updatedAction.id ? updatedAction : a)));
+                } else {
+                    setDrawerActions((prev) => [...prev, updatedAction]);
+                }
+
                 setActionLabel(""); setActionTo(""); setActionCategoryId(null);
-                toast.success("Action ditambahkan!");
+                setEditingAction(null);
+                toast.success(editingAction ? "Action updated!" : "Action ditambahkan!");
                 if (selectedPathId) fetchSteps(selectedPathId);
             }
-        } catch { toast.error("Gagal menambah action."); }
+        } catch { toast.error("Gagal menyimpan action."); }
         finally { setActionSaving(false); }
     };
 
@@ -392,16 +420,26 @@ export default function LearningStepsPage() {
                                             <p className="text-sm font-semibold text-slate-900">{action.label}</p>
                                             {action.to && <p className="text-xs text-slate-400 truncate">{action.to}</p>}
                                         </div>
-                                        <button onClick={() => handleDeleteAction(action.id)} className="text-slate-300 hover:text-red-500 transition-colors shrink-0">
-                                            <span className="material-symbols-outlined text-[16px]">close</span>
-                                        </button>
+                                        <div className="flex items-center gap-1">
+                                            <button onClick={() => handleEditAction(action)} className="text-slate-300 hover:text-blue-500 transition-colors shrink-0">
+                                                <span className="material-symbols-outlined text-[16px]">edit</span>
+                                            </button>
+                                            <button onClick={() => handleDeleteAction(action.id)} className="text-slate-300 hover:text-red-500 transition-colors shrink-0">
+                                                <span className="material-symbols-outlined text-[16px]">close</span>
+                                            </button>
+                                        </div>
                                     </div>
                                 ))}
                             </div>
 
-                            {/* Add Action Form */}
+                            {/* Add/Edit Action Form */}
                             <div className="p-5 bg-slate-50 border-t border-slate-100">
-                                <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Tambah Action</h4>
+                                <div className="flex justify-between items-center mb-3">
+                                    <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider">{editingAction ? "Edit Action" : "Tambah Action"}</h4>
+                                    {editingAction && (
+                                        <button onClick={handleCancelEditAction} className="text-[10px] font-bold text-slate-400 hover:text-slate-600 uppercase tracking-tight">Batal Edit</button>
+                                    )}
+                                </div>
                                 <div className="space-y-3">
                                     <Dropdown options={categoryOptions} value={actionCategoryId} onChange={(val) => setActionCategoryId(Number(val))} placeholder="Pilih kategori..." />
                                     <input
@@ -415,11 +453,14 @@ export default function LearningStepsPage() {
                                         className="w-full text-sm rounded-xl border border-slate-200 py-2.5 px-3 focus:ring-2 focus:ring-[#ffd900]/50 focus:border-[#ffd900] placeholder:text-slate-400"
                                     />
                                     <button
-                                        onClick={handleAddAction}
+                                        onClick={handleSaveAction}
                                         disabled={actionSaving || !actionLabel.trim() || !actionCategoryId}
-                                        className="w-full py-2.5 bg-[#301934] text-white rounded-xl text-sm font-bold hover:bg-[#301934]/90 transition-colors disabled:opacity-50"
+                                        className={cn(
+                                            "w-full py-2.5 text-white rounded-xl text-sm font-bold transition-colors disabled:opacity-50",
+                                            editingAction ? "bg-blue-600 hover:bg-blue-700" : "bg-[#301934] hover:bg-[#301934]/90"
+                                        )}
                                     >
-                                        {actionSaving ? "Menyimpan..." : "Tambah Action"}
+                                        {actionSaving ? "Menyimpan..." : editingAction ? "Update Action" : "Tambah Action"}
                                     </button>
                                 </div>
                             </div>
