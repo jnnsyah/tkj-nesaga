@@ -17,6 +17,7 @@ interface FormModalBaseProps {
   isLoading?: boolean;
   loading?: boolean; // alias for backwards compat
   onClose: () => void;
+  size?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl";
 }
 
 interface FormModalChildrenProps extends FormModalBaseProps {
@@ -45,7 +46,19 @@ export function FormModal(props: FormModalProps) {
   const {
     title,
     onClose,
+    size = "lg",
   } = props;
+
+  const sizeClasses = {
+    sm: "max-w-sm",
+    md: "max-w-md",
+    lg: "max-w-lg",
+    xl: "max-w-xl",
+    "2xl": "max-w-2xl",
+    "3xl": "max-w-3xl",
+    "4xl": "max-w-4xl",
+    "5xl": "max-w-5xl",
+  };
 
   const isLoading = props.isLoading ?? props.loading ?? false;
   const isOpen = 'isOpen' in props && props.isOpen !== undefined ? props.isOpen : ('open' in props ? props.open : false);
@@ -78,7 +91,10 @@ export function FormModal(props: FormModalProps) {
         onClick={!isLoading ? onClose : undefined}
       />
 
-      <div className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl flex flex-col max-h-full overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+      <div className={cn(
+        "relative w-full bg-white rounded-2xl shadow-2xl flex flex-col max-h-full overflow-hidden animate-in fade-in zoom-in-95 duration-200",
+        sizeClasses[size]
+      )}>
         <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100">
           <h2 className="text-xl font-bold text-slate-800 tracking-tight">{title}</h2>
           <button
@@ -138,10 +154,24 @@ function FieldsFormModal(props: FormModalFieldsProps & { isLoading: boolean }) {
     setFormData((prev) => ({ ...prev, [key]: value }));
   };
 
+  const sizeClasses = {
+    sm: "max-w-sm",
+    md: "max-w-md",
+    lg: "max-w-lg",
+    xl: "max-w-xl",
+    "2xl": "max-w-2xl",
+    "3xl": "max-w-3xl",
+    "4xl": "max-w-4xl",
+    "5xl": "max-w-5xl",
+  };
+
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onClick={!isLoading ? onClose : undefined} />
-      <div className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl flex flex-col max-h-full overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+      <div className={cn(
+        "relative w-full bg-white rounded-2xl shadow-2xl flex flex-col max-h-full overflow-hidden animate-in fade-in zoom-in-95 duration-200",
+        sizeClasses[props.size || "lg"]
+      )}>
         <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100">
           <h2 className="text-xl font-bold text-slate-800 tracking-tight">{title}</h2>
           <button type="button" onClick={onClose} disabled={isLoading} className="p-2 rounded-xl text-slate-400 hover:bg-slate-100 hover:text-slate-600 transition-colors disabled:opacity-50">

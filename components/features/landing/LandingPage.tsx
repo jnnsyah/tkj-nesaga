@@ -7,6 +7,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { FeatureCard } from "./FeatureCard";
 import { CategoryCard } from "./CategoryCard";
 import { HeroGraphic } from "./HeroGraphic";
+import { AchievementSection } from "./AchievementSection";
 import { LandingPartnerCategory, ProgramFeature } from "./types";
 import { useEffect, useState } from "react";
 
@@ -123,6 +124,9 @@ export function LandingPage() {
         </div>
       </section>
 
+      {/* Achievement Section */}
+      <AchievementSection />
+
       {/* Prakerin Section */}
       <section className="py-24 bg-background border-y border-border/40" id="pkl">
         <div className="max-w-7xl mx-auto px-6">
@@ -148,12 +152,6 @@ export function LandingPage() {
             )}
           </div>
 
-          {/* <div className="grid md:grid-cols-3 gap-6 mb-16">
-                        {stats.map((stat, idx) => (
-                            <StatCard key={idx} {...stat} />
-                        ))}
-                    </div> */}
-
           <div className="text-center">
             <Button
               variant="secondary"
@@ -169,5 +167,3 @@ export function LandingPage() {
     </>
   );
 }
-
-

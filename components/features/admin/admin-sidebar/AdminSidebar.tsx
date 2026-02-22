@@ -58,6 +58,14 @@ const navGroups: NavGroup[] = [
       { label: "Dokumen Unduhan", href: "/admin/downloadable-documents", icon: "description" },
     ],
   },
+  {
+    title: "Siswa",
+    items: [
+      { label: "Prestasi Siswa", href: "/admin/achievements", icon: "emoji_events" },
+      { label: "Kategori Prestasi", href: "/admin/achievement-categories", icon: "category" },
+      { label: "Level Prestasi", href: "/admin/achievement-levels", icon: "military_tech" },
+    ],
+  },
 ];
 
 interface AdminSidebarProps {

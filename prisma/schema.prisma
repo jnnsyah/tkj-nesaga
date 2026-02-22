@@ -144,6 +144,46 @@ model ExternalResource {
   @@map("external_resources")
 }
 
+model AchievementCategory {
+  id           Int                  @id @default(autoincrement())
+  name         String               @unique
+  color        String
+  achievements StudentAchievement[]
+
+  @@map("achievement_categories")
+}
+
+model AchievementLevel {
+  id           Int                  @id @default(autoincrement())
+  name         String               @unique
+  icon         String
+  achievements StudentAchievement[]
+
+  @@map("achievement_levels")
+}
+
+model StudentAchievement {
+  id            Int                 @id @default(autoincrement())
+  title         String
+  description   String
+  year          Int
+  imageUrl      String
+  imagePublicId String
+  order         Int                 @default(0)
+  isActive      Boolean             @default(true)
+  categoryId    Int
+  levelId       Int
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+
+  category      AchievementCategory @relation(fields: [categoryId], references: [id])
+  level         AchievementLevel    @relation(fields: [levelId], references: [id])
+
+  @@index([categoryId])
+  @@index([levelId])
+  @@map("student_achievements")
+}
+
 model DownloadableDocument {
   id        Int      @id @default(autoincrement())
   title     String
