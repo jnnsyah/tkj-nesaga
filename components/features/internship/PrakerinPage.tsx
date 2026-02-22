@@ -1,12 +1,13 @@
 // Schema migration: categories filter now goes through junction table (c.category.title)
 "use client"
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { CompanyCard } from "./CompanyCard";
 import { CompanyDetail } from "./CompanyDetail";
 import { Icon } from "@/components/ui/icon";
 import { LoadingOverlay } from "@/components/ui/loading-overlay";
+import { ErrorState } from "@/components/ui/error-state";
 import { PartnerCompany } from "./types"
 
 /**
@@ -40,6 +41,7 @@ export function PrakerinPage() {
   const [companies, setCompanies] = useState<PartnerCompany[]>([])
   const [filterCategories, setFilterCategories] = useState<string[]>(["Semua"])
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   // Filter & Search state
   const [activeFilter, setActiveFilter] = useState<string>("Semua")
@@ -55,36 +57,40 @@ export function PrakerinPage() {
   const [startY, setStartY] = useState(0)
 
   // Fetch companies data and partner categories
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true)
-        const [companiesRes, categoriesRes] = await Promise.all([
-          fetch("/api/internship/companies"),
-          fetch("/api/internship"),
-        ])
+  const fetchData = useCallback(async () => {
+    try {
+      setLoading(true)
+      setError(null)
+      const [companiesRes, categoriesRes] = await Promise.all([
+        fetch("/api/internship/companies"),
+        fetch("/api/internship"),
+      ])
 
-        if (companiesRes.ok) {
-          const data = await companiesRes.json()
-          setCompanies(data)
-        }
-
-        if (categoriesRes.ok) {
-          const data = await categoriesRes.json()
-          const categoryTitles = (data.partnerCategories || []).map(
-            (cat: { title: string }) => cat.title
-          )
-          setFilterCategories(["Semua", ...categoryTitles])
-        }
-      } catch (e) {
-        console.error("Failed to fetch data", e)
-      } finally {
-        setLoading(false)
+      if (!companiesRes.ok || !categoriesRes.ok) {
+        throw new Error("Server merespons dengan status error.");
       }
-    }
 
-    fetchData()
+      const companiesData = await companiesRes.json()
+      setCompanies(companiesData)
+
+      const categoriesData = await categoriesRes.json()
+      const categoryTitles = (categoriesData.partnerCategories || []).map(
+        (cat: { title: string }) => cat.title
+      )
+      setFilterCategories(["Semua", ...categoryTitles])
+    } catch (err) {
+      console.error("Failed to fetch data", err)
+      setError(
+        "Tidak dapat memuat data perusahaan. Periksa koneksi internet Anda dan coba lagi."
+      )
+    } finally {
+      setLoading(false)
+    }
   }, [])
+
+  useEffect(() => {
+    fetchData()
+  }, [fetchData])
 
   // Filter logic: combine category filter + search
   const filteredCompanies = useMemo(() => {
@@ -262,7 +268,7 @@ export function PrakerinPage() {
         )}
 
         {/* Result Counter */}
-        {!loading && filteredCompanies.length > 0 && (
+        {!loading && !error && filteredCompanies.length > 0 && (
           <p className="text-sm text-muted-foreground text-center">
             Menampilkan {startIndex + 1}-{Math.min(endIndex, filteredCompanies.length)} dari {filteredCompanies.length} perusahaan
           </p>
@@ -273,7 +279,12 @@ export function PrakerinPage() {
       <main className="relative">
         <LoadingOverlay visible={loading} />
 
-        {!loading && paginatedCompanies.length === 0 ? (
+        {error ? (
+          <ErrorState
+            message={error}
+            onRetry={fetchData}
+          />
+        ) : !loading && paginatedCompanies.length === 0 ? (
           // Empty State
           <div className="flex flex-col items-center justify-center py-16 px-4">
             <div className="w-20 h-20 rounded-full bg-muted/30 flex items-center justify-center mb-4">
@@ -307,7 +318,7 @@ export function PrakerinPage() {
       </main>
 
       {/* Pagination */}
-      {!loading && filteredCompanies.length > itemsPerPage && (
+      {!loading && !error && filteredCompanies.length > itemsPerPage && (
         <div className="flex justify-center items-center gap-2 mt-8">
           {/* Previous Button */}
           <button

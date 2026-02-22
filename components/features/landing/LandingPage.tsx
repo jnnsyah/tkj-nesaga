@@ -4,46 +4,52 @@ import { Icon } from "@/components/ui/icon";
 import { Button } from "@/components/ui/button";
 import { LoadingOverlay } from "@/components/ui/loading-overlay";
 import { EmptyState } from "@/components/ui/empty-state";
+import { ErrorState } from "@/components/ui/error-state";
 import { FeatureCard } from "./FeatureCard";
 import { CategoryCard } from "./CategoryCard";
 import { HeroGraphic } from "./HeroGraphic";
 import { AchievementSection } from "./AchievementSection";
 import { LandingPartnerCategory, ProgramFeature } from "./types";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export function LandingPage() {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [programFeatures, setProgramFeatures] = useState<ProgramFeature[]>([]);
   const [partnerCategories, setPartnerCategories] = useState<LandingPartnerCategory[]>([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true)
-        const [programRes, partnerRes] = await Promise.all([
-          fetch("/api/programs"),
-          fetch("/api/internship"),
-        ]);
+  const fetchData = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const [programRes, partnerRes] = await Promise.all([
+        fetch("/api/programs"),
+        fetch("/api/internship"),
+      ]);
 
-        if (programRes.ok) {
-          const programData = await programRes.json();
-          setProgramFeatures(programData.programFeatures);
-        }
-
-        if (partnerRes.ok) {
-          const partnerData = await partnerRes.json();
-          setPartnerCategories(partnerData.partnerCategories);
-        }
-
-      } catch (error) {
-        console.error("Failed to fetch landing data", error);
-      } finally {
-        setLoading(false)
+      if (!programRes.ok || !partnerRes.ok) {
+        throw new Error("Server merespons dengan status error.");
       }
-    }
 
-    fetchData();
+      const programData = await programRes.json();
+      setProgramFeatures(programData.programFeatures);
+
+      const partnerData = await partnerRes.json();
+      setPartnerCategories(partnerData.partnerCategories);
+
+    } catch (err) {
+      console.error("Failed to fetch landing data", err);
+      setError(
+        "Tidak dapat memuat data halaman. Periksa koneksi internet Anda dan coba lagi."
+      );
+    } finally {
+      setLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   return (
     <>
@@ -62,7 +68,7 @@ export function LandingPage() {
             </div>
 
             <h1 className="text-2xl sm:text-5xl lg:text-7xl font-black text-secondary dark:text-white leading-[1.1] tracking-tighter">
-              Teknik Komputer <br className="hidden lg:block" /> & {" "}
+              Teknik Komputer <br className="hidden lg:block" /> &{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-900 to-purple-600 dark:from-primary dark:to-yellow-300">
                 Jaringan
               </span>
@@ -110,7 +116,9 @@ export function LandingPage() {
             </div>
             <div className="relative lg:w-2/3 grid sm:grid-cols-2 gap-6">
               <LoadingOverlay visible={loading} />
-              {programFeatures && programFeatures.length > 0 ? (
+              {error ? (
+                <ErrorState message={error} onRetry={fetchData} />
+              ) : programFeatures && programFeatures.length > 0 ? (
                 programFeatures.map((features, idx) => (
                   <FeatureCard key={idx} {...features} />
                 ))
@@ -141,7 +149,9 @@ export function LandingPage() {
 
           <div className="relative grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
             <LoadingOverlay visible={loading} />
-            {partnerCategories && partnerCategories.length > 0 ? (
+            {error ? (
+              <ErrorState message={error} onRetry={fetchData} />
+            ) : partnerCategories && partnerCategories.length > 0 ? (
               partnerCategories.map((cat, idx) => (
                 <CategoryCard key={idx} {...cat} />
               ))
