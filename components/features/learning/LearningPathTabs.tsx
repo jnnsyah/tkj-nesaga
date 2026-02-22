@@ -15,6 +15,7 @@ interface LearningPathTabsProps {
   activeTab: string;
   onTabChange: (key: string) => void;
   className?: string;
+  allLabel?: string;
 }
 
 /**
@@ -27,6 +28,7 @@ export function LearningPathTabs({
   activeTab,
   onTabChange,
   className = "",
+  allLabel = "Semua",
 }: LearningPathTabsProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -82,7 +84,7 @@ export function LearningPathTabs({
       <div
         ref={scrollRef}
         role="tablist"
-        className="flex items-center gap-2 md:gap-3 overflow-x-auto pb-1 scroll-smooth
+        className="flex items-center gap-1 overflow-x-auto pb-1 scroll-smooth
           [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       >
         <button
@@ -90,12 +92,12 @@ export function LearningPathTabs({
           role="tab"
           onClick={() => onTabChange("all")}
           className={cn(
-            "relative flex items-center gap-2 whitespace-nowrap px-5 py-2.5 rounded-2xl text-sm font-semibold",
-            "transition-all duration-200 ease-out select-none shrink-0",
-            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2",
+            "relative flex items-center gap-1.5 whitespace-nowrap px-3.5 py-1.5 rounded-lg text-sm font-medium",
+            "transition-all duration-150 ease-out select-none shrink-0",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50",
             activeTab === "all"
-              ? "bg-primary text-secondary shadow-sm shadow-primary/20 font-bold"
-              : "bg-secondary/5 text-secondary/70 dark:bg-white/5 dark:text-white/60 hover:bg-primary/15 hover:text-secondary dark:hover:bg-white/10 dark:hover:text-white"
+              ? "bg-primary/15 text-secondary dark:text-white font-semibold"
+              : "text-secondary/50 dark:text-white/40 hover:text-secondary dark:hover:text-white hover:bg-secondary/5 dark:hover:bg-white/5"
           )}
         >
           <Icon
@@ -104,27 +106,28 @@ export function LearningPathTabs({
             className={cn(
               "transition-colors",
               activeTab === "all"
-                ? "text-secondary"
-                : "text-secondary/50 dark:text-white/40"
+                ? "text-primary"
+                : "text-secondary/30 dark:text-white/30"
             )}
           />
-          all
+          {allLabel}
         </button>
 
         {tabs.map((tab) => {
+          const isActive = activeTab === (tab.value || tab.name);
           return (
             <button
               key={tab.value || tab.name}
               role="tab"
-              aria-selected={activeTab === (tab.value || tab.name)}
+              aria-selected={isActive}
               onClick={() => setActiveTab(tab.value || tab.name)}
               className={cn(
-                "relative flex items-center gap-2 whitespace-nowrap px-5 py-2.5 rounded-2xl text-sm font-semibold",
-                "transition-all duration-200 ease-out select-none shrink-0",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2",
-                activeTab === (tab.value || tab.name)
-                  ? "bg-primary text-secondary shadow-sm shadow-primary/20 font-bold"
-                  : "bg-secondary/5 text-secondary/70 dark:bg-white/5 dark:text-white/60 hover:bg-primary/15 hover:text-secondary dark:hover:bg-white/10 dark:hover:text-white"
+                "relative flex items-center gap-1.5 whitespace-nowrap px-3.5 py-1.5 rounded-lg text-sm font-medium",
+                "transition-all duration-150 ease-out select-none shrink-0",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50",
+                isActive
+                  ? "bg-primary/15 text-secondary dark:text-white font-semibold"
+                  : "text-secondary/50 dark:text-white/40 hover:text-secondary dark:hover:text-white hover:bg-secondary/5 dark:hover:bg-white/5"
               )}
             >
               {tab.icon && (
@@ -133,9 +136,9 @@ export function LearningPathTabs({
                   size="sm"
                   className={cn(
                     "transition-colors",
-                    activeTab === (tab.value || tab.name)
-                      ? "text-secondary"
-                      : "text-secondary/50 dark:text-white/40"
+                    isActive
+                      ? "text-primary"
+                      : "text-secondary/30 dark:text-white/30"
                   )}
                 />
               )}

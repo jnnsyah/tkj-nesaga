@@ -90,21 +90,39 @@ export function LearningHubPage() {
           </Badge>
         </div>
 
-        {/* Domain Navigation */}
-        <LearningPathTabs
-          tabs={domainTabs}
-          activeTab={activeDomain}
-          onTabChange={setActiveDomain}
-          className="mb-8 px-2"
-        />
+        {/* Filters */}
+        <div className="mb-10 px-2 space-y-5">
 
-        {/* Level Navigation */}
-        <LearningPathTabs
-          tabs={levelTabs}
-          activeTab={activeLevel}
-          onTabChange={setActiveLevel}
-          className="mb-8 px-2"
-        />
+          {/* Domain Filter */}
+          <div className="space-y-2">
+            <span className="text-xs font-medium text-secondary/40 dark:text-white/30">
+              Bidang Keahlian
+            </span>
+            <LearningPathTabs
+              tabs={domainTabs}
+              activeTab={activeDomain}
+              onTabChange={setActiveDomain}
+              allLabel="Semua"
+            />
+          </div>
+
+          {/* Subtle divider */}
+          <div className="h-px bg-secondary/8 dark:bg-white/8" />
+
+          {/* Level Filter */}
+          <div className="space-y-2">
+            <span className="text-xs font-medium text-secondary/40 dark:text-white/30">
+              Tingkat Kesulitan
+            </span>
+            <LearningPathTabs
+              tabs={levelTabs}
+              activeTab={activeLevel}
+              onTabChange={setActiveLevel}
+              allLabel="Semua"
+            />
+          </div>
+
+        </div>
 
         <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8">
           <LoadingOverlay visible={loading} />
