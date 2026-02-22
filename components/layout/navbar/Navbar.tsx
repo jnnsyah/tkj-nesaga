@@ -45,7 +45,7 @@ export function Navbar() {
   }, [pathname]);
 
   return (
-    <nav className="fixed top-6 left-0 right-0 z-50 flex flex-col items-center px-4 transition-all duration-300">
+    <nav className="fixed top-6 left-0 right-0 z-[60] flex flex-col items-center px-4 transition-all duration-300">
       {/* Backdrop */}
       {isMobileMenuOpen && (
         <div
@@ -57,7 +57,7 @@ export function Navbar() {
       {/* Main Container - Add ref here */}
       <div ref={navRef} className="w-full max-w-4xl relative">
         {/* Main Navbar Container */}
-        <div className="w-full bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border border-white/20 dark:border-white/10 shadow-lg rounded-full px-8 py-3 flex items-center justify-between relative z-50">
+        <div className="w-full bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border border-white/20 dark:border-white/10 shadow-lg rounded-full px-8 py-3 flex items-center justify-between relative z-[60]">
           {/* Logo Section */}
           <Link href="/" className="flex items-center gap-3 group" onClick={closeMenu}>
             <div className="bg-primary p-1.5 rounded-lg flex items-center justify-center transition-transform group-hover:scale-110">

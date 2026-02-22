@@ -41,7 +41,7 @@ export function Topbar({ onMobileMenuClick, onSidebarToggle, isSidebarCollapsed 
     return (
         <>
             {/* Mobile Topbar */}
-            <div className="md:hidden flex h-16 w-full shrink-0 items-center justify-between bg-[#301934] px-4 text-white z-20">
+            <div className="md:hidden flex h-16 w-full shrink-0 items-center justify-between bg-[#301934] px-4 text-white z-[60]">
                 <button onClick={onMobileMenuClick} className="flex items-center gap-2">
                     <span className="material-symbols-outlined shrink-0 text-xl">menu</span>
                     <span className="font-bold">TKJ Nesaga</span>
@@ -58,7 +58,7 @@ export function Topbar({ onMobileMenuClick, onSidebarToggle, isSidebarCollapsed 
             </div>
 
             {/* Desktop Topbar */}
-            <header className="hidden md:flex h-20 w-full shrink-0 items-center justify-between border-b border-slate-200 bg-white px-8 z-10">
+            <header className="hidden md:flex h-20 w-full shrink-0 items-center justify-between border-b border-slate-200 bg-white px-8 z-[60]">
                 <div className="flex items-center gap-4">
                     <button
                         onClick={onSidebarToggle}
