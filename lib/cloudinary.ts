@@ -13,6 +13,14 @@ export const uploadImage = async (file: Buffer, folder: string) => {
                 {
                     folder: folder,
                     resource_type: "auto",
+                    transformation: [
+                        {
+                            width: 1200,
+                            crop: "limit",
+                            quality: "auto:good",
+                            fetch_format: "auto",
+                        },
+                    ],
                 },
                 (error, result) => {
                     if (error) return reject(error);
