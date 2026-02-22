@@ -1,0 +1,81 @@
+app/(admin)/admin/company-reviews/page.tsx(4,76): error TS2307: Cannot find module '@/components/admin' or its corresponding type declarations.
+app/(admin)/admin/company-reviews/page.tsx(5,42): error TS2307: Cannot find module '@/components/admin' or its corresponding type declarations.
+app/(admin)/admin/company-reviews/page.tsx(36,46): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/company-reviews/page.tsx(38,57): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/company-reviews/page.tsx(71,59): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/company-reviews/page.tsx(71,122): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/curriculum-highlights/page.tsx(4,76): error TS2307: Cannot find module '@/components/admin' or its corresponding type declarations.
+app/(admin)/admin/curriculum-highlights/page.tsx(5,42): error TS2307: Cannot find module '@/components/admin' or its corresponding type declarations.
+app/(admin)/admin/curriculum-highlights/page.tsx(60,59): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/curriculum-highlights/page.tsx(60,122): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/domains/page.tsx(4,76): error TS2307: Cannot find module '@/components/admin' or its corresponding type declarations.
+app/(admin)/admin/domains/page.tsx(5,42): error TS2307: Cannot find module '@/components/admin' or its corresponding type declarations.
+app/(admin)/admin/domains/page.tsx(21,14): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/domains/page.tsx(97,20): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/domains/page.tsx(98,22): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/downloadable-documents/page.tsx(4,76): error TS2307: Cannot find module '@/components/admin' or its corresponding type declarations.
+app/(admin)/admin/downloadable-documents/page.tsx(5,42): error TS2307: Cannot find module '@/components/admin' or its corresponding type declarations.
+app/(admin)/admin/downloadable-documents/page.tsx(13,41): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/downloadable-documents/page.tsx(65,59): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/downloadable-documents/page.tsx(65,122): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/external-resources/page.tsx(4,76): error TS2307: Cannot find module '@/components/admin' or its corresponding type declarations.
+app/(admin)/admin/external-resources/page.tsx(5,42): error TS2307: Cannot find module '@/components/admin' or its corresponding type declarations.
+app/(admin)/admin/external-resources/page.tsx(19,56): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/external-resources/page.tsx(21,41): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/external-resources/page.tsx(77,59): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/external-resources/page.tsx(77,122): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/faqs/page.tsx(4,76): error TS2307: Cannot find module '@/components/admin' or its corresponding type declarations.
+app/(admin)/admin/faqs/page.tsx(5,42): error TS2307: Cannot find module '@/components/admin' or its corresponding type declarations.
+app/(admin)/admin/faqs/page.tsx(10,50): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/faqs/page.tsx(11,46): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/faqs/page.tsx(12,60): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/faqs/page.tsx(63,59): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/faqs/page.tsx(63,122): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/internship-stats/page.tsx(4,76): error TS2307: Cannot find module '@/components/admin' or its corresponding type declarations.
+app/(admin)/admin/internship-stats/page.tsx(5,42): error TS2307: Cannot find module '@/components/admin' or its corresponding type declarations.
+app/(admin)/admin/internship-stats/page.tsx(61,59): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/internship-stats/page.tsx(61,122): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/internship-timelines/page.tsx(4,76): error TS2307: Cannot find module '@/components/admin' or its corresponding type declarations.
+app/(admin)/admin/internship-timelines/page.tsx(5,42): error TS2307: Cannot find module '@/components/admin' or its corresponding type declarations.
+app/(admin)/admin/internship-timelines/page.tsx(12,56): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/internship-timelines/page.tsx(14,52): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/internship-timelines/page.tsx(70,59): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/internship-timelines/page.tsx(70,122): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/learning-paths/page.tsx(5,76): error TS2307: Cannot find module '@/components/admin' or its corresponding type declarations.
+app/(admin)/admin/learning-paths/page.tsx(6,42): error TS2307: Cannot find module '@/components/admin' or its corresponding type declarations.
+app/(admin)/admin/learning-paths/page.tsx(7,19): error TS2307: Cannot find module '@/components/ui/Badge' or its corresponding type declarations.
+app/(admin)/admin/learning-paths/page.tsx(64,16): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/learning-paths/page.tsx(73,16): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/learning-paths/page.tsx(78,16): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/learning-paths/page.tsx(135,20): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/learning-paths/page.tsx(136,22): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/page.tsx(5,23): error TS2307: Cannot find module '@/components/admin/AdminCard' or its corresponding type declarations.
+app/(admin)/admin/page.tsx(6,18): error TS2307: Cannot find module '@/components/ui/Icon' or its corresponding type declarations.
+app/(admin)/admin/partner-categories/page.tsx(4,76): error TS2307: Cannot find module '@/components/admin' or its corresponding type declarations.
+app/(admin)/admin/partner-categories/page.tsx(5,42): error TS2307: Cannot find module '@/components/admin' or its corresponding type declarations.
+app/(admin)/admin/partner-categories/page.tsx(13,49): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/partner-categories/page.tsx(64,59): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/partner-categories/page.tsx(64,122): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/partner-companies/page.tsx(5,76): error TS2307: Cannot find module '@/components/admin' or its corresponding type declarations.
+app/(admin)/admin/partner-companies/page.tsx(6,42): error TS2307: Cannot find module '@/components/admin' or its corresponding type declarations.
+app/(admin)/admin/partner-companies/page.tsx(23,50): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/partner-companies/page.tsx(24,52): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/partner-companies/page.tsx(25,56): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/partner-companies/page.tsx(25,87): error TS7006: Parameter 'c' implicitly has an 'any' type.
+app/(admin)/admin/partner-companies/page.tsx(26,49): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/partner-companies/page.tsx(69,59): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/partner-companies/page.tsx(69,122): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/program-features/page.tsx(4,76): error TS2307: Cannot find module '@/components/admin' or its corresponding type declarations.
+app/(admin)/admin/program-features/page.tsx(5,42): error TS2307: Cannot find module '@/components/admin' or its corresponding type declarations.
+app/(admin)/admin/program-features/page.tsx(11,56): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/program-features/page.tsx(63,59): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/admin/program-features/page.tsx(63,122): error TS7006: Parameter 'item' implicitly has an 'any' type.
+app/(admin)/layout.tsx(4,26): error TS2307: Cannot find module '@/components/admin/AdminSidebar' or its corresponding type declarations.
+app/(admin)/layout.tsx(5,18): error TS2307: Cannot find module '@/components/ui/Icon' or its corresponding type declarations.
+app/learning/page.tsx(2,8): error TS2613: Module '"/home/jn/project/tkj-nesaga/components/layout/Layout"' has no default export. Did you mean to use 'import { Layout } from "/home/jn/project/tkj-nesaga/components/layout/Layout"' instead?
+app/learning/path/[id]/page.tsx(2,8): error TS2613: Module '"/home/jn/project/tkj-nesaga/components/layout/Layout"' has no default export. Did you mean to use 'import { Layout } from "/home/jn/project/tkj-nesaga/components/layout/Layout"' instead?
+app/page.tsx(2,8): error TS2613: Module '"/home/jn/project/tkj-nesaga/components/layout/Layout"' has no default export. Did you mean to use 'import { Layout } from "/home/jn/project/tkj-nesaga/components/layout/Layout"' instead?
+app/prakerin/guide/page.tsx(2,8): error TS2613: Module '"/home/jn/project/tkj-nesaga/components/layout/Layout"' has no default export. Did you mean to use 'import { Layout } from "/home/jn/project/tkj-nesaga/components/layout/Layout"' instead?
+app/prakerin/page.tsx(2,8): error TS2613: Module '"/home/jn/project/tkj-nesaga/components/layout/Layout"' has no default export. Did you mean to use 'import { Layout } from "/home/jn/project/tkj-nesaga/components/layout/Layout"' instead?
+components/sections/index.ts(1,41): error TS2307: Cannot find module './FAQAccordion' or its corresponding type declarations.
+components/sections/index.ts(2,41): error TS2307: Cannot find module './TimelineStep' or its corresponding type declarations.

@@ -1,0 +1,300 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ===== TABEL REFERENSI YANG TETAP =====
+model LearningLevel {
+  id             Int            @id @default(autoincrement())
+  name           String         @unique
+  color          String
+  icon           String         @default("default-icon")
+  learning_paths LearningPath[]
+
+  @@map("learning_levels")
+}
+
+model ResourceCategory {
+  id                      Int                      @id @default(autoincrement())
+  name                    String                   @unique
+  icon                    String
+  color                   String
+  learningRecommendations LearningRecommendation[]
+  externalResources       ExternalResource[]
+  learningStepActions     LearningStepAction[]
+
+  @@map("resource_categories")
+}
+
+// ===== TABEL UTAMA =====
+model Domain {
+  id                String             @id @default(uuid())
+  name              String
+  slug              String             @unique
+  icon              String
+  
+  learning_paths    LearningPath[]
+  externalResources ExternalResource[]                  
+
+  @@map("domains")
+}
+
+model LearningPath {
+  id              String                    @id @default(uuid())
+  slug            String                    @unique
+  title           String
+  levelId         Int
+  domainId        String?
+  isPublished     Boolean                   @default(false)  
+  createdAt       DateTime                  @default(now())
+  updatedAt       DateTime                  @updatedAt
+  domain          Domain?                   @relation(fields: [domainId], references: [id], onDelete: SetNull)
+  level           LearningLevel             @relation(fields: [levelId], references: [id])
+  topics          LearningPathTopic[]
+  prerequisites   LearningPathPrerequisite[]
+  recommendations LearningRecommendation[]
+  steps           LearningStep[]
+
+  @@index([domainId])   
+  @@index([levelId])    
+  @@map("learning_paths")
+}
+
+model LearningPathTopic {
+  id             Int          @id @default(autoincrement())
+  topic          String
+  learningPathId String
+  learningPath   LearningPath @relation(fields: [learningPathId], references: [id], onDelete: Cascade)
+
+  @@index([learningPathId])  
+  @@map("learning_path_topics")
+}
+
+model LearningPathPrerequisite {
+  id             Int          @id @default(autoincrement())
+  prerequisite   String
+  learningPathId String
+  learningPath   LearningPath @relation(fields: [learningPathId], references: [id], onDelete: Cascade)
+
+  @@index([learningPathId]) 
+  @@map("learning_path_prerequisites")
+}
+
+model LearningStep {
+  id             Int                  @id @default(autoincrement())
+  title          String
+  description    String
+  mediaType      String?
+  order          Int
+  learningPathId String
+  actions        LearningStepAction[]
+  learningPath   LearningPath         @relation(fields: [learningPathId], references: [id], onDelete: Cascade)
+
+  @@index([learningPathId])  
+  @@map("learning_steps")
+}
+
+model LearningStepAction {
+  id             Int              @id @default(autoincrement())
+  label          String
+  to             String?
+  categoryId     Int
+  learningStepId Int
+  category       ResourceCategory @relation(fields: [categoryId], references: [id])
+  learningStep   LearningStep     @relation(fields: [learningStepId], references: [id], onDelete: Cascade)
+
+  @@index([learningStepId]) 
+  @@index([categoryId])      
+  @@map("learning_step_actions")
+}
+
+model LearningRecommendation {
+  id             Int              @id @default(autoincrement())
+  title          String
+  description    String
+  href           String
+  categoryId     Int
+  learningPathId String
+  category       ResourceCategory @relation(fields: [categoryId], references: [id])
+  learningPath   LearningPath     @relation(fields: [learningPathId], references: [id], onDelete: Cascade)
+
+  @@index([learningPathId])  
+  @@index([categoryId])      
+  @@map("learning_recommendations")
+}
+
+model ExternalResource {
+  id          Int              @id @default(autoincrement())
+  title       String
+  description String
+  href        String
+  categoryId  Int
+  domainId    String?                                                       
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  category    ResourceCategory @relation(fields: [categoryId], references: [id])
+  domain      Domain?          @relation(fields: [domainId], references: [id], onDelete: SetNull)  
+
+  @@index([categoryId])  
+  @@index([domainId])    
+  @@map("external_resources")
+}
+
+model AchievementCategory {
+  id           Int                  @id @default(autoincrement())
+  name         String               @unique
+  color        String
+  achievements StudentAchievement[]
+
+  @@map("achievement_categories")
+}
+
+model AchievementLevel {
+  id           Int                  @id @default(autoincrement())
+  name         String               @unique
+  icon         String
+  achievements StudentAchievement[]
+
+  @@map("achievement_levels")
+}
+
+model StudentAchievement {
+  id            Int                 @id @default(autoincrement())
+  title         String
+  description   String
+  year          Int
+  imageUrl      String
+  imagePublicId String
+  order         Int                 @default(0)
+  isActive      Boolean             @default(true)
+  categoryId    Int
+  levelId       Int
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+
+  category      AchievementCategory @relation(fields: [categoryId], references: [id])
+  level         AchievementLevel    @relation(fields: [levelId], references: [id])
+
+  @@index([categoryId])
+  @@index([levelId])
+  @@map("student_achievements")
+}
+
+model DownloadableDocument {
+  id        Int      @id @default(autoincrement())
+  title     String
+  ext       String
+  icon      String
+  href      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("downloadable_documents")
+}
+
+model FrequentlyAskedQuestion {
+  id          Int      @id @default(autoincrement())
+  question    String
+  answer      String
+  defaultOpen Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("frequently_asked_questions")
+}
+
+model InternshipTimeline {
+  id          Int      @id @default(autoincrement())
+  icon        String
+  title       String
+  description String
+  highlight   Boolean  @default(false)
+  order       Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("internship_timelines")
+}
+
+model InternshipStat {
+  id    Int    @id @default(autoincrement())
+  value String
+  label String
+
+  @@map("internship_stats")
+}
+
+model PartnerCategory {
+  id        Int                     @id @default(autoincrement())
+  icon      String
+  title     String                  @unique
+  subtitle  String
+  createdAt DateTime                @default(now())
+  updatedAt DateTime                @updatedAt
+  companies PartnerCompanyCategory[]
+
+  @@map("partner_categories")
+}
+
+model PartnerCompany {
+  id         Int                      @id @default(autoincrement())
+  name       String
+  verified   Boolean                  @default(false)
+  isActive   Boolean                  @default(true) 
+  address    String
+  phone      String?
+  email      String?
+  mapsUrl    String?
+  createdAt  DateTime                 @default(now())
+  updatedAt  DateTime                 @updatedAt
+  reviews    CompanyReview[]
+  categories PartnerCompanyCategory[]
+
+  @@map("partner_companies")
+}
+
+model PartnerCompanyCategory {
+  companyId  Int
+  categoryId Int
+  company    PartnerCompany  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  category   PartnerCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([companyId, categoryId])
+  @@map("partner_company_categories")
+}
+
+model CompanyReview {
+  id               Int            @id @default(autoincrement())
+  name             String
+  text             String
+  academicYear     String
+  partnerCompanyId Int
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  partnerCompany   PartnerCompany @relation(fields: [partnerCompanyId], references: [id], onDelete: Cascade)
+
+  @@index([partnerCompanyId])  
+  @@map("company_reviews")
+}
+
+model ProgramFeature {
+  id          Int      @id @default(autoincrement())
+  icon        String
+  title       String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("program_features")
+}
+
+model CurriculumHighlight {
+  id   Int    @id @default(autoincrement())
+  text String
+
+  @@map("curriculum_highlights")
+}
