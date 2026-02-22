@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import {
     StatsCard,
     RecentActivity,
-    OverviewBarChart,
+    LearningChart,
     ContentDonutChart,
     AchievementChart,
 } from "@/components/features/admin";
@@ -25,12 +25,17 @@ interface DashboardStats {
     draftPaths: number;
 }
 
-interface MonthlyTrend {
-    month: string;
-    learningPaths: number;
-    achievements: number;
-    resources: number;
-    reviews: number;
+interface LearningByLevelItem {
+    level: string;
+    published: number;
+    draft: number;
+    color: string;
+}
+
+interface LearningByDomainItem {
+    domain: string;
+    count: number;
+    color: string;
 }
 
 interface ContentCompositionItem {
@@ -59,32 +64,23 @@ interface RecentActivityItem {
 
 interface DashboardData {
     stats: DashboardStats;
-    monthlyTrends: MonthlyTrend[];
+    learningByLevel: LearningByLevelItem[];
+    learningByDomain: LearningByDomainItem[];
     contentComposition: ContentCompositionItem[];
     achievementsByCategory: AchievementCategoryItem[];
     achievementsByLevel: AchievementLevelItem[];
     recentActivity: RecentActivityItem[];
 }
 
-// Period filter options
-const PERIOD_OPTIONS = [
-    { label: "7 Hari", value: "7d" },
-    { label: "30 Hari", value: "30d" },
-    { label: "3 Bulan", value: "3m" },
-    { label: "6 Bulan", value: "6m" },
-    { label: "1 Tahun", value: "1y" },
-];
-
 export default function AdminDashboardOverview() {
     const { data: session } = useSession();
     const [data, setData] = useState<DashboardData | null>(null);
     const [isLoading, setIsLoading] = useState(true);
-    const [period, setPeriod] = useState("6m");
 
-    const fetchDashboardData = useCallback(async (p: string) => {
+    const fetchDashboardData = useCallback(async () => {
         try {
             setIsLoading(true);
-            const response = await fetch(`/api/admin/dashboard?period=${p}`);
+            const response = await fetch("/api/admin/dashboard");
             if (response.ok) {
                 const result = await response.json();
                 setData(result);
@@ -97,8 +93,8 @@ export default function AdminDashboardOverview() {
     }, []);
 
     useEffect(() => {
-        fetchDashboardData(period);
-    }, [period, fetchDashboardData]);
+        fetchDashboardData();
+    }, [fetchDashboardData]);
 
     const today = new Date().toLocaleDateString("id-ID", {
         weekday: "long",
@@ -293,52 +289,32 @@ export default function AdminDashboardOverview() {
                 </div>
             </div>
 
-            {/* ============ Time Period Filter ============ */}
-            <div className="flex items-center justify-between flex-wrap gap-4">
-                <div>
-                    <h3 className="text-xl font-bold text-slate-800 tracking-tight">
-                        Analitik & Grafik
-                    </h3>
-                    <p className="text-sm font-medium text-slate-500 mt-1">
-                        Visualisasi data konten dan aktivitas.
-                    </p>
-                </div>
-                <div className="flex items-center gap-1 rounded-xl bg-white border border-slate-200 p-1 shadow-sm">
-                    {PERIOD_OPTIONS.map((option) => (
-                        <button
-                            key={option.value}
-                            onClick={() => setPeriod(option.value)}
-                            className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${
-                                period === option.value
-                                    ? "bg-[#301934] text-white shadow-md"
-                                    : "text-slate-500 hover:text-slate-800 hover:bg-slate-50"
-                            }`}
-                        >
-                            {option.label}
-                        </button>
-                    ))}
-                </div>
+            {/* ============ Analitik Header ============ */}
+            <div>
+                <h3 className="text-xl font-bold text-slate-800 tracking-tight">
+                    Analitik & Grafik
+                </h3>
+                <p className="text-sm font-medium text-slate-500 mt-1">
+                    Visualisasi data konten dan aktivitas.
+                </p>
             </div>
 
-            {/* ============ Charts: Bar + Donut ============ */}
+            {/* ============ Charts: Learning + Donut ============ */}
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-5">
-                {/* Bar Chart — 3/5 width */}
+                {/* Learning Chart — 3/5 width */}
                 <div className="lg:col-span-3 rounded-[24px] bg-white p-6 md:p-8 shadow-sm border border-slate-100">
                     <div className="mb-6">
                         <h4 className="text-lg font-bold text-slate-800 tracking-tight">
-                            Trend Pembuatan Konten
+                            Learning Paths Overview
                         </h4>
                         <p className="text-xs font-medium text-slate-400 mt-1">
-                            Jumlah data baru per bulan
+                            Distribusi learning paths per level & domain
                         </p>
                     </div>
-                    {isLoading ? (
-                        <div className="flex items-center justify-center h-64">
-                            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#ffd900]" />
-                        </div>
-                    ) : (
-                        <OverviewBarChart data={data.monthlyTrends} />
-                    )}
+                    <LearningChart
+                        byLevel={data.learningByLevel}
+                        byDomain={data.learningByDomain}
+                    />
                 </div>
 
                 {/* Donut Chart — 2/5 width */}
@@ -387,7 +363,7 @@ export default function AdminDashboardOverview() {
                                     key={i}
                                     className="rounded-2xl border border-slate-100 p-5 text-center hover:shadow-md hover:-translate-y-0.5 transition-all bg-gradient-to-b from-slate-50/50 to-white"
                                 >
-                                    <span className="text-3xl mb-2 block">
+                                    <span className="material-symbols-outlined text-3xl mb-2 block text-[#301934]">
                                         {item.icon}
                                     </span>
                                     <p className="text-2xl font-black text-slate-800">

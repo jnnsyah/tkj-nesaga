@@ -2,42 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
 import prisma from "@/lib/prisma";
 
-function getPeriodDate(period: string): Date {
-    const now = new Date();
-    switch (period) {
-        case "7d":
-            return new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-        case "30d":
-            return new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
-        case "3m":
-            return new Date(now.getFullYear(), now.getMonth() - 3, now.getDate());
-        case "6m":
-            return new Date(now.getFullYear(), now.getMonth() - 6, now.getDate());
-        case "1y":
-            return new Date(now.getFullYear() - 1, now.getMonth(), now.getDate());
-        default:
-            return new Date(now.getFullYear(), now.getMonth() - 6, now.getDate());
-    }
-}
-
-function getMonthLabel(date: Date): string {
-    return date.toLocaleDateString("id-ID", { month: "short", year: "2-digit" });
-}
-
-function generateMonthBuckets(since: Date): { label: string; start: Date; end: Date }[] {
-    const buckets: { label: string; start: Date; end: Date }[] = [];
-    const now = new Date();
-    const current = new Date(since.getFullYear(), since.getMonth(), 1);
-
-    while (current <= now) {
-        const start = new Date(current);
-        const end = new Date(current.getFullYear(), current.getMonth() + 1, 0, 23, 59, 59, 999);
-        buckets.push({ label: getMonthLabel(start), start, end });
-        current.setMonth(current.getMonth() + 1);
-    }
-    return buckets;
-}
-
 export async function GET(request: NextRequest) {
     try {
         const session = await auth();
@@ -46,8 +10,7 @@ export async function GET(request: NextRequest) {
         }
 
         const { searchParams } = new URL(request.url);
-        const period = searchParams.get("period") || "6m";
-        const since = getPeriodDate(period);
+        void searchParams; // period param reserved for future use
 
         // 1. All entity counts
         const [
@@ -76,51 +39,30 @@ export async function GET(request: NextRequest) {
             prisma.learningPath.count({ where: { isPublished: false } }),
         ]);
 
-        // 2. Monthly trends — count created items per month
-        const monthBuckets = generateMonthBuckets(since);
+        // 2. Learning paths by level (with published/draft counts)
+        const learningLevels = await prisma.learningLevel.findMany({
+            include: {
+                learning_paths: {
+                    select: { isPublished: true },
+                },
+            },
+        });
+        const learningByLevel = learningLevels.map((lvl) => ({
+            level: lvl.name,
+            published: lvl.learning_paths.filter((p) => p.isPublished).length,
+            draft: lvl.learning_paths.filter((p) => !p.isPublished).length,
+            color: lvl.color,
+        }));
 
-        const [
-            learningPathsByMonth,
-            achievementsByMonth,
-            resourcesByMonth,
-            reviewsByMonth,
-        ] = await Promise.all([
-            Promise.all(
-                monthBuckets.map((b) =>
-                    prisma.learningPath.count({
-                        where: { createdAt: { gte: b.start, lte: b.end } },
-                    })
-                )
-            ),
-            Promise.all(
-                monthBuckets.map((b) =>
-                    prisma.studentAchievement.count({
-                        where: { createdAt: { gte: b.start, lte: b.end } },
-                    })
-                )
-            ),
-            Promise.all(
-                monthBuckets.map((b) =>
-                    prisma.externalResource.count({
-                        where: { createdAt: { gte: b.start, lte: b.end } },
-                    })
-                )
-            ),
-            Promise.all(
-                monthBuckets.map((b) =>
-                    prisma.companyReview.count({
-                        where: { createdAt: { gte: b.start, lte: b.end } },
-                    })
-                )
-            ),
-        ]);
-
-        const monthlyTrends = monthBuckets.map((b, i) => ({
-            month: b.label,
-            learningPaths: learningPathsByMonth[i],
-            achievements: achievementsByMonth[i],
-            resources: resourcesByMonth[i],
-            reviews: reviewsByMonth[i],
+        // 3. Learning paths by domain
+        const domains = await prisma.domain.findMany({
+            include: { _count: { select: { learning_paths: true } } },
+        });
+        const DOMAIN_COLORS = ["#8b5cf6", "#3b82f6", "#10b981", "#f59e0b", "#ef4444", "#ec4899", "#06b6d4", "#84cc16"];
+        const learningByDomain = domains.map((d, i) => ({
+            domain: d.name,
+            count: d._count.learning_paths,
+            color: DOMAIN_COLORS[i % DOMAIN_COLORS.length],
         }));
 
         // 3. Content composition for donut chart
@@ -245,7 +187,8 @@ export async function GET(request: NextRequest) {
                 publishedPaths,
                 draftPaths,
             },
-            monthlyTrends,
+            learningByLevel,
+            learningByDomain,
             contentComposition,
             achievementsByCategory,
             achievementsByLevel,
