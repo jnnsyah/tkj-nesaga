@@ -3,6 +3,7 @@ export * from "./button";
 export * from "./card";
 export * from "./check-item";
 export * from "./empty-state";
+export * from "./error-state";
 export * from "./icon";
 export * from "./loading-overlay";
 export * from "./stat-card";
