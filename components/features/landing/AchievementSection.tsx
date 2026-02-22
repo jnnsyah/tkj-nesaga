@@ -54,7 +54,7 @@ export const AchievementSection = () => {
         if (!emblaApi || isHovered) return;
         const interval = setInterval(() => {
             emblaApi.scrollNext();
-        }, 3000);
+        }, 4500);
         return () => clearInterval(interval);
     }, [emblaApi, isHovered]);
 

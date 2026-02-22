@@ -9,7 +9,8 @@ import {
     DeleteConfirmDialog,
     useToast,
     StatusBadge,
-    Dropdown
+    Dropdown,
+    Switch
 } from "@/components/features/admin";
 import { ImageUpload } from "@/components/features/admin/image-upload";
 import type { Column } from "@/components/features/admin";
@@ -57,6 +58,7 @@ export default function AchievementsPage() {
     const [editing, setEditing] = useState<AchievementRecord | null>(null);
     const [deleting, setDeleting] = useState<AchievementRecord | null>(null);
     const [saving, setSaving] = useState(false);
+    const [formIsActive, setFormIsActive] = useState(true);
     const toast = useToast();
 
     const [formTitle, setFormTitle] = useState("");
@@ -93,6 +95,7 @@ export default function AchievementsPage() {
         setEditing(null);
         setFormTitle(""); setFormDesc(""); setFormYear(new Date().getFullYear().toString());
         setFormCategory(""); setFormLevel(""); setFormImageUrl(""); setFormImagePublicId("");
+        setFormIsActive(true);
         setModalOpen(true);
     };
 
@@ -101,6 +104,7 @@ export default function AchievementsPage() {
         setFormTitle(item.title); setFormDesc(item.description); setFormYear(item.year.toString());
         setFormCategory(item.categoryId.toString()); setFormLevel(item.levelId.toString());
         setFormImageUrl(item.imageUrl); setFormImagePublicId(item.imagePublicId);
+        setFormIsActive(item.isActive);
         setModalOpen(true);
     };
 
@@ -121,6 +125,7 @@ export default function AchievementsPage() {
                 levelId: formLevel,
                 imageUrl: formImageUrl,
                 imagePublicId: formImagePublicId,
+                isActive: formIsActive,
             };
             const res = await fetch(url, {
                 method,
@@ -230,9 +235,12 @@ export default function AchievementsPage() {
             key: "isActive",
             label: "Status",
             render: (item) => (
-                <button onClick={(e) => { e.stopPropagation(); toggleStatus(item); }}>
-                    <StatusBadge status={item.isActive ? "active" : "inactive"} />
-                </button>
+                <div onClick={(e) => e.stopPropagation()}>
+                    <Switch
+                        checked={item.isActive}
+                        onChange={() => toggleStatus(item)}
+                    />
+                </div>
             )
         }
     ];
@@ -262,7 +270,7 @@ export default function AchievementsPage() {
                 onClose={() => { setModalOpen(false); setEditing(null); }}
                 onSubmit={handleSubmit}
                 isLoading={saving}
-                size="lg"
+                size="3xl"
             >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-4">
@@ -303,6 +311,14 @@ export default function AchievementsPage() {
                             onChange={(url, publicId) => { setFormImageUrl(url); setFormImagePublicId(publicId); }}
                             onRemove={() => { setFormImageUrl(""); setFormImagePublicId(""); }}
                         />
+
+                        <div className="p-4 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-between">
+                            <div>
+                                <p className="text-sm font-bold text-slate-700">Status Aktif</p>
+                                <p className="text-xs text-slate-500">Tentukan apakah prestasi ini tampil di publik</p>
+                            </div>
+                            <Switch checked={formIsActive} onChange={setFormIsActive} />
+                        </div>
                     </div>
                 </div>
             </FormModal>

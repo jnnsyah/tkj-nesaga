@@ -29,32 +29,30 @@ export const AchievementCard = ({ achievement, isCenter }: AchievementCardProps)
                         fill
                         className="object-cover"
                     />
-
-                    {/* Responsive Badges Container */}
-                    <div className="absolute top-3 left-3 right-3 flex flex-wrap gap-2 items-start pointer-events-none">
-                        {/* Category Badge */}
-                        <div
-                            className="px-2.5 py-1 rounded-full text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-white shadow-lg backdrop-blur-md border border-white/10"
-                            style={{ backgroundColor: `${achievement.category.color}CC` }}
-                        >
-                            {achievement.category.name}
-                        </div>
-                        {/* Year Badge */}
-                        <div className="ml-auto px-2.5 py-1 rounded-full bg-white/95 dark:bg-slate-900/95 text-secondary dark:text-white text-[9px] sm:text-[10px] font-bold shadow-lg backdrop-blur-md border border-white/20 shrink-0">
-                            {achievement.year}
-                        </div>
-                    </div>
                 </div>
 
                 {/* Content */}
                 <div className="p-4 sm:p-6">
-                    <div className="flex items-center gap-2 mb-2 sm:mb-3">
-                        <div className="p-1.5 rounded-lg bg-primary/10 text-primary">
-                            <Icon name={achievement.level.icon} className="text-lg" />
+                    {/* Metadata Row: Level, Category, Year */}
+                    <div className="flex flex-wrap items-center gap-2 mb-3">
+                        <div className="flex items-center gap-2 px-2 py-1 rounded-lg bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-700/50">
+                            <div className="flex items-center gap-1.5">
+                                <Icon name={achievement.level.icon} className="text-sm text-primary" />
+                                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                                    {achievement.level.name}
+                                </span>
+                            </div>
+                            <span className="w-px h-3 bg-slate-200 dark:bg-slate-700" />
+                            <span className="text-[10px] font-black text-slate-400 dark:text-slate-500">
+                                {achievement.year}
+                            </span>
                         </div>
-                        <span className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider">
-                            Tingkat {achievement.level.name}
-                        </span>
+                        <div
+                            className="px-2 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider text-white shadow-sm"
+                            style={{ backgroundColor: achievement.category.color }}
+                        >
+                            {achievement.category.name}
+                        </div>
                     </div>
 
                     <h3 className="text-lg sm:text-xl font-black text-secondary dark:text-white mb-2 sm:mb-3 leading-tight line-clamp-2">
