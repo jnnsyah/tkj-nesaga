@@ -81,9 +81,9 @@ export const AchievementSection = () => {
                     </h2>
                 </div>
 
-                <div className="relative px-12 lg:px-20">
+                <div className="relative">
                     <div
-                        className="overflow-hidden"
+                        className="overflow-hidden py-12 -my-12"
                         ref={emblaRef}
                         onMouseEnter={() => setIsHovered(true)}
                         onMouseLeave={() => setIsHovered(false)}
@@ -92,41 +92,46 @@ export const AchievementSection = () => {
                             {data.map((item, index) => (
                                 <div
                                     key={item.id}
-                                    className="flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_33.333%] pl-4"
+                                    className="flex-[0_0_60%] sm:flex-[0_0_50%] lg:flex-[0_0_33.333%] pl-4"
                                 >
                                     <AchievementCard achievement={item} isCenter={activeIndex === index} />
                                 </div>
                             ))}
                         </div>
                     </div>
-
-                    {/* Navigation Buttons */}
-                    <button
-                        onClick={scrollPrev}
-                        className="absolute left-0 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white dark:bg-slate-800 border border-border shadow-lg flex items-center justify-center text-slate-600 hover:text-primary transition-colors z-20"
-                    >
-                        <Icon name="chevron_left" />
-                    </button>
-                    <button
-                        onClick={scrollNext}
-                        className="absolute right-0 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white dark:bg-slate-800 border border-border shadow-lg flex items-center justify-center text-slate-600 hover:text-primary transition-colors z-20"
-                    >
-                        <Icon name="chevron_right" />
-                    </button>
                 </div>
 
-                {/* Indicators */}
-                <div className="flex justify-center gap-2 mt-12">
-                    {data.map((_, index) => (
+                {/* Navigation & Indicators Wrapper */}
+                <div className="mt-12 flex flex-col items-center gap-8">
+                    {/* Indicators */}
+                    <div className="flex justify-center gap-2">
+                        {data.map((_, index) => (
+                            <button
+                                key={index}
+                                onClick={() => emblaApi?.scrollTo(index)}
+                                className={cn(
+                                    "h-1.5 rounded-full transition-all duration-300",
+                                    activeIndex === index ? "w-8 bg-primary" : "w-2 bg-slate-200"
+                                )}
+                            />
+                        ))}
+                    </div>
+
+                    {/* Navigation Buttons Row */}
+                    <div className="flex items-center gap-4">
                         <button
-                            key={index}
-                            onClick={() => emblaApi?.scrollTo(index)}
-                            className={cn(
-                                "h-1.5 rounded-full transition-all duration-300",
-                                activeIndex === index ? "w-8 bg-primary" : "w-2 bg-slate-200"
-                            )}
-                        />
-                    ))}
+                            onClick={scrollPrev}
+                            className="w-12 h-12 rounded-full bg-white dark:bg-slate-800 border border-border shadow-md flex items-center justify-center text-slate-600 hover:text-primary hover:border-primary/50 transition-all active:scale-95"
+                        >
+                            <Icon name="chevron_left" />
+                        </button>
+                        <button
+                            onClick={scrollNext}
+                            className="w-12 h-12 rounded-full bg-white dark:bg-slate-800 border border-border shadow-md flex items-center justify-center text-slate-600 hover:text-primary hover:border-primary/50 transition-all active:scale-95"
+                        >
+                            <Icon name="chevron_right" />
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
