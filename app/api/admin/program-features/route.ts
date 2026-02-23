@@ -1,7 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { getCurrentUser } from "@/lib/auth-helpers";
 
 export async function GET() {
+
+        const user = await getCurrentUser();
+        if (!user) {
+            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        }
+
   try {
     const features = await prisma.programFeature.findMany({ orderBy: { id: "asc" } });
     return NextResponse.json(features);
@@ -12,6 +19,12 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
+
+        const user = await getCurrentUser();
+        if (!user) {
+            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        }
+
   try {
     const body = await req.json();
     const feature = await prisma.programFeature.create({ data: body });

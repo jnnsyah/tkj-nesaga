@@ -4,8 +4,15 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { getCurrentUser } from "@/lib/auth-helpers";
 
 export async function GET() {
+
+        const user = await getCurrentUser();
+        if (!user) {
+            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        }
+
   try {
     const companies = await prisma.partnerCompany.findMany({
       orderBy: { id: "asc" },
@@ -22,6 +29,12 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
+
+        const user = await getCurrentUser();
+        if (!user) {
+            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        }
+
   try {
     const { categoryIds, ...data } = await req.json();
     const company = await prisma.partnerCompany.create({

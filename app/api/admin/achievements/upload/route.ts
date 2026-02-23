@@ -1,10 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { uploadImage } from "@/lib/cloudinary";
+import { getCurrentUser } from "@/lib/auth-helpers";
 
 const MAX_FILE_SIZE = 4 * 1024 * 1024; // 4MB (safety margin for Vercel 4.5MB limit)
 const ACCEPTED_TYPES = ["image/jpeg", "image/png", "image/webp"];
 
 export async function POST(req: NextRequest) {
+
+        const user = await getCurrentUser();
+        if (!user) {
+            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        }
+
     try {
         const formData = await req.formData();
         const file = formData.get("file") as File;
