@@ -66,7 +66,7 @@ export function LoginPage() {
                 </div>
 
                 <p className="text-xs text-foreground/40 text-center leading-relaxed max-w-[250px]">
-                    Hanya akun yang ada pada whitelist yang dapat melanjutkan akses.
+                    Hanya akun yang terdaftar di sistem yang dapat melanjutkan akses.
                 </p>
             </div>
         </div>

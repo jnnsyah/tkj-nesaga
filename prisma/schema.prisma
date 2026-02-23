@@ -298,3 +298,28 @@ model CurriculumHighlight {
 
   @@map("curriculum_highlights")
 }
+
+// ===== AUTH & RBAC =====
+enum Role {
+  ADMIN
+  SUPERADMIN
+}
+
+enum UserStatus {
+  PENDING
+  ACTIVE
+}
+
+model AdminUser {
+  id        String     @id @default(cuid())
+  email     String     @unique
+  fullName  String?
+  role      Role       @default(ADMIN)
+  isActive  Boolean    @default(true)
+  status    UserStatus @default(PENDING)
+  lastLogin DateTime?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@map("admin_users")
+}

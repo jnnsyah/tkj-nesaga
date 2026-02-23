@@ -66,6 +66,12 @@ const navGroups: NavGroup[] = [
       { label: "Level Prestasi", href: "/admin/achievement-levels", icon: "military_tech" },
     ],
   },
+  {
+    title: "Settings",
+    items: [
+      { label: "User Management", href: "/admin/users", icon: "group" },
+    ],
+  },
 ];
 
 interface AdminSidebarProps {
