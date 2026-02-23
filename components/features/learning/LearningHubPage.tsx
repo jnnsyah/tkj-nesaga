@@ -6,11 +6,13 @@ import { LearningPathTabs, type Tab as LearningPathTab } from "./LearningPathTab
 import { Badge } from "@/components/ui/badge";
 import { LoadingOverlay } from "@/components/ui/loading-overlay";
 import { EmptyState } from "@/components/ui/empty-state";
-import { useEffect, useMemo, useState } from "react";
+import { ErrorState } from "@/components/ui/error-state";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { LearningPath, LearningLevel, ExternalResource, Domain } from "./types";
 
 export function LearningHubPage() {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [learningPaths, setLearningPaths] = useState<LearningPath[]>([]);
   const [externalResources, setExternalResources] = useState<ExternalResource[]>([]);
 
@@ -20,29 +22,36 @@ export function LearningHubPage() {
   const [domains, setDomains] = useState<Domain[]>([]);
   const [learningLevels, setLearningLevels] = useState<LearningLevel[]>([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true)
-        const response = await fetch(
-          `/api/learning?domain=${activeDomain}`
-        );
+  const fetchData = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await fetch(
+        `/api/learning?domain=${activeDomain}`
+      );
 
-        if (response.ok) {
-          const data = await response.json();
-          setLearningPaths(data.learningPaths);
-          setExternalResources(data.externalResources)
-          setDomains(data.domains)
-          setLearningLevels(data.learningLevels)
-        }
-      } catch (error) {
-        console.error("Failed to fetch learning paths", error)
-      } finally {
-        setLoading(false)
+      if (!response.ok) {
+        throw new Error(`Server merespons dengan status ${response.status}`);
       }
+
+      const data = await response.json();
+      setLearningPaths(data.learningPaths);
+      setExternalResources(data.externalResources);
+      setDomains(data.domains);
+      setLearningLevels(data.learningLevels);
+    } catch (err) {
+      console.error("Failed to fetch learning paths", err);
+      setError(
+        "Tidak dapat memuat data pembelajaran. Periksa koneksi internet Anda dan coba lagi."
+      );
+    } finally {
+      setLoading(false);
     }
-    fetchData();
   }, [activeDomain]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   const domainTabs: LearningPathTab[] = useMemo(() => {
     return domains.map(d => ({
@@ -90,25 +99,48 @@ export function LearningHubPage() {
           </Badge>
         </div>
 
-        {/* Domain Navigation */}
-        <LearningPathTabs
-          tabs={domainTabs}
-          activeTab={activeDomain}
-          onTabChange={setActiveDomain}
-          className="mb-8 px-2"
-        />
+        {/* Filters */}
+        <div className="mb-10 px-2 space-y-5">
 
-        {/* Level Navigation */}
-        <LearningPathTabs
-          tabs={levelTabs}
-          activeTab={activeLevel}
-          onTabChange={setActiveLevel}
-          className="mb-8 px-2"
-        />
+          {/* Domain Filter */}
+          <div className="space-y-2">
+            <span className="text-xs font-medium text-secondary/40 dark:text-white/30">
+              Bidang Keahlian
+            </span>
+            <LearningPathTabs
+              tabs={domainTabs}
+              activeTab={activeDomain}
+              onTabChange={setActiveDomain}
+              allLabel="Semua"
+            />
+          </div>
+
+          {/* Subtle divider */}
+          <div className="h-px bg-secondary/8 dark:bg-white/8" />
+
+          {/* Level Filter */}
+          <div className="space-y-2">
+            <span className="text-xs font-medium text-secondary/40 dark:text-white/30">
+              Tingkat Kesulitan
+            </span>
+            <LearningPathTabs
+              tabs={levelTabs}
+              activeTab={activeLevel}
+              onTabChange={setActiveLevel}
+              allLabel="Semua"
+            />
+          </div>
+
+        </div>
 
         <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8">
           <LoadingOverlay visible={loading} />
-          {filteredPaths && filteredPaths.length > 0 ? (
+          {error ? (
+            <ErrorState
+              message={error}
+              onRetry={fetchData}
+            />
+          ) : filteredPaths && filteredPaths.length > 0 ? (
             filteredPaths.map(path => (
               <LearningPathCard key={path.id} {...path} />
             ))
@@ -127,12 +159,17 @@ export function LearningHubPage() {
         </h2>
         <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <LoadingOverlay visible={loading} />
-          {externalResources && externalResources.length > 0 ? (
+          {error ? (
+            <ErrorState
+              message={error}
+              onRetry={fetchData}
+            />
+          ) : externalResources && externalResources.length > 0 ? (
             externalResources.map((resource, idx) => (
               <ResourceCard key={idx} {...resource} />
             ))
           ) : (
-            <EmptyState />
+            !loading && <EmptyState />
           )}
         </div>
       </section>

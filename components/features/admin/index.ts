@@ -16,3 +16,4 @@ export * from './recent-activity';
 export * from './color-picker/ColorPicker';
 export * from './drawer';
 export * from './Switch';
+export * from './charts';

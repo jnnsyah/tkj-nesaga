@@ -3,56 +3,54 @@
 
 import { Badge } from "@/components/ui/badge";
 import { LoadingOverlay } from "@/components/ui/loading-overlay";
+import { ErrorState } from "@/components/ui/error-state";
 import { Icon } from "@/components/ui/icon";
 import { CheckItem } from "@/components/ui/check-item";
 import { TimelineStep } from "@/components/common/timeline-step";
 import { ResourceCard } from "./ResourceCard";
 import { Button } from "@/components/ui/button";
-// import { getLearningPathById, learningPaths } from "@/data/learning";
 import "./LearningPathDetail.css";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { LearningPath, Step } from "./types"
+
 interface LearningPathDetailProps {
   id: string;
 }
 
 export function LearningPathDetail({ id }: LearningPathDetailProps) {
-  // const path = getLearningPathById(id) || learningPaths[0];
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const [module, setModule] = useState<LearningPath>()
 
   const formatTitle = (pathId?: string) => {
     return pathId ? pathId.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) : 'Network Engineering';
   };
 
-  // const handleViewReference = () => {
-  //     const element = document.getElementById("roadmap");
-  //     if (element) {
-  //         element.scrollIntoView({ behavior: "smooth" });
-  //     }
-  // };
+  const fetchData = useCallback(async () => {
+    try {
+      setLoading(true)
+      setError(null)
+      const response = await fetch(`/api/learning/${id}`)
+
+      if (!response.ok) {
+        throw new Error(`Server merespons dengan status ${response.status}`);
+      }
+
+      const data = await response.json()
+      setModule(data)
+    } catch (err) {
+      console.error("Failed to fetch module", err)
+      setError(
+        "Tidak dapat memuat detail learning path ini. Periksa koneksi internet Anda dan coba lagi."
+      )
+    } finally {
+      setLoading(false)
+    }
+  }, [id])
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true)
-        const response = await fetch(
-          `/api/learning/${id}`
-        )
-
-        if (response.ok) {
-          const data = await response.json()
-          setModule(data)
-        }
-      } catch (e) {
-        console.log("Failed to fetch module", e)
-      } finally {
-        setLoading(false)
-      }
-    }
-
     fetchData()
-  }, [])
+  }, [fetchData])
 
   return (
     <div className="max-w-6xl mx-auto pb-20">
@@ -71,107 +69,95 @@ export function LearningPathDetail({ id }: LearningPathDetailProps) {
               Selamat datang di kurasi sumber belajar eksternal pilihan. Roadmap ini adalah panduan
               terstruktur yang mengumpulkan referensi terbaik dari berbagai platform edukasi global.
             </p>
-            {/* Main CTA */}
-            {/* <Button
-                            variant="secondary"
-                            icon="open_in_new"
-                            onClick={handleViewReference}
-                            className="w-full md:w-fit mt-4"
-                        >
-                            Lihat Referensi Belajar
-                        </Button> */}
           </div>
         </div>
       </section>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-        {/* Timeline */}
-        <div className="lg:col-span-8" id="roadmap">
-          <h3 className="text-2xl font-bold mb-8 flex items-center gap-3 text-secondary dark:text-white">
-            <Icon name="map" />
-            Alur Referensi Belajar
-          </h3>
-          <div className="relative ml-4 md:ml-6">
-            <div className="absolute left-0 top-0 bottom-0 w-0.5 roadmap-line opacity-30" />
-            <LoadingOverlay visible={loading} />
-            {module?.steps.map((step, idx) => (
-              <TimelineStep
-                key={idx}
-                {...step}
-                isLast={idx === module.steps.length - 1}
-                onViewReference={() => console.log('View reference:', step.title)}
-              />
-            ))}
-          </div>
+      {/* Error State — shown when fetch fails */}
+      {error ? (
+        <div className="flex justify-center py-16">
+          <ErrorState
+            message={error}
+            onRetry={fetchData}
+            className="max-w-sm"
+          />
         </div>
-
-        {/* Sidebar */}
-        <aside className="lg:col-span-4 space-y-6 lg:sticky lg:top-32">
-          {/* Prerequisites */}
-          <div className="bg-card p-6 rounded-xl border border-border shadow-sm">
-            <h5 className="text-lg font-bold text-secondary dark:text-primary mb-4 flex items-center gap-2">
-              <Icon name="help_center" />
-              Prasyarat
-            </h5>
-            <ul className="relative space-y-3">
-              <LoadingOverlay visible={loading} />
-              {module?.prerequisites.map((prereq, idx) => (
-                <CheckItem key={prereq.id ?? idx} className="text-sm">
-                  {prereq.prerequisite}
-                </CheckItem>
-              ))}
-            </ul>
-          </div>
-
-          {/* Documentation */}
-          {/* <div className="bg-secondary text-white p-6 rounded-xl shadow-md overflow-hidden relative">
-            <div className="absolute bottom-0 right-0 opacity-10">
-              <Icon name="link" size="2xl" className="text-8xl" />
-            </div>
-            <h5 className="text-lg font-bold mb-4 relative z-10">Pusat Dokumentasi</h5>
-            <div className="space-y-3 relative z-10">
-              <a
-                href="#"
-                className="flex items-center justify-between p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors text-sm font-medium"
-              >
-                Official Documentation
-                <Icon name="open_in_new" size="sm" />
-              </a>
-            </div>
-          </div> */}
-          {/* Back Button */}
-          <Button
-            variant="outline"
-            to="/learning"
-            icon="arrow_back"
-            className="w-full rounded-xl hover:bg-secondary hover:text-white transition-all shadow-sm border-border font-bold"
-          >
-            Kembali
-          </Button>
-        </aside>
-      </div>
-
-      {/* Recommendations Section */}
-      {module?.recommendations && module?.recommendations.length > 0 && (
-        <section className="mt-16">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-            <div>
-              <h3 className="text-2xl font-bold flex items-center gap-3 text-secondary dark:text-white">
-                <Icon name="explore" />
-                Rekomendasi Sumber Belajar
+      ) : (
+        <>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+            {/* Timeline */}
+            <div className="lg:col-span-8" id="roadmap">
+              <h3 className="text-2xl font-bold mb-8 flex items-center gap-3 text-secondary dark:text-white">
+                <Icon name="map" />
+                Alur Referensi Belajar
               </h3>
-              <p className="text-muted-foreground mt-1">
-                Referensi terbaik dari komunitas dan platform edukasi pilihan.
-              </p>
+              <div className="relative ml-4 md:ml-6">
+                <div className="absolute left-0 top-0 bottom-0 w-0.5 roadmap-line opacity-30" />
+                <LoadingOverlay visible={loading} />
+                {module?.steps.map((step, idx) => (
+                  <TimelineStep
+                    key={idx}
+                    {...step}
+                    isLast={idx === module.steps.length - 1}
+                    onViewReference={() => console.log('View reference:', step.title)}
+                  />
+                ))}
+              </div>
             </div>
+
+            {/* Sidebar */}
+            <aside className="lg:col-span-4 space-y-6 lg:sticky lg:top-32">
+              {/* Prerequisites */}
+              <div className="bg-card p-6 rounded-xl border border-border shadow-sm">
+                <h5 className="text-lg font-bold text-secondary dark:text-primary mb-4 flex items-center gap-2">
+                  <Icon name="help_center" />
+                  Prasyarat
+                </h5>
+                <ul className="relative space-y-3">
+                  <LoadingOverlay visible={loading} />
+                  {module?.prerequisites.map((prereq, idx) => (
+                    <CheckItem key={prereq.id ?? idx} className="text-sm">
+                      {prereq.prerequisite}
+                    </CheckItem>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Back Button */}
+              <Button
+                variant="outline"
+                to="/learning"
+                icon="arrow_back"
+                className="w-full rounded-xl hover:bg-secondary hover:text-white transition-all shadow-sm border-border font-bold"
+              >
+                Kembali
+              </Button>
+            </aside>
           </div>
-          <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <LoadingOverlay visible={loading} />
-            {module.recommendations.map((rec, idx) => (
-              <ResourceCard key={idx} {...rec} />
-            ))}
-          </div>
-        </section>
+
+          {/* Recommendations Section */}
+          {module?.recommendations && module?.recommendations.length > 0 && (
+            <section className="mt-16">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                <div>
+                  <h3 className="text-2xl font-bold flex items-center gap-3 text-secondary dark:text-white">
+                    <Icon name="explore" />
+                    Rekomendasi Sumber Belajar
+                  </h3>
+                  <p className="text-muted-foreground mt-1">
+                    Referensi terbaik dari komunitas dan platform edukasi pilihan.
+                  </p>
+                </div>
+              </div>
+              <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <LoadingOverlay visible={loading} />
+                {module.recommendations.map((rec, idx) => (
+                  <ResourceCard key={idx} {...rec} />
+                ))}
+              </div>
+            </section>
+          )}
+        </>
       )}
     </div>
   );

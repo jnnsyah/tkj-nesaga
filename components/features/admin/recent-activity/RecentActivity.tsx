@@ -24,9 +24,13 @@ export function RecentActivity({ items }: RecentActivityProps) {
     const getModuleStyle = (moduleName: string) => {
         const map: Record<string, { icon: string, bg: string, text: string }> = {
             "Mitra": { icon: "business", bg: "bg-blue-50", text: "text-blue-600" },
+            "Perusahaan": { icon: "business", bg: "bg-blue-50", text: "text-blue-600" },
             "Learning Path": { icon: "route", bg: "bg-green-50", text: "text-green-600" },
             "Dokumen": { icon: "description", bg: "bg-orange-50", text: "text-orange-600" },
-            "FAQ": { icon: "help", bg: "bg-purple-50", text: "text-purple-600" }
+            "FAQ": { icon: "help", bg: "bg-purple-50", text: "text-purple-600" },
+            "Prestasi": { icon: "emoji_events", bg: "bg-amber-50", text: "text-amber-600" },
+            "Resource": { icon: "link", bg: "bg-cyan-50", text: "text-cyan-600" },
+            "Review": { icon: "rate_review", bg: "bg-pink-50", text: "text-pink-600" },
         };
 
         // Default match if no specific style
@@ -56,7 +60,7 @@ export function RecentActivity({ items }: RecentActivityProps) {
                     </tr>
                 </thead>
                 <tbody className="text-sm text-slate-600">
-                    {items.slice(0, 5).map((item, idx) => {
+                    {items.slice(0, 10).map((item, idx) => {
                         const style = getModuleStyle(item.module);
                         return (
                             <tr
