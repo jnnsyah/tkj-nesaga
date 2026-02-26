@@ -48,7 +48,7 @@ export function ResourceCard({
         </div>
         <a
           href={href}
-          className="bg-secondary/5 p-2 rounded-full group-hover:bg-primary group-hover:text-secondary transition-all"
+          className="bg-secondary/5 dark:bg-white/10 p-2 rounded-full group-hover:bg-primary group-hover:text-secondary transition-all"
         >
           <Icon name="arrow_forward" size="md" className="block" />
         </a>

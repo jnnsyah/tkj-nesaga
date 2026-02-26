@@ -111,7 +111,7 @@ export const AchievementSection = () => {
                                 onClick={() => emblaApi?.scrollTo(index)}
                                 className={cn(
                                     "h-1.5 rounded-full transition-all duration-300",
-                                    activeIndex === index ? "w-8 bg-primary" : "w-2 bg-slate-200"
+                                    activeIndex === index ? "w-8 bg-primary" : "w-2 bg-slate-200 dark:bg-slate-700"
                                 )}
                             />
                         ))}

@@ -59,7 +59,7 @@ export function LandingPage() {
 
           {/* TEXT CONTENT */}
           <div className="relative z-10 space-y-3 md:space-y-8 animate-in fade-in slide-in-from-bottom-10 duration-1000">
-            <div className="inline-flex items-center gap-2 px-2 py-1 rounded-full bg-primary/10 text-secondary border border-primary/20 text-[10px] sm:text-xs font-bold uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 px-2 py-1 rounded-full bg-primary/10 text-secondary dark:text-primary border border-primary/20 text-[10px] sm:text-xs font-bold uppercase tracking-wider">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />

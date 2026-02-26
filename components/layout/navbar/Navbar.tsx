@@ -5,10 +5,12 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useSession, signOut } from "next-auth/react";
 import { Icon } from "@/components/ui/icon";
+import { useTheme } from "@/components/providers/ThemeProvider";
 
 export function Navbar() {
   const pathname = usePathname();
   const { data: session } = useSession();
+  const { theme, toggleTheme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
@@ -74,6 +76,17 @@ export function Navbar() {
             {pathname.startsWith('/prakerin') && (
               <Link href="/prakerin/guide" className={cn("text-sm font-semibold transition-colors", isActive("/prakerin/guide"))}>Panduan</Link>
             )}
+
+            {/* Dark Mode Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-xl hover:bg-primary/10 transition-colors focus:outline-none"
+              aria-label="Toggle dark mode"
+            >
+              <span className="material-symbols-outlined text-[20px] text-foreground/70 hover:text-primary transition-colors">
+                {theme === 'dark' ? 'light_mode' : 'dark_mode'}
+              </span>
+            </button>
 
             {/* Desktop Auth Profile */}
             {session?.user && (
@@ -147,6 +160,17 @@ export function Navbar() {
                 Panduan
               </Link>
             )}
+
+            {/* Mobile Dark Mode Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="p-3 rounded-xl hover:bg-primary/10 transition-colors text-sm font-semibold flex items-center gap-3 text-foreground/80"
+            >
+              <span className="material-symbols-outlined text-[20px]">
+                {theme === 'dark' ? 'light_mode' : 'dark_mode'}
+              </span>
+              {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+            </button>
 
             {/* Mobile Auth Snippet */}
             {session?.user && (

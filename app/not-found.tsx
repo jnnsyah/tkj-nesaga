@@ -12,7 +12,7 @@ export default function NotFound() {
         <div className="space-y-4">
           <div className="flex justify-center mb-6">
             <div className="relative">
-              <h1 className="text-9xl font-display font-black text-secondary leading-none">
+              <h1 className="text-9xl font-display font-black text-secondary dark:text-white leading-none">
                 404
               </h1>
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full flex items-center justify-center opacity-20 pointer-events-none">
@@ -21,11 +21,11 @@ export default function NotFound() {
             </div>
           </div>
           
-          <h2 className="text-3xl md:text-4xl font-display font-semibold text-secondary">
+          <h2 className="text-3xl md:text-4xl font-display font-semibold text-secondary dark:text-white">
             Oops! Halaman Tidak Ditemukan
           </h2>
           
-          <p className="text-base md:text-lg text-secondary/70 font-body max-w-md mx-auto">
+          <p className="text-base md:text-lg text-secondary/70 dark:text-white/70 font-body max-w-md mx-auto">
             Maaf, rute yang Anda tuju sepertinya tidak ada atau telah dipindahkan. Mari kembali ke jalan yang benar.
           </p>
         </div>
